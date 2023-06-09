@@ -1,0 +1,99 @@
+
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+    font-family: 'League Spartan', sans-serif;
+}
+
+/* hero section */
+.hero-img{
+    @apply bg-buy-img bg-no-repeat bg-center bg-cover w-full h-[378px] relative;
+}
+.bg-dark-opacity{
+    @apply absolute bg-[#161C2D] opacity-80 inset-0;
+}
+.header{
+    @apply capitalize font-medium text-2xl sm:text-3xl md:text-4xl text-white mt-10;
+}
+
+/* search box section */
+.btn{
+    @apply bg-green-600 hover:bg-green-700 rounded-md text-white text-sm md:text-lg font-medium;
+}
+.flex-between-center{
+    @apply flex flex-wrap justify-between items-center;
+}
+.flex-center-center{
+    @apply flex flex-wrap justify-center items-center;
+}
+
+/* get in touch section */
+.h1{
+    @apply font-medium text-2xl sm:text-3xl;
+}
+
+/* card section */
+.container-2xl{
+    @apply w-full md:max-w-3xl lg:max-w-screen-2xl px-3 md:px-4 lg:px-52 mx-auto;
+}
+.h2{
+    @apply font-medium sm:text-lg;
+}
+.icon-color{
+    @apply text-green-500 text-2xl;
+}
+.font{
+    @apply text-lg font-medium;
+}
+.card-hover{
+    @apply hover:shadow-xl duration-500 ease-in-out;
+}
+
+/* how it works */
+.sub-header{
+    @apply text-2xl md:text-3xl font-semibold mb-6;
+}
+.paragraph{
+    @apply xs:text-[16px] md:text-lg max-w-xl text-center text-slate-400
+}
+
+
+/* custom shape */
+.custom-shape-divider-bottom {
+    @apply absolute top-[320px] left-0 w-full overflow-hidden z-0;
+}
+
+.custom-shape-divider-bottom svg {
+    @apply relative block w-[calc(300%+1.3px)] h-[80px];
+}
+
+.custom-shape-divider-bottom .shape-fill {
+    fill: #fff;
+}
+
+
+/** For tablet devices **/
+@media (min-width: 768px) and (max-width: 1023px) {
+    .custom-shape-divider-bottom {
+        top: 350px;
+    }
+    .custom-shape-divider-bottom svg {
+        width: calc(300% + 1.3px);
+        height: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .custom-shape-divider-bottom {
+        top: 350px;
+    }
+    .custom-shape-divider-bottom svg {
+        width: calc(300% + 1.3px);
+        height: 30px;
+    }
+}
