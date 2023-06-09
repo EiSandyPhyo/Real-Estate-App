@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import React from 'react'
 import './index.css'
-import { Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 import Test from './Components/Test'
 // import Buy from './Components/Buy'
 const Buy = lazy(() => import('./Components/Buy'));
@@ -52,12 +52,23 @@ const App = () => {
     },
 ]
   return (
+    <>
     <Suspense fallback={<div>Loading...</div>}>
     <Routes>
       <Route path={'/test'} element={<Test properties={properties}/>}/>
       <Route path={'/buy'} element={<Buy properties={properties}/>}/>
     </Routes>
     </Suspense>
+    <div className="flex-center-center h-screen">
+      <Link to={'/buy'}>
+      <button className='bg-green-600 px-6 py-2 text-white text-3xl font-semibold rounded-md'>
+        Buy
+      </button>
+      </Link>
+      
+    </div>
+    </>
+
   )
 }
 
