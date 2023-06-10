@@ -12,7 +12,7 @@
 
 /* hero section */
 .hero-img{
-    @apply bg-buy-img bg-no-repeat bg-center bg-cover w-full h-[378px] relative;
+    @apply bg-buy-img bg-no-repeat bg-center bg-cover w-full h-[378px] relative
 }
 .bg-dark-opacity{
     @apply absolute bg-[#161C2D] opacity-80 inset-0;
@@ -50,6 +50,9 @@
 .font{
     @apply text-lg font-medium;
 }
+.grid-layout{
+    @apply grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-7;
+}
 .card-hover{
     @apply hover:shadow-xl duration-500 ease-in-out;
 }
@@ -60,6 +63,12 @@
 }
 .paragraph{
     @apply xs:text-[16px] md:text-lg max-w-xl text-center text-slate-400
+}
+.sub-header-2{
+    @apply text-xl font-medium;
+}
+.center-h-v{
+    @apply top-0 bottom-0 left-0 right-0 flex flex-wrap justify-center items-center;
 }
 
 

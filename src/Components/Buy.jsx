@@ -8,11 +8,20 @@ import { BsStarFill } from "react-icons/bs";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Blurhash } from "react-blurhash";
 import { RxHeart, RxHeartFilled } from "react-icons/rx";
+import { LuHexagon } from "react-icons/lu";
+import { Icon } from '@iconify/react';
 
 const Buy = ({ properties }) => {
   const [loaded, setLoaded] = useState(false);
   const [loadStarted, setLoadStarted] = useState(false);
   const [heartFill, setHeartFill] = useState(false);
+
+  const [workItems, setWorkItems] = useState([
+    { id: 1, name: "Evaluate Property", icon: "uil:estate" },
+    { id: 2, name: "Meeting with Agent", icon:  "uil:bag"},
+    { id: 3, name: "Close the Deal", icon: "uil:key-skeleton" },
+  ]);
+  console.log(workItems);
 
   return (
     <div>
@@ -72,7 +81,7 @@ const Buy = ({ properties }) => {
             </p>
           </div>
           {/* cards */}
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-7 mt-8">
+          <div className="grid-layout mt-8">
             {properties.map((property) => {
               const blurhash = property.blurhash;
               const truncatedBlurhash = blurhash.slice(0, 34);
@@ -179,12 +188,38 @@ const Buy = ({ properties }) => {
 
         {/* How It Works */}
         <div className="container-2xl mt-16 lg:mt-24">
-          <div className="flex-center-center flex-col">
+          <div className="flex-center-center flex-col pb-8">
             <h1 className="sub-header">How It Works</h1>
             <p className="paragraph">
               A great platform to buy, sell and rent your properties without any
               agent or commissions.
             </p>
+          </div>
+          <div className="grid-layout mt-8">
+            {workItems.map((item) => {
+              const IconComponent = item.icon;
+              return (
+                <div className="lg:px-8" key={item.id}>
+                  <div className="relative">
+                    <LuHexagon
+                      className=" w-32 h-32 text-[#f3faf6] mx-auto"
+                      style={{ fill: "#f3faf6" }}
+                    />
+                    <div className="absolute center-h-v">
+                      {/* <IconComponent className=" text-4xl text-green-600" /> */}
+                      <Icon icon={item.icon} className=" text-4xl text-green-600"/>
+                    </div>
+                  </div>
+                  <div className="mt-6">
+                    <h2 className="sub-header-2 text-center">{item.name}</h2>
+                    <p className="paragraph mt-3">
+                      If the distribution of letters and 'words' is random, the
+                      reader will not be distracted from making.
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 

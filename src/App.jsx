@@ -59,14 +59,14 @@ const App = () => {
       <Route path={'/buy'} element={<Buy properties={properties}/>}/>
     </Routes>
     </Suspense>
-    <div className="flex-center-center h-screen">
+   {/*  <div className="flex-center-center h-screen">
       <Link to={'/buy'}>
       <button className='bg-green-600 px-6 py-2 text-white text-3xl font-semibold rounded-md'>
         Buy
       </button>
       </Link>
       
-    </div>
+    </div> */}
     </>
 
   )
