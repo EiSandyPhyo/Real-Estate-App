@@ -3,6 +3,7 @@ import React from 'react'
 import './index.css'
 import { Link, Route, Routes } from 'react-router-dom'
 import Test from './Components/Test'
+import Error from './Components/Error';
 // import Buy from './Components/Buy'
 const Buy = lazy(() => import('./Components/Buy'));
 
@@ -57,6 +58,7 @@ const App = () => {
     <Routes>
       <Route path={'/test'} element={<Test properties={properties}/>}/>
       <Route path={'/buy'} element={<Buy properties={properties}/>}/>
+      <Route path={'/404'} element={<Error/>}/>
     </Routes>
     </Suspense>
    {/*  <div className="flex-center-center h-screen">

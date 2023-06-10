@@ -34,7 +34,7 @@ const Buy = ({ properties }) => {
         <div className="hero-img">
           <div className="bg-dark-opacity"></div>
           <div className="relative px-12">
-            <div className="flex justify-center items-center h-[378px]">
+            <div className="flex-center-center h-[378px]">
               <h2 className="header">find your dream home</h2>
             </div>
           </div>
