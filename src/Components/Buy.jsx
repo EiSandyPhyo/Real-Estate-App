@@ -9,7 +9,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Blurhash } from "react-blurhash";
 import { RxHeart, RxHeartFilled } from "react-icons/rx";
 import { LuHexagon } from "react-icons/lu";
-import { Icon } from '@iconify/react';
+import { Icon } from "@iconify/react";
 
 const Buy = ({ properties }) => {
   const [loaded, setLoaded] = useState(false);
@@ -18,10 +18,14 @@ const Buy = ({ properties }) => {
 
   const [workItems, setWorkItems] = useState([
     { id: 1, name: "Evaluate Property", icon: "uil:estate" },
-    { id: 2, name: "Meeting with Agent", icon:  "uil:bag"},
+    { id: 2, name: "Meeting with Agent", icon: "uil:bag" },
     { id: 3, name: "Close the Deal", icon: "uil:key-skeleton" },
   ]);
-  console.log(workItems);
+
+  const [toggle, setToggle] = useState(1);
+  const toggleHandler = (id) => {
+    setToggle(id);
+  };
 
   return (
     <div>
@@ -51,7 +55,7 @@ const Buy = ({ properties }) => {
         </div>
       </div>
 
-      <section className="">
+      <section className=" pb-16 md:pb-24">
         {/* search box section */}
         <div className="flex-center-center -mt-[43px] px-3">
           <div className=" md:w-[672px] shadow-lg rounded-md z-10 bg-white">
@@ -81,7 +85,7 @@ const Buy = ({ properties }) => {
             </p>
           </div>
           {/* cards */}
-          <div className="grid-layout mt-8">
+          <div className="grid-layout-3 mt-8">
             {properties.map((property) => {
               const blurhash = property.blurhash;
               const truncatedBlurhash = blurhash.slice(0, 34);
@@ -98,8 +102,6 @@ const Buy = ({ properties }) => {
                   <div className="relative">
                     <LazyLoadImage
                       src={property.image}
-                      width={355}
-                      height={236}
                       //placeholderSrc={property.image}
                       onLoad={() => {
                         console.log("Loaded");
@@ -195,7 +197,7 @@ const Buy = ({ properties }) => {
               agent or commissions.
             </p>
           </div>
-          <div className="grid-layout mt-8">
+          <div className="grid-layout-3 mt-8">
             {workItems.map((item) => {
               const IconComponent = item.icon;
               return (
@@ -207,7 +209,10 @@ const Buy = ({ properties }) => {
                     />
                     <div className="absolute center-h-v">
                       {/* <IconComponent className=" text-4xl text-green-600" /> */}
-                      <Icon icon={item.icon} className=" text-4xl text-green-600"/>
+                      <Icon
+                        icon={item.icon}
+                        className=" text-4xl text-green-600"
+                      />
                     </div>
                   </div>
                   <div className="mt-6">
@@ -220,6 +225,171 @@ const Buy = ({ properties }) => {
                 </div>
               );
             })}
+          </div>
+        </div>
+
+        {/* 6 Tabs */}
+        <div className="container-2xl mt-6 lg:mt-24">
+          <div className="grid-layout-2 mt-8">
+            <div className="md:col-span-5 lg:col-span-4">
+              <ul className="p-6 shadow rounded-md overflow-hidden">
+                <li onClick={() => toggleHandler(1)}>
+                  <button
+                    className={
+                      toggle === 1
+                        ? "btn-2 mt-3 active"
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600"
+                    }
+                  >
+                    {/* hover:bg-gray-50 text-green-600 */}
+                    Pre Approval Letter
+                  </button>
+                </li>
+                <li onClick={() => toggleHandler(2)}>
+                  <button
+                    className={
+                      toggle === 2
+                        ? "btn-2 mt-3 active"
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600"
+                    }
+                  >
+                    Schedule a Showing
+                  </button>
+                </li>
+                <li onClick={() => toggleHandler(3)}>
+                <button
+                    className={
+                      toggle === 3
+                        ? "btn-2 mt-3 active"
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600"
+                    }
+                  >
+                    Submit an Offer
+                  </button>
+                </li>
+                <li onClick={() => toggleHandler(4)}>
+                <button
+                    className={
+                      toggle === 4
+                        ? "btn-2 mt-3 active"
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600"
+                    }
+                  >
+                    Property inspection
+                  </button>
+                </li>
+                <li onClick={() => toggleHandler(5)}>
+                <button
+                    className={
+                      toggle === 5
+                        ? "btn-2 mt-3 active"
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600"
+                    }
+                  >
+                    Appraisal
+                  </button>
+                </li>
+                <li onClick={() => toggleHandler(6)}>
+                <button
+                    className={
+                      toggle === 6
+                        ? "btn-2 mt-3 active"
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600"
+                    }
+                  >
+                    Closing Deal
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div className="md:col-span-7 lg:col-span-8">
+
+              {/* single tab */}
+              <div className={toggle === 1 ? "block" : "hidden"}>
+                <img
+                  src="https://hously-react.vercel.app/static/media/Agent_Monochromatic.9caa4de69758b93b9bcd106143effd9b.svg"
+                  alt="Pre Approval Letter"
+                />
+                <div className="mt-6">
+                  <h2 className="sub-header-2">Pre Approval Letter</h2>
+                  <p className="paragraph-2 mt-3">
+                    Most buyers think the first step is finding their dream
+                    house, but the truth is finding the funding is the first
+                    step. Hously streamlines the Loan Pre-Approval process with
+                    our ecosystem of Premier Partners or simply upload your own
+                    Pre-Approval letter.
+                  </p>
+                </div>
+              </div>
+
+              <div className={toggle === 2 ? "block" : "hidden"}>
+                <img
+                  src="https://hously-react.vercel.app/static/media/presentation_Flatline.2c6c401c6e6cd7dd0d2e75d71fbc266b.svg"
+                  alt="Schedule a Showing"
+                />
+                <div className="mt-6">
+                  <h2 className="sub-header-2">Schedule a Showing</h2>
+                  <p className="paragraph-2 mt-3">
+                    Hously allows a buyer to schedule an instant showing and
+                    gain a private viewing without the need for multiple parties
+                    to be involved. You pick the time that works for you!
+                  </p>
+                </div>
+              </div>
+
+              <div className={toggle === 3 ? "block" : "hidden"}>
+                <img
+                  src="https://hously-react.vercel.app/static/media/session_Flatline.24c0e9d372d3b457165d68fa71f47756.svg"
+                  alt="Submit an Offer"
+                />
+                <div className="mt-6">
+                  <h2 className="sub-header-2">Submit an Offer</h2>
+                  <p className="paragraph-2 mt-3">
+                  Hously walks a buyer through the purchase agreement process making the paperwork appear effortless. With our custom workflows and progress analytics, you will always know where your purchase stands. No more phone tag and unreturned emails!
+                  </p>
+                </div>
+              </div>
+
+              <div className={toggle === 4 ? "block" : "hidden"}>
+                <img
+                  src="https://hously-react.vercel.app/static/media/Startup_Flatline.ce512f774b033a648c07e5886a206645.svg"
+                  alt="Property Inspection"
+                />
+                <div className="mt-6">
+                  <h2 className="sub-header-2">Property Inspection</h2>
+                  <p className="paragraph-2 mt-3">
+                  No one wants to buy a lemon. Book an inspection with a licensed inspector, then submit the repair requests all via the Hously platform.
+                  </p>
+                </div>
+              </div>
+
+              <div className={toggle === 5 ? "block" : "hidden"}>
+                <img
+                  src="https://hously-react.vercel.app/static/media/team_Flatline.c0956c9748f22a80354be0e13461c58e.svg"
+                  alt="Appraisal"
+                />
+                <div className="mt-6">
+                  <h2 className="sub-header-2">Appraisal</h2>
+                  <p className="paragraph-2 mt-3">
+                  Hously monitors the appraisal process ensuring the home you are purchasing meets or exceeds the price you are paying.
+                  </p>
+                </div>
+              </div>
+
+              <div className={toggle === 6 ? "block" : "hidden"}>
+                <img
+                  src="https://hously-react.vercel.app/static/media/Team_meeting_Two.91eb9525d3698eab69f682f4a27a6921.svg"
+                  alt="Closing Deal"
+                />
+                <div className="mt-6">
+                  <h2 className="sub-header-2">Closing Deal</h2>
+                  <p className="paragraph-2 mt-3">
+                  Finally the closing packet is sent to the Title office, and the day has come… You have Hously the home of your dreams!
+                  </p>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
 
