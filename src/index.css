@@ -36,7 +36,7 @@
     @apply xs:text-[16px] md:text-lg text-slate-400 px-1 sm:px-0
 }
 .font{
-    @apply text-lg font-medium;
+    @apply text-lg font-medium capitalize;
 }
 
 
@@ -69,7 +69,7 @@
     @apply w-full md:max-w-3xl lg:max-w-screen-2xl px-3 md:px-4 lg:px-52 mx-auto;
 }
 .grid-layout-1{
-    @apply grid grid-cols-1;
+    @apply grid grid-cols-1 gap-8;
 }
 .grid-layout-2{
     @apply grid grid-cols-1 md:grid-cols-12 gap-7;
@@ -101,6 +101,17 @@
 .card-hover{
     @apply hover:shadow-xl duration-500 ease-in-out;
 }
+
+
+
+/* form input box */
+.form-box{
+    @apply w-full py-2 px-3 ps-10 text-sm md:text-lg;
+}
+.form-box-2{
+    @apply w-full py-2 px-3 text-sm md:text-lg border border-gray-200 bg-white rounded overflow-hidden;
+}
+
 
 
 
