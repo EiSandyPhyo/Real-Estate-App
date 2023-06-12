@@ -229,7 +229,7 @@ const Buy = ({ properties }) => {
         </div>
 
         {/* 6 Tabs */}
-        <div className="container-2xl mt-6 lg:mt-24">
+        <div className="container-2xl mt-16 lg:mt-24">
           <div className="grid-layout-2 mt-8">
             <div className="md:col-span-5 lg:col-span-4">
               <ul className="p-6 shadow rounded-md overflow-hidden">
