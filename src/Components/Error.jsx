@@ -31,9 +31,9 @@ const Error = () => {
               <button className="btn px-6 py-2 mt-3">Back to Home</button>
               </Link>
             </div>
-            <div className="mt-">
+            <div className="mt-1">
               <p className="paragraph">
-                &copy; 2023 Hously. Design & Develop with{" "}
+                &copy; 2023 Hously. Design & Develop with
                 <RxHeartFilled className="text-red-600 inline-block mb-1" /> by
                 Team-F.
               </p>
