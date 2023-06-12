@@ -7,6 +7,7 @@ import ListSideBar from './Pages/ListSideBar';
 // import Buy from './Components/Buy'
 const Buy = lazy(() => import('./Components/Buy'));
 import './index.css'
+import Details from './Pages/Details';
 
 const App = () => {
   const properties = [
@@ -60,6 +61,7 @@ const App = () => {
       <Route path={'/test'} element={<Test properties={properties}/>}/>
       <Route path={'/buy'} element={<Buy properties={properties}/>}/>
       <Route path={'/list-sidebar'} element={<ListSideBar properties={properties}/>}/>
+      <Route path={'/detail/:id'} element={<Details properties={properties}/>}/>
       <Route path={'/404'} element={<Error/>}/>
     </Routes>
     </Suspense>
