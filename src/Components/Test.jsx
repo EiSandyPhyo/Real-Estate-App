@@ -1,16 +1,3 @@
-import React from 'react'
+//https://stackoverflow.com/questions/55625431/warning-validatedomnesting-a-cannot-appear-as-a-descendant-of-a
 
-const Test = ({properties}) => {
-  return (
-    <div>Properties
-    {properties.map((product)=>{
-        return(
-            <div key={product.id}>
-                <h1>{product.title}</h1>
-            </div>
-        )
-    })}</div>
-  )
-}
-
-export default Test
+//https://stackoverflow.com/questions/25098021/securityerror-blocked-a-frame-with-origin-from-accessing-a-cross-origin-frame

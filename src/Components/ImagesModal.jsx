@@ -15,27 +15,30 @@ const ImagesModal = (props) => {
   };
 
   return (
-    <div className="w-full">
-      <div className=" md:flex mt-4">
+    <div className="container-fluid">
+      <div className=" md:flex">
         <div className="md:w-1/2 lg:w-1/2 p-1">
           <div className="group relative overflow-hidden">
+            <img
+              className="w-full md:h-[300px] lg:h-[646px] "
+              src={item.image}
+              alt=""
+            />{" "}
+            {/* max-h-[620px] */}
             <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
-            <div className="">
-              <img className="w-full" src={item.image} alt="" /> {/* max-h-[620px] */}
-              <div className="absolute top-1/2 -translate-y-1/2 start-1/2 end-1/2 text-center invisible group-hover:visible">
-                <button
-                  id="btn"
-                  onClick={() =>
-                    toggleModal(
-                      item.image.slice(45, 46),
-                      item.image.slice(47, 67)
-                    )
-                  }
-                  className=" w-full bg-green-600 text-center ps-3 pe-7 py-3  hover:bg-green-700 text-white rounded-full lightbox"
-                >
-                  <FiCamera className="text-center " />
-                </button>
-              </div>
+            <div className="absolute top-1/2 -translate-y-1/2 start-1/2 end-1/2 text-center invisible group-hover:visible">
+              <button
+                id="btn"
+                onClick={() =>
+                  toggleModal(
+                    item.image.slice(45, 46),
+                    item.image.slice(47, 67)
+                  )
+                }
+                className=" w-full bg-green-600 text-center ps-3 pe-7 py-3  hover:bg-green-700 text-white rounded-full lightbox"
+              >
+                <FiCamera className="text-center " />
+              </button>
             </div>
           </div>
         </div>
@@ -128,12 +131,12 @@ const ImagesModal = (props) => {
       <div
         className={
           showModal
-            ? "fixed top-0 left-0 z-80 w-screen h-screen bg-black/70 flex  justify-center items-center cursor-pointer"
+            ? "fixed top-0 lg:top-0 left-0 z-80 w-screen h-screen bg-black/70 flex  justify-center items-center cursor-pointer z-50"
             : "hidden"
         }
       >
         <a
-          className="fixed z-90 top-6 right-8 text-white text-5xl font-bold"
+          className="fixed z-90 top-[240px] lg:top-16 right-8 lg:right-[280px] text-white text-5xl font-bold"
           onClick={() => setShowModal(false)}
         >
           <RxCross2 />
@@ -142,7 +145,7 @@ const ImagesModal = (props) => {
         <img
           id="modalImage"
           src=""
-          className="max-w-[800px] max-h-[600px] object-cover z[1000] "
+          className=" w-[100%] max-w-[800px] max-h-[600px] object-cover z[1000] "
         />
       </div>
     </div>

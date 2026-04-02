@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       screens: {
@@ -11,7 +12,7 @@ export default {
         'xxs' : '375px',
       },
       backgroundImage: {
-        'buy-img' : "url('https://hously-react.vercel.app/static/media/01.22de4da0428b035e9d2b.jpg')",
+        'buy-img' : "url('	https://hously-landing.vercel.app/static/media/01.22de4da0428b035e9d2b.jpg')",
       },
     },
   },

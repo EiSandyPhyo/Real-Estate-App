@@ -11,7 +11,7 @@ import { LuBath } from "react-icons/lu";
 import ImagesModal from "../Components/ImagesModal";
 
 
-const Details = ({ properties }) => {
+const Detail = ({ properties }) => {
   const { id } = useParams();
   const [detail, setDetail] = useState({});
   const [showModal, setShowModal] = useState(false);
@@ -27,7 +27,7 @@ const Details = ({ properties }) => {
   const item = detail[0];
 
   return (
-    <section className="pt-12 pb-16 lg:py-24">
+    <section className="pt-12 pb-16 lg:py-24 dark:bg-slate-900">
       {item ? (
         <>
           <ImagesModal
@@ -38,25 +38,25 @@ const Details = ({ properties }) => {
           <div className="container-2xl md:mt-24 mt-16 mx-auto px-4 ">
             <div className=" md:flex">
               <div className="lg:w-2/3 md:w-1/2 md:p-4 px-3">
-                <h4 className="text-2xl font-medium">{item.title}</h4>
+                <h4 className="text-2xl font-medium dark:text-white">{item.title}</h4>
                 <ul className="py-6 flex items-center list-none">
                   <li className="flex items-center lg:me-6 me-4">
                     <i className="me-2">
                     <FaCompressArrowsAlt className="icon-color" />
                     </i>
-                    <span className="lg:text-xl">8000sqf</span>
+                    <span className="lg:text-xl dark:text-white">8000sqf</span>
                   </li>
                   <li className="flex items-center lg:me-6 me-4">
                     <i className="me-2 ">
                       <IoBedOutline className="icon-color" />
                     </i>
-                    <span className="lg:text-xl">4 Beds</span>
+                    <span className="lg:text-xl dark:text-white">4 Beds</span>
                   </li>
                   <li className="flex items-center">
                     <i className="me-2 ">
                       <LuBath className="icon-color" />
                     </i>
-                    <span className="lg:text-xl">4 Baths</span>
+                    <span className="lg:text-xl dark:text-white">4 Baths</span>
                   </li>
                 </ul>
                 <p className="text-slate-400 text-[17px]">
@@ -92,9 +92,9 @@ const Details = ({ properties }) => {
                 <div className={showModal ? "  top-20" : " sticky top-20"}>
                   <div className="rounded-md bg-slate-50 dark:bg-slate-800 shadow dark:shadow-gray-700">
                     <div className="p-6">
-                      <h5 className="text-2xl font-medium">Price:</h5>
+                      <h5 className="text-2xl font-medium dark:text-white">Price:</h5>
                       <div className="flex justify-between items-center mt-4">
-                        <span className="text-xl font-medium">$ 5000</span>
+                        <span className="text-xl font-medium dark:text-white">$ 5000</span>
                         <span className="bg-green-600/10 text-green-600 text-sm px-2.5 py-0.75 rounded h-6">
                           For Sale
                         </span>
@@ -104,19 +104,19 @@ const Details = ({ properties }) => {
                           <span className="text-slate-400 text-sm">
                             Days on Hously
                           </span>
-                          <span className="font-medium text-sm">124 Days</span>
+                          <span className="font-medium text-sm dark:text-white">124 Days</span>
                         </li>
                         <li className="flex justify-between items-center mt-2">
                           <span className="text-slate-400 text-sm">
                             Price per sq ft
                           </span>
-                          <span className="font-medium text-sm">$ 186</span>
+                          <span className="font-medium text-sm dark:text-white">$ 186</span>
                         </li>
                         <li className="flex justify-between items-center mt-2">
                           <span className="text-slate-400 text-sm">
                             Monthly Payment (estimate)
                           </span>
-                          <span className="font-medium text-sm">
+                          <span className="font-medium text-sm dark:text-white">
                             $ 1497/Monthly
                           </span>
                         </li>
@@ -138,7 +138,7 @@ const Details = ({ properties }) => {
                     </div>
                   </div>
                   <div className="mt-12 text-center">
-                    <h3 className="mb-6 text-xl leading-normal font-medium text-black ">
+                    <h3 className="mb-6 text-xl leading-normal font-medium text-black dark:text-white">
                       Have Question ? Get in touch!
                     </h3>
                     <div className="mt-6">
@@ -160,4 +160,4 @@ const Details = ({ properties }) => {
   );
 };
 
-export default Details;
+export default Detail;
