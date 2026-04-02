@@ -52,23 +52,24 @@ const FeatureProperties = ({ properties }) => {
 
               <div className="p-6">
                 <div className="mb-6">
-                <Link to={`/detail/${property.id}`}>
-                  <h2 className="h2 cursor-pointer hover:text-green-600 duration-500 ease-in-out inline-block  dark:text-white">
-                    {property.title}
-                  </h2>
-                </Link>
+                  <Link to={`/detail/${property.id}`}>
+                    <h2 className="h2 cursor-pointer hover:text-green-600 duration-500 ease-in-out inline-block  dark:text-white">
+                      {`${property?.address}, ${property?.city}, ${property?.postal_code}`}
+                    </h2>
+                  </Link>
                 </div>
                 <div className="border-y border-slate-100 dark:border-gray-800 py-6 mb-6">
                   <div className="flex-between-center">
                     <div className="flex-center-center gap-2  dark:text-white">
                       <FaCompressArrowsAlt className="icon-color" />
-                      8000sqft
+                      {property?.square_footage} sqft
                     </div>
                     <div className="flex-center-center gap-2  dark:text-white">
-                      <IoBedOutline className="icon-color" />4 Beds
+                      <IoBedOutline className="icon-color" /> {property?.beds}{" "}
+                      Beds
                     </div>
                     <div className="flex-center-center gap-2  dark:text-white">
-                      <LuBath className="icon-color" />4 Baths
+                      <LuBath className="icon-color" /> {property?.baths} Baths
                     </div>
                   </div>
                 </div>
@@ -76,7 +77,9 @@ const FeatureProperties = ({ properties }) => {
                   <div className="">
                     <div className="">
                       <p>Price</p>
-                      <p className="text-black font  dark:text-white">$5000</p>
+                      <p className="text-black font  dark:text-white">
+                        £{property?.price.toLocaleString()}
+                      </p>
                     </div>
                   </div>
 
@@ -86,7 +89,9 @@ const FeatureProperties = ({ properties }) => {
                       {[...Array(5)].map((x, i) => (
                         <BsStarFill key={i} className="text-amber-400" />
                       ))}
-                      <p className="text-black font mt-1  dark:text-white">5(30)</p>
+                      <p className="text-black font mt-1  dark:text-white">
+                        {property?.rating}
+                      </p>
                     </div>
                   </div>
                 </div>
