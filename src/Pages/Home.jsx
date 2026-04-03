@@ -235,7 +235,7 @@ const Home = ({ properties }) => {
         <div className="">
           <FeatureProperties
             properties={properties}
-            propertyType={"Duplex"}
+            propertyType={"Cottage"}
             limit={6}
           />
         </div>
