@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaCompressArrowsAlt } from "react-icons/fa";
 import { IoBedOutline } from "react-icons/io5";
 import { LuBath } from "react-icons/lu";
@@ -8,8 +8,14 @@ import { RxHeart, RxHeartFilled } from "react-icons/rx";
 import PlaceholderImage from "../images/blurImg.png";
 import { Link } from "react-router-dom";
 
-const FeatureProperties = ({ properties, propertyType, limit }) => {
+const FeatureProperties = ({
+  properties,
+  propertyType,
+  limit,
+  showToggle = true,
+}) => {
   const [heartFill, setHeartFill] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(9);
 
   let filteredProperties = properties || []; // let - to reassign
 
@@ -23,6 +29,20 @@ const FeatureProperties = ({ properties, propertyType, limit }) => {
     filteredProperties = filteredProperties.slice(0, limit);
   }
 
+  const showMore = () => {
+    setVisibleCount((prev) => prev + 9);
+  };
+
+  const showLess = () => {
+    setVisibleCount(9);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const visibleProperties = filteredProperties.slice(0, visibleCount);
+
   return (
     <div className="container-2xl mt-16 lg:mt-24 dark:bg-slate-900">
       <div className="flex-center-center flex-col pb-8">
@@ -34,7 +54,7 @@ const FeatureProperties = ({ properties, propertyType, limit }) => {
       </div>
       {/* cards */}
       <div className="grid-layout-3 mt-8">
-        {filteredProperties.map((property) => {
+        {visibleProperties.map((property) => {
           return (
             /* card */
             <div
@@ -117,6 +137,30 @@ const FeatureProperties = ({ properties, propertyType, limit }) => {
           );
         })}
       </div>
+
+      {/* show more and show less */}
+
+      {showToggle && (
+        <div className="flex justify-center mt-8 gap-4">
+          {visibleCount < properties.length && (
+            <button
+              onClick={showMore}
+              className="px-6 py-2 rounded-md bg-green-600 text-white hover:bg-green-700"
+            >
+              Show More
+            </button>
+          )}
+
+          {visibleCount > 10 && (
+            <button
+              onClick={showLess}
+              className="px-6 py-2 rounded-md border border-slate-300 text-slate-700 hover:bg-slate-100"
+            >
+              Show Less
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

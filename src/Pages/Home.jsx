@@ -237,6 +237,7 @@ const Home = ({ properties }) => {
             properties={properties}
             propertyType={"Cottage"}
             limit={6}
+            showToggle={false}
           />
         </div>
         {/* Feature property Section End*/}
