@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FaCompressArrowsAlt } from "react-icons/fa";
 import { IoBedOutline } from "react-icons/io5";
 import { LuBath } from "react-icons/lu";
-import { BsStarFill } from "react-icons/bs";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import RatingStars from "./RatingStars";
 import { RxHeart, RxHeartFilled } from "react-icons/rx";
 import PlaceholderImage from "../images/blurImg.png";
 import { Link } from "react-router-dom";
@@ -123,12 +123,7 @@ const FeatureProperties = ({
                   <div className="">
                     <p>Rating</p>
                     <div className="flex-center-center gap-2">
-                      {[...Array(5)].map((x, i) => (
-                        <BsStarFill key={i} className="text-amber-400" />
-                      ))}
-                      <p className="text-black font mt-1  dark:text-white">
-                        {property?.rating}
-                      </p>
+                      <RatingStars rating={property?.rating} />
                     </div>
                   </div>
                 </div>
