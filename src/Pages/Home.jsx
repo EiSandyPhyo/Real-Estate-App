@@ -11,7 +11,7 @@ import HowItWorks from "../Components/HowItWorks";
 import FeatureProperties from "../Components/FeatureProperties";
 import GetInTouch from "../Components/GetInTouch";
 
-const Home = ({properties}) => {
+const Home = ({ properties }) => {
   const [showBuyBtnColor, setShowBuyBtnColor] = useState(true);
   const [showSellBtnColor, setShowSellBtnColor] = useState(false);
   const [showRentBtnColor, setShowRentBtnColor] = useState(false);
@@ -62,7 +62,7 @@ const Home = ({properties}) => {
                   without any agent or commisions.
                 </p>
               </div>
-              
+
               <div className="px-2">
                 <div className="w-[100%] bg-white dark:bg-slate-900 dark:text-white text-black  rounded-t-xl px-6 py-4 h-fit flex justify-center lg:justify-start items-center lg:w-fit">
                   <button
@@ -113,12 +113,11 @@ const Home = ({properties}) => {
                   </div>
                 </div>
               </div>
-                  
             </div>
             <div className="  basis-5/12 my-10 mx-2 lg:mx-3">
               <div className=" relative w-fit z-0">
                 <img
-                  src="https://hously-landing.vercel.app/static/media/hero.d2024381e96556cf0577.jpg"
+                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
                   alt=""
                   className=" border-[15px] rounded-t-full border-white dark:border-black lg:w-[500px]  h-[600px] object-cover object-center  " /* md:h-[600px] h-[440px] */
                 />
@@ -141,7 +140,7 @@ const Home = ({properties}) => {
               height="315"
               src={`${
                 showHomeIframe
-                  ?"https://www.youtube.com/embed/yba7hPeTSjk"
+                  ? "https://www.youtube.com/embed/yba7hPeTSjk"
                   : ""
               }`}
               title="YouTube video player"
@@ -167,7 +166,7 @@ const Home = ({properties}) => {
               <div className=" relative ">
                 <img
                   className=" rounded-xl w-full h-[400px] lg:h-[550px]"
-                  src="	https://hously-landing.vercel.app/static/media/about.f67dcc77d84a6e14d5de.jpg"
+                  src="https://images.unsplash.com/photo-1460317442991-0ec209397118"
                   alt=""
                 />
                 <div
@@ -194,8 +193,8 @@ const Home = ({properties}) => {
                   Hously is Real Estate Redefined.
                 </p>
                 <button className="btn flex-center-center gap-2 px-7 py-2 mt-6">
-                Learn More
-              </button>
+                  Learn More
+                </button>
               </div>
             </div>
           </div>
@@ -229,12 +228,16 @@ const Home = ({properties}) => {
         {/* Efficiency Section End*/}
 
         {/* How is work Section Start*/}
-          <HowItWorks/>
+        <HowItWorks />
         {/* How is work Section End*/}
 
         {/* Feature property Section Start*/}
         <div className="">
-          <FeatureProperties properties={properties} />
+          <FeatureProperties
+            properties={properties}
+            propertyType={"Duplex"}
+            limit={6}
+          />
         </div>
         {/* Feature property Section End*/}
 
@@ -245,8 +248,8 @@ const Home = ({properties}) => {
               What Our Client Say ?
             </h3>
             <p className="text-slate-400 max-w-xl mx-auto">
-              A great plateform to buy, sell and rent your properties without
-              any agent or commisions.
+              A great platform to buy, sell and rent your properties without any
+              agent or commissions.
             </p>
           </div>
           <FeatureSlider />
@@ -255,7 +258,7 @@ const Home = ({properties}) => {
 
         {/* Questions Section Start*/}
         <div className=" pb-16 md:pb-24">
-          <GetInTouch/>
+          <GetInTouch />
         </div>
         {/* Questions Section End*/}
       </div>

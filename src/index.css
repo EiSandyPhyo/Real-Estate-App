@@ -180,12 +180,12 @@ html{
 }
 
   /* bg-color n bg-img , bg-buy-img bg-[url('https://static.wixstatic.com/media/11062b_d2d01247fc75405591814403f1351673~mv2.jpg/v1/fill/w_2976,h_1120,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/11062b_d2d01247fc75405591814403f1351673~mv2.jpg')]*/
-  .hero-img {
+  /* .hero-img {
     @apply bg-buy-img bg-no-repeat bg-center bg-cover w-full h-[378px] relative;
   }
   .bg-dark-opacity {
     @apply absolute bg-[#161C2D] opacity-80 inset-0;
-  }
+  } */
 
   /* btn */
   .btn {

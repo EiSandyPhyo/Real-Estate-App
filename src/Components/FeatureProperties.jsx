@@ -8,8 +8,21 @@ import { RxHeart, RxHeartFilled } from "react-icons/rx";
 import PlaceholderImage from "../images/blurImg.png";
 import { Link } from "react-router-dom";
 
-const FeatureProperties = ({ properties }) => {
+const FeatureProperties = ({ properties, propertyType, limit }) => {
   const [heartFill, setHeartFill] = useState(false);
+
+  let filteredProperties = properties || []; // let - to reassign
+
+  if (propertyType) {
+    filteredProperties = filteredProperties.filter(
+      (item) => item.property_type === propertyType,
+    );
+  }
+
+  if (limit) {
+    filteredProperties = filteredProperties.slice(0, limit);
+  }
+
   return (
     <div className="container-2xl mt-16 lg:mt-24 dark:bg-slate-900">
       <div className="flex-center-center flex-col pb-8">
@@ -21,22 +34,25 @@ const FeatureProperties = ({ properties }) => {
       </div>
       {/* cards */}
       <div className="grid-layout-3 mt-8">
-        {properties.map((property) => {
+        {filteredProperties.map((property) => {
           return (
             /* card */
             <div
               className="shadow rounded-xl overflow-hidden card-hover dark:bg-slate-900 dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700"
               key={property.id}
             >
-              <div className="relative">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl w-full h-60">
+                {" "}
                 <LazyLoadImage
-                  src={property.image}
-                  height={236}
+                  src={`${property.image}?w=800&h=500&fit=crop`}
                   placeholderSrc={PlaceholderImage}
+                  className="w-full h-full object-cover"
+                  alt={property?.property_name}
                 />
                 <div className="absolute top-4 end-4">
                   <div className=" w-10 h-10 bg-white rounded-full cursor-pointer flex-center-center dark:bg-slate-900 dark:shadow-gray-700">
-                    <button onClick={() => setHeartFill(!heartFill)}>
+                    {property?.id}
+                    {/* <button onClick={() => setHeartFill(!heartFill)}>
                       {heartFill ? (
                         <RxHeartFilled size={20} className=" text-red-600  " />
                       ) : (
@@ -45,7 +61,7 @@ const FeatureProperties = ({ properties }) => {
                           className="text-slate-100 hover:text-red-600 dark:text-slate-700 dark:hover:text-red-700"
                         />
                       )}
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
@@ -54,7 +70,8 @@ const FeatureProperties = ({ properties }) => {
                 <div className="mb-6">
                   <Link to={`/detail/${property.id}`}>
                     <h2 className="h2 cursor-pointer hover:text-green-600 duration-500 ease-in-out inline-block  dark:text-white">
-                      {`${property?.address}, ${property?.city}, ${property?.postal_code}`}
+                      {`${property?.property_type}, ${property?.property_name}`}
+                      {/* {`${property?.address}, ${property?.city}, ${property?.postal_code}`} */}
                     </h2>
                   </Link>
                 </div>

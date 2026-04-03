@@ -3,9 +3,9 @@ import { BiSearchAlt } from "react-icons/bi";
 import FeatureProperties from "../Components/FeatureProperties";
 import HowItWorks from "../Components/HowItWorks";
 import GetInTouch from "../Components/GetInTouch";
+import heroImg from "../images/hero-img.jpg";
 
 const Buy = ({ properties }) => {
-
   const [toggle, setToggle] = useState(1);
   const toggleHandler = (id) => {
     setToggle(id);
@@ -14,9 +14,14 @@ const Buy = ({ properties }) => {
   return (
     <div>
       <div className="mt-[70px] dark:bg-slate-900">
-        {/*  hero section */}
-        <div className="hero-img">
-          <div className="bg-dark-opacity"></div>
+        {/*  hero section |  hero-img .css*/}
+        <div
+          className="relative w-full h-[378px] bg-no-repeat bg-center bg-cover"
+          style={{
+            backgroundImage: `url(${heroImg})`,
+          }}
+        >
+          <div className="absolute inset-0 bg-slate-900/75"></div>
           <div className="relative px-12">
             <div className="flex-center-center h-[378px]">
               <h2 className="header">find your dream home</h2>
@@ -60,13 +65,13 @@ const Buy = ({ properties }) => {
         </div>
 
         {/* feature properties section */}
-        <FeatureProperties properties={properties}/>
+        <FeatureProperties properties={properties} />
 
         {/* How It Works */}
-        <HowItWorks/>
+        <HowItWorks />
 
-         {/* 6 Tabs */}
-         <div className="container-2xl mt-16 lg:mt-24">
+        {/* 6 Tabs */}
+        <div className="container-2xl mt-16 lg:mt-24">
           <div className="grid-layout-2 mt-8">
             <div className="md:col-span-5 lg:col-span-4 dark:bg-slate-900 ">
               <ul className="p-6 shadow rounded-md overflow-hidden dark:shadow-gray-700">
@@ -75,8 +80,8 @@ const Buy = ({ properties }) => {
                     className={`${
                       toggle === 1
                         ? "btn-2 mt-3 active"
-                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"}`
-                    }
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"
+                    }`}
                   >
                     {/* hover:bg-gray-50 text-green-600 */}
                     Pre Approval Letter
@@ -87,52 +92,52 @@ const Buy = ({ properties }) => {
                     className={`${
                       toggle === 2
                         ? "btn-2 mt-3 active"
-                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"} `
-                    }
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"
+                    } `}
                   >
                     Schedule a Showing
                   </button>
                 </li>
                 <li onClick={() => toggleHandler(3)}>
-                <button
+                  <button
                     className={`${
                       toggle === 3
                         ? "btn-2 mt-3 active"
-                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"} `
-                    }
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"
+                    } `}
                   >
                     Submit an Offer
                   </button>
                 </li>
                 <li onClick={() => toggleHandler(4)}>
-                <button
+                  <button
                     className={`${
                       toggle === 4
                         ? "btn-2 mt-3 active"
-                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"} `
-                    }
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"
+                    } `}
                   >
                     Property inspection
                   </button>
                 </li>
                 <li onClick={() => toggleHandler(5)}>
-                <button
+                  <button
                     className={`${
                       toggle === 5
                         ? "btn-2 mt-3 active"
-                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"} `
-                    }
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"
+                    } `}
                   >
                     Appraisal
                   </button>
                 </li>
                 <li onClick={() => toggleHandler(6)}>
-                <button
+                  <button
                     className={`${
                       toggle === 6
                         ? "btn-2 mt-3 active"
-                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"} `
-                    }
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"
+                    } `}
                   >
                     Closing Deal
                   </button>
@@ -140,7 +145,6 @@ const Buy = ({ properties }) => {
               </ul>
             </div>
             <div className="md:col-span-7 lg:col-span-8">
-
               {/* single tab */}
               <div className={toggle === 1 ? "block" : "hidden"}>
                 <img
@@ -148,7 +152,9 @@ const Buy = ({ properties }) => {
                   alt="Pre Approval Letter"
                 />
                 <div className="mt-6">
-                  <h2 className="sub-header-2 dark:text-white">Pre Approval Letter</h2>
+                  <h2 className="sub-header-2 dark:text-white">
+                    Pre Approval Letter
+                  </h2>
                   <p className="paragraph-2 mt-3">
                     Most buyers think the first step is finding their dream
                     house, but the truth is finding the funding is the first
@@ -165,7 +171,9 @@ const Buy = ({ properties }) => {
                   alt="Schedule a Showing"
                 />
                 <div className="mt-6">
-                  <h2 className="sub-header-2  dark:text-white">Schedule a Showing</h2>
+                  <h2 className="sub-header-2  dark:text-white">
+                    Schedule a Showing
+                  </h2>
                   <p className="paragraph-2 mt-3">
                     Hously allows a buyer to schedule an instant showing and
                     gain a private viewing without the need for multiple parties
@@ -180,9 +188,15 @@ const Buy = ({ properties }) => {
                   alt="Submit an Offer"
                 />
                 <div className="mt-6">
-                  <h2 className="sub-header-2  dark:text-white">Submit an Offer</h2>
+                  <h2 className="sub-header-2  dark:text-white">
+                    Submit an Offer
+                  </h2>
                   <p className="paragraph-2 mt-3">
-                  Hously walks a buyer through the purchase agreement process making the paperwork appear effortless. With our custom workflows and progress analytics, you will always know where your purchase stands. No more phone tag and unreturned emails!
+                    Hously walks a buyer through the purchase agreement process
+                    making the paperwork appear effortless. With our custom
+                    workflows and progress analytics, you will always know where
+                    your purchase stands. No more phone tag and unreturned
+                    emails!
                   </p>
                 </div>
               </div>
@@ -193,9 +207,13 @@ const Buy = ({ properties }) => {
                   alt="Property Inspection"
                 />
                 <div className="mt-6">
-                  <h2 className="sub-header-2  dark:text-white">Property Inspection</h2>
+                  <h2 className="sub-header-2  dark:text-white">
+                    Property Inspection
+                  </h2>
                   <p className="paragraph-2 mt-3">
-                  No one wants to buy a lemon. Book an inspection with a licensed inspector, then submit the repair requests all via the Hously platform.
+                    No one wants to buy a lemon. Book an inspection with a
+                    licensed inspector, then submit the repair requests all via
+                    the Hously platform.
                   </p>
                 </div>
               </div>
@@ -208,7 +226,8 @@ const Buy = ({ properties }) => {
                 <div className="mt-6">
                   <h2 className="sub-header-2  dark:text-white">Appraisal</h2>
                   <p className="paragraph-2 mt-3">
-                  Hously monitors the appraisal process ensuring the home you are purchasing meets or exceeds the price you are paying.
+                    Hously monitors the appraisal process ensuring the home you
+                    are purchasing meets or exceeds the price you are paying.
                   </p>
                 </div>
               </div>
@@ -219,21 +238,22 @@ const Buy = ({ properties }) => {
                   alt="Closing Deal"
                 />
                 <div className="mt-6">
-                  <h2 className="sub-header-2  dark:text-white">Closing Deal</h2>
+                  <h2 className="sub-header-2  dark:text-white">
+                    Closing Deal
+                  </h2>
                   <p className="paragraph-2 mt-3">
-                  Finally the closing packet is sent to the Title office, and the day has come… You have Hously the home of your dreams!
+                    Finally the closing packet is sent to the Title office, and
+                    the day has come… You have Hously the home of your dreams!
                   </p>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
 
         {/* get in touch section */}
-        <GetInTouch/>
+        <GetInTouch />
       </section>
-
     </div>
   );
 };
