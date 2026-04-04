@@ -16,12 +16,17 @@ const Sell = () => {
   return (
     <section className=" pb-16 md:pb-24 dark:bg-slate-900">
       <div className="mt-[70px]">
-        {/*  hero section */}
-        <div className="hero-img">
-          <div className="bg-dark-opacity"></div>
+        {/*  hero section |  hero-img .css*/}
+        <div
+          className="relative w-full h-[378px] bg-no-repeat bg-[position:50%_20%] bg-cover"
+          style={{
+            backgroundImage: `url("https://images.unsplash.com/photo-1505843513577-22bb7d21e455")`,
+          }}
+        >
+          <div className="absolute inset-0 bg-slate-900/70"></div>
           <div className="relative px-12">
             <div className="flex-center-center h-[378px]">
-              <h2 className="header">sell faster. save thousands.</h2>
+              <h2 className="header">find your dream home</h2>
             </div>
           </div>
         </div>

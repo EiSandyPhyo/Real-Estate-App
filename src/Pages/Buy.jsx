@@ -12,8 +12,8 @@ const Buy = ({ properties }) => {
   };
 
   return (
-    <div>
-      <div className="mt-[70px] dark:bg-slate-900">
+    <section className=" pb-16 md:pb-24 dark:bg-slate-900">
+      <div className="relative">
         {/*  hero section |  hero-img .css*/}
         <div
           className="relative w-full h-[378px] bg-no-repeat bg-[position:50%_20%] bg-cover"
@@ -43,81 +43,76 @@ const Buy = ({ properties }) => {
           </svg>
         </div>
       </div>
-
-      <section className=" pb-16 md:pb-24 dark:bg-slate-900">
-        {/* search box section */}
-        <div className="flex-center-center -mt-[43px] px-3">
-          <div className=" md:w-[672px] shadow-lg rounded-md z-10 bg-white dark:bg-slate-900 dark:shadow-gray-800">
-            <form action="" className="flex-between-center gap-2 pl-4 pr-1">
-              <div className="flex-center-center gap-1 dark:text-white">
-                <BiSearchAlt className="text-xl sm:text-2xl" />
-                <input
-                  type="text"
-                  className="border border-none focus:outline-none w-48 xs:w-[250px] sm:w-96 md:w-[400px] text-sm md:text-lg p-2 dark:bg-slate-900"
-                  placeholder="City, Address, Zip :"
-                />
-              </div>
-              <button className="btn px-5 py-2 sm:px-7 sm:py-[12px] md:px-6 md:py-2 my-1">
-                Search
-              </button>
-            </form>
-          </div>
-        </div>
-
-        {/* feature properties section */}
-        <FeatureProperties properties={properties} />
-
-        {/* How It Works */}
-        <HowItWorks />
-
-        {/* 6 Tabs */}
-        <div className="container-2xl mt-16 lg:mt-24">
-          <div className="grid-layout-2 mt-8">
-            <div className="md:col-span-5 lg:col-span-4 dark:bg-slate-900 sticky top-20 self-start">
-              <ul className="p-6 border shadow-sm rounded-md overflow-hidden dark:shadow-gray-700">
-                {processTabs.map((item) => (
-                  <li key={item.id} onClick={() => toggleHandler(item.id)}>
-                    <button
-                      className={`${
-                        toggle === item.id
-                          ? "btn-2 mt-3 active"
-                          : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"
-                      }`}
-                    >
-                      {item.title}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+      {/* search box section */}
+      <div className="flex-center-center -translate-y-full lg:-translate-y-2/3 xl:-translate-y-1/2  px-3">
+        <div className=" md:w-[672px] shadow-lg rounded-md z-10 bg-white dark:bg-slate-900 dark:shadow-gray-800">
+          <form action="" className="flex-between-center gap-2 pl-4 pr-1">
+            <div className="flex-center-center gap-1 dark:text-white">
+              <BiSearchAlt className="text-xl sm:text-2xl" />
+              <input
+                type="text"
+                className="border border-none focus:outline-none w-48 xs:w-[250px] sm:w-96 md:w-[400px] text-sm md:text-lg p-2 dark:bg-slate-900"
+                placeholder="City, Address, Zip :"
+              />
             </div>
+            <button className="btn px-5 py-2 sm:px-7 sm:py-[12px] md:px-6 md:py-2 my-1">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
 
-            <div className="md:col-span-7 lg:col-span-8">
+      {/* feature properties section */}
+      <FeatureProperties properties={properties} />
+
+      {/* How It Works */}
+      <HowItWorks />
+
+      {/* 6 Tabs */}
+      <div className="container-2xl mt-16 lg:mt-24">
+        <div className="grid-layout-2 mt-8">
+          <div className="md:col-span-5 lg:col-span-4 dark:bg-slate-900 sticky top-20 self-start">
+            <ul className="p-6 border shadow-sm rounded-md overflow-hidden dark:shadow-gray-700">
               {processTabs.map((item) => (
-                <div
-                  key={item.id}
-                  className={toggle === item.id ? "block" : "hidden"}
-                >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="max-w-full h-auto"
-                  />
-                  <div className="mt-6">
-                    <h2 className="sub-header-2 dark:text-white">
-                      {item.title}
-                    </h2>
-                    <p className="paragraph-2 mt-3">{item.text}</p>
-                  </div>
-                </div>
+                <li key={item.id} onClick={() => toggleHandler(item.id)}>
+                  <button
+                    className={`${
+                      toggle === item.id
+                        ? "btn-2 mt-3 active"
+                        : "btn-2 mt-3 hover:bg-gray-50 hover:text-green-600 dark:text-white dark:hover:bg-slate-700 hover:rounded"
+                    }`}
+                  >
+                    {item.title}
+                  </button>
+                </li>
               ))}
-            </div>
+            </ul>
+          </div>
+
+          <div className="md:col-span-7 lg:col-span-8">
+            {processTabs.map((item) => (
+              <div
+                key={item.id}
+                className={toggle === item.id ? "block" : "hidden"}
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="max-w-full h-auto"
+                />
+                <div className="mt-6">
+                  <h2 className="sub-header-2 dark:text-white">{item.title}</h2>
+                  <p className="paragraph-2 mt-3">{item.text}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
+      </div>
 
-        {/* get in touch section */}
-        <GetInTouch />
-      </section>
-    </div>
+      {/* get in touch section */}
+      <GetInTouch />
+    </section>
   );
 };
 

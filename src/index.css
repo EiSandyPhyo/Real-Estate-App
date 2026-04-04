@@ -331,7 +331,7 @@ html {
 
 /* custom shape */
 .custom-shape-divider-bottom {
-  @apply absolute top-[390px] left-0 w-full overflow-hidden z-0;
+  @apply absolute top-[335px] left-0 w-full overflow-hidden z-0; /* top-[390px] */
 }
 
 .custom-shape-divider-bottom svg {
@@ -346,7 +346,7 @@ html {
 /** For tablet devices **/
 @media (min-width: 768px) and (max-width: 1023px) {
   .custom-shape-divider-bottom {
-    top: 420px;
+    top: 329px;
   }
 
   .custom-shape-divider-bottom svg {
@@ -357,11 +357,11 @@ html {
 
 @media (max-width: 768px) {
   .custom-shape-divider-bottom {
-    top: 420px;
+    top: 340px;
   }
 
   .custom-shape-divider-bottom svg {
     width: calc(300% + 1.3px);
-    height: 30px;
+    height: 40px;
   }
 }
