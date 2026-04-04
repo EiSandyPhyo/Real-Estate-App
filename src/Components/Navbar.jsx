@@ -15,14 +15,22 @@ import { addTheme } from "../services/themeSlice";
 
 const Navbar = ({ pageType }) => {
   const [showDeskMenu, setShowDeskMenu] = useState(false);
-  const [showAni, setShowAni] = useState();
+  //const [showAni, setShowAni] = useState();
   const [showMenu, setShowMenu] = useState(false);
   const [closeMenu, setCloseMenu] = useState(false);
   const [uparrow, setUparrow] = useState();
   const [scrolled, setScrolled] = useState(false);
-
   const [theme, setTheme] = useState("light");
+
   const dispatch = useDispatch();
+
+    useEffect(() => {
+    const savedTheme = Cookies.get("theme");
+
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -30,14 +38,27 @@ const Navbar = ({ pageType }) => {
     } else {
       document.documentElement.classList.remove("dark");
     }
-    dispatch(addTheme({ theme: theme }));
-    console.log("dispatch", theme);
-    const Theme = JSON.parse(Cookies.get("theme"));
-    console.log(" After Theme", Theme.theme);
+      Cookies.set("theme", theme, { expires: 30 });
+    //dispatch(addTheme({ theme: theme }));
+    //console.log("dispatch", theme);
+   // const Theme = JSON.parse(Cookies.get("theme"));
+   // console.log(" After Theme", Theme.theme);
 
-    console.log("Show ani", showAni);
+   // console.log("Show ani", showAni);
   }, [theme]);
 
+  useEffect(() => {
+  const handleScroll = () => {
+    setScrolled(window.scrollY > 50); //when scroll - 50px - change navbar bg color
+    setUparrow(window.scrollY > 1020); //when scroll - 1020px reach - show up arrow to scroll to top
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
+
+  /* 
   const changeAni = () => {
     const Theme = JSON.parse(Cookies.get("theme"));
     if (Theme.theme == "light") {
@@ -65,10 +86,26 @@ const Navbar = ({ pageType }) => {
     const Theme = JSON.parse(Cookies.get("theme"));
     console.log("changelight", Theme);
     changeAni();
-  };
+  }; */
+
+  const changeMood = () => {
+  setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+};
+
+const changeDark = () => {
+  setTheme("dark");
+};
+
+const changeLight = () => {
+  setTheme("light");
+};
+
+const showAni = theme === "light";
+
+
 
   /*** 90Yoffset -> change bg color ***/
-  const [color, setColor] = useState(false);
+/*   const [color, setColor] = useState(false);
   const colorHandler = () => {
     if (window.pageYOffset >= 90) {
       setColor(true);
@@ -81,9 +118,42 @@ const Navbar = ({ pageType }) => {
       setUparrow(false);
     }
   };
-  window.addEventListener("scroll", colorHandler);
+  window.addEventListener("scroll", colorHandler); */
 
-  const getNavNormalClass = () => {
+/*     useEffect(() => {
+    function handleScroll() {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+ */
+
+
+const getLogo = () => {
+  if (pageType === "home") {
+    return theme === "dark" ? "whiteLogo" : "darkLogo";
+  }
+
+  if (pageType === "buy") {
+    if (theme === "dark") {
+      return "whiteLogo";
+    }
+    return scrolled ? "darkLogo" : "whiteLogo";
+  }
+
+  return theme === "dark" ? "whiteLogo" : "darkLogo";
+};
+
+  const currentLogo = getLogo();
+
+    const getNavNormalClass = () => {
     if (pageType === "home") {
       return "text-black dark:text-white font-medium";
     }
@@ -100,6 +170,10 @@ const Navbar = ({ pageType }) => {
 
   const navActive = "text-green-600 font-bold dark:text-green-600";
   const navNormal = getNavNormalClass();
+
+  const pageMenuClass = `${navNormal} hover:text-[#16a34a] dark:hover:text-[#16a34a]`;
+const dropdownNavNormal = "text-black dark:text-white font-medium";
+const dropdownNavActive = "text-green-600 font-bold dark:text-green-600";
 
   /* const navActive = "text-green-600 font-bold dark:text-green-600";
   const navNormal = "text-black font-medium dark:text-white ";  */
@@ -122,44 +196,17 @@ const Navbar = ({ pageType }) => {
       : "bg-transparent dark:bg-transparent shadow-none";
   };
 
-  const getLogo = () => {
-    if (pageType === "home") {
-      if (document.documentElement.classList.contains("dark")) {
-        return "whiteLogo";
-      }
-      return "darkLogo";
-    }
-
-    if (pageType === "buy") {
-      if (document.documentElement.classList.contains("dark")) {
-        return "whiteLogo";
-      }
-      return scrolled ? "darkLogo" : "whiteLogo";
-    }
-
-    return "darkLogo";
-  };
-
-  const currentLogo = getLogo();
-
   //Scrolls the window to the top of the page.
   const scrollYHandler = () => {
-    window.scroll(0, 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setCloseMenu(false);
+    setShowDeskMenu(false);
+    setShowMenu(false);
   };
 
-  useEffect(() => {
-    function handleScroll() {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    }
 
-    window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  console.log(theme);
   /*         <div
           className={` ${
             color
@@ -251,13 +298,13 @@ const Navbar = ({ pageType }) => {
 
               <li
                 onClick={() => setShowDeskMenu(!showDeskMenu)}
-                className={`w-fit h-[40px] flex justify-center items-center mx-3 cursor-pointer relative myliForDropDown  $`}
+                className={`w-fit h-[40px] flex justify-center items-center mx-3 cursor-pointer relative myliForDropDown  ${pageMenuClass}`}
               >
-                <span className=" fs-[17px] font-medium  dark:hover:text-[#16a34a] hover:text-[#16a34a]">
+                <span className=" fs-[17px]">
                   Pages
                 </span>
                 <BsChevronDown
-                  className=" ml-2 font-extrabold  dark:hover:text-[#16a34a] hover:text-[#16a34a]"
+                  className=" ml-2 font-extrabold "
                   size={"0.8rem"}
                 />
                 <div
@@ -269,7 +316,7 @@ const Navbar = ({ pageType }) => {
                     <NavLink
                       to={"/list-sidebar"}
                       className={({ isActive }) =>
-                        isActive ? navActive : navNormal
+                        isActive ? dropdownNavActive : dropdownNavNormal
                       }
                     >
                       <li
@@ -282,7 +329,7 @@ const Navbar = ({ pageType }) => {
                     <NavLink
                       to={"/features"}
                       className={({ isActive }) =>
-                        isActive ? navActive : navNormal
+                        isActive ? dropdownNavActive : dropdownNavNormal
                       }
                     >
                       <li
@@ -295,7 +342,7 @@ const Navbar = ({ pageType }) => {
                     <NavLink
                       to={"/pricing"}
                       className={({ isActive }) =>
-                        isActive ? navActive : navNormal
+                        isActive ? dropdownNavActive : dropdownNavNormal
                       }
                     >
                       <li
@@ -308,7 +355,7 @@ const Navbar = ({ pageType }) => {
                     <NavLink
                       to={"/faqs"}
                       className={({ isActive }) =>
-                        isActive ? navActive : navNormal
+                        isActive ? dropdownNavActive : dropdownNavNormal
                       }
                     >
                       <li
