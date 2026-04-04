@@ -15,7 +15,7 @@ const Sell = () => {
 
   return (
     <section className=" pb-16 md:pb-24 dark:bg-slate-900">
-      <div className="mt-[70px]">
+      <div className="">
         {/*  hero section |  hero-img .css*/}
         <div
           className="relative w-full h-[378px] bg-no-repeat bg-[position:50%_20%] bg-cover"

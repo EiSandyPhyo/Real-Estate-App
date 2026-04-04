@@ -126,7 +126,7 @@ const App = () => {
             path={"/sell"}
             element={
               <>
-                <Navbar />
+                <Navbar pageType={"sell"}/>
                 <Sell properties={properties} />
                 <Footer />
               </>

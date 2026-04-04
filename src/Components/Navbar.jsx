@@ -141,7 +141,7 @@ const getLogo = () => {
     return theme === "dark" ? "whiteLogo" : "darkLogo";
   }
 
-  if (pageType === "buy") {
+  if (pageType === "buy" || pageType === "sell") {
     if (theme === "dark") {
       return "whiteLogo";
     }
@@ -158,7 +158,7 @@ const getLogo = () => {
       return "text-black dark:text-white font-medium";
     }
 
-    if (pageType === "buy") {
+    if (pageType === "buy" || pageType === "sell") {
       if (scrolled) {
         return "text-black dark:text-white font-medium";
       }
@@ -185,7 +185,7 @@ const dropdownNavActive = "text-green-600 font-bold dark:text-green-600";
         : "bg-transparent dark:bg-transparent shadow-none";
     }
 
-    if (pageType === "buy") {
+    if (pageType === "buy" || pageType === "sell") {
       return scrolled
         ? "myGlassBg dark:bg-[#0f172bcc] dark:shadow-gray-800 shadow-md"
         : "bg-transparent dark:bg-transparent shadow-none";
