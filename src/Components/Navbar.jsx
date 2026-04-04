@@ -13,7 +13,7 @@ import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { addTheme } from "../services/themeSlice";
 
-const Navbar = () => {
+const Navbar = ({ pageType }) => {
   const [showDeskMenu, setShowDeskMenu] = useState(false);
   const [showAni, setShowAni] = useState();
   const [showMenu, setShowMenu] = useState(false);
@@ -83,13 +83,66 @@ const Navbar = () => {
   };
   window.addEventListener("scroll", colorHandler);
 
+  const getNavNormalClass = () => {
+    if (pageType === "home") {
+      return "text-black dark:text-white font-medium";
+    }
+
+    if (pageType === "buy") {
+      if (scrolled) {
+        return "text-black dark:text-white font-medium";
+      }
+      return "text-white dark:text-white font-medium";
+    }
+
+    return "text-black dark:text-white font-medium";
+  };
+
   const navActive = "text-green-600 font-bold dark:text-green-600";
-  const navNormal = "text-black font-medium "; /* text-black font-medium dark:text-white */
+  const navNormal = getNavNormalClass();
 
-  /**
-   * Scrolls the window to the top of the page.
-   */
+  /* const navActive = "text-green-600 font-bold dark:text-green-600";
+  const navNormal = "text-black font-medium dark:text-white ";  */
 
+  const getNavbarClass = () => {
+    if (pageType === "home") {
+      return scrolled
+        ? "myGlassBg dark:bg-[#0f172bcc] dark:shadow-gray-800 shadow-md"
+        : "bg-transparent dark:bg-transparent shadow-none";
+    }
+
+    if (pageType === "buy") {
+      return scrolled
+        ? "myGlassBg dark:bg-[#0f172bcc] dark:shadow-gray-800 shadow-md"
+        : "bg-transparent dark:bg-transparent shadow-none";
+    }
+
+    return scrolled
+      ? "myGlassBg dark:bg-[#0f172bcc] dark:shadow-gray-800 shadow-md"
+      : "bg-transparent dark:bg-transparent shadow-none";
+  };
+
+  const getLogo = () => {
+    if (pageType === "home") {
+      if (document.documentElement.classList.contains("dark")) {
+        return "whiteLogo";
+      }
+      return "darkLogo";
+    }
+
+    if (pageType === "buy") {
+      if (document.documentElement.classList.contains("dark")) {
+        return "whiteLogo";
+      }
+      return scrolled ? "darkLogo" : "whiteLogo";
+    }
+
+    return "darkLogo";
+  };
+
+  const currentLogo = getLogo();
+
+  //Scrolls the window to the top of the page.
   const scrollYHandler = () => {
     window.scroll(0, 0);
   };
@@ -105,7 +158,6 @@ const Navbar = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    // cleanup
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   /*         <div
@@ -119,16 +171,14 @@ const Navbar = () => {
     <div>
       <div className="container-fluid h-fit" id="mystart">
         <div
-          className={`container-fluid w-full fixed top-0 z-50 transition-all duration-300 
-]
-      ${scrolled ? "myGlassBg dark:bg-[#0f172bcc] dark:shadow-gray-800  shadow-md nav_color" : "bg-transparent dark:bg-transparent shadow-none "}`}
+          className={`container-fluid w-full fixed top-0 z-50 transition-all duration-300 ${getNavbarClass()}`}
         >
           <div
             className={`container-2xl  py-4 flex justify-between items-center `}
           >
             <div className=" ml-4 md:ml-0">
               <Link to={"/home"}>
-                {scrolled ? (
+                {currentLogo === "whiteLogo" ? (
                   <img
                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGIAAAAcCAYAAACajWq/AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjhCNUREM0NGRTE5NzExRUNCNUVGQUE0RDEwQ0JBRjc4IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjhCNUREM0QwRTE5NzExRUNCNUVGQUE0RDEwQ0JBRjc4Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OEI1REQzQ0RFMTk3MTFFQ0I1RUZBQTREMTBDQkFGNzgiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OEI1REQzQ0VFMTk3MTFFQ0I1RUZBQTREMTBDQkFGNzgiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6wRp5pAAAGuElEQVR42uyaCWxUVRSG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"
                     height="24"
@@ -198,9 +248,10 @@ const Navbar = () => {
                     </span>
                   </li>
                 </Link> */}
+
               <li
                 onClick={() => setShowDeskMenu(!showDeskMenu)}
-                className=" w-fit h-[40px] flex justify-center items-center mx-3 cursor-pointer relative myliForDropDown"
+                className={`w-fit h-[40px] flex justify-center items-center mx-3 cursor-pointer relative myliForDropDown  $`}
               >
                 <span className=" fs-[17px] font-medium  dark:hover:text-[#16a34a] hover:text-[#16a34a]">
                   Pages
@@ -270,6 +321,7 @@ const Navbar = () => {
                   </ul>
                 </div>
               </li>
+
               <NavLink
                 to={"/aboutus"}
                 className={({ isActive }) => (isActive ? navActive : navNormal)}

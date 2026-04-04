@@ -54,35 +54,107 @@ const App = () => {
             path={"/home"}
             element={
               <>
-                <Navbar />
+                <Navbar pageType={"home"} />
                 <Home properties={properties} />
                 <Footer />
               </>
             }
           />
-               
-        <Route path="/pricing" element={<><Navbar/><Pricing /><Footer/></>} />
-        <Route path="/features" element={<><Navbar/><Features /><Footer/></>} />
-        <Route path="/faqs" element={<><Navbar/><Faqs /><Footer/></>} />
-        <Route path="/aboutus" element={<><Navbar/><About /><Footer/></>} />
-        <Route path="/contact" element={<><Navbar/><Contact /><Footer/></>} />
+
+          <Route
+            path="/pricing"
+            element={
+              <>
+                <Navbar />
+                <Pricing />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/features"
+            element={
+              <>
+                <Navbar />
+                <Features />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/faqs"
+            element={
+              <>
+                <Navbar />
+                <Faqs />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/aboutus"
+            element={
+              <>
+                <Navbar />
+                <About />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <>
+                <Navbar />
+                <Contact />
+                <Footer />
+              </>
+            }
+          />
 
           <Route
             path={"/buy"}
             element={
               <>
-                <Navbar />
+                <Navbar pageType={"buy"} />
                 <Buy properties={properties} />
                 <Footer />
               </>
             }
           />
-         <Route path={'/sell'} element={<><Navbar/><Sell properties={properties}/><Footer/></>}/>
-      <Route path={'/list-sidebar'} element={<><Navbar/><ListSidebar properties={properties}/><Footer/></>}/>
+          <Route
+            path={"/sell"}
+            element={
+              <>
+                <Navbar />
+                <Sell properties={properties} />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path={"/list-sidebar"}
+            element={
+              <>
+                <Navbar />
+                <ListSidebar properties={properties} />
+                <Footer />
+              </>
+            }
+          />
 
-      <Route path={'/detail/:id'} element={<><Navbar/><Detail properties={properties}/><Footer/></>}/>
+          <Route
+            path={"/detail/:id"}
+            element={
+              <>
+                <Navbar />
+                <Detail properties={properties} />
+                <Footer />
+              </>
+            }
+          />
 
-       {/* <Route path={'/*'} element={<><Error/></>}/> */}
+          {/* <Route path={'/*'} element={<><Error/></>}/> */}
         </Routes>
       </Suspense>
     </div>
