@@ -119,7 +119,7 @@ const Navbar = ({ pageType }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -177,7 +177,7 @@ const Navbar = ({ pageType }) => {
                 )}
               </Link>
             </div>
-            <ul className="hidden md:flex justify-end items-center mr-5 ">
+            <ul className="hidden md:flex justify-end items-center gap-5 lg:gap-10">
               {navItems.map((item, i) => (
                 <NavLink
                   key={i}
@@ -188,7 +188,7 @@ const Navbar = ({ pageType }) => {
                 >
                   <li
                     onClick={scrollYHandler}
-                    className=" w-[60px] h-[40px] flex justify-center items-center cursor-pointer"
+                    className="  h-[40px] flex justify-center items-center cursor-pointer"
                   >
                     <span className="fs-[17px] hover:text-[#16a34a] dark:hover:text-[#16a34a]">
                       {item.name}
@@ -199,7 +199,7 @@ const Navbar = ({ pageType }) => {
               {/* Pages Dropdown */}
               <li
                 onClick={() => setShowDeskMenu(!showDeskMenu)}
-                className={`w-fit h-[40px] flex justify-center items-center mx-3 cursor-pointer relative myliForDropDown  ${pageMenuClass}`}
+                className={`w-fit h-[40px] flex justify-center items-center cursor-pointer relative myliForDropDown  ${pageMenuClass}`}
               >
                 <span className=" fs-[17px]">Pages</span>
                 <BsChevronDown
@@ -222,7 +222,7 @@ const Navbar = ({ pageType }) => {
                       >
                         <li
                           onClick={scrollYHandler}
-                          className="fs-[17px]  dark:hover:text-[#16a34a] hover:text-[#16a34a] mb-2"
+                          className="fs-[17px]  dark:hover:text-[#16a34a] hover:text-[#16a34a] mb-2 hover:cursor-pointer"
                         >
                           {item.name}
                         </li>

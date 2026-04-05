@@ -2,7 +2,7 @@ export const navItems = [
   { name: "Home", path: "/home" },
   { name: "Buy", path: "/buy" },
   { name: "Sell", path: "/sell" },
-  { name: "AboutUs", path: "/aboutus" },
+  { name: "About", path: "/aboutus" },
   { name: "Contact", path: "/contact" },
 ];
 
