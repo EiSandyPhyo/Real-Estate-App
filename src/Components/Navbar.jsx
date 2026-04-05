@@ -63,7 +63,7 @@ const Navbar = ({ pageType }) => {
       if (theme === "dark") {
         return scrolled ? "whiteLogo" : "darkLogo";
       }
-      return "darkLogo";  
+      return "darkLogo";
     }
 
     return theme === "dark" ? "whiteLogo" : "darkLogo";
@@ -88,14 +88,11 @@ const Navbar = ({ pageType }) => {
     }
 
     if (pageType === "contact") {
-    if (theme === "dark") {
-      return scrolled
-        ? "text-white font-medium"
-        : "text-black font-medium";
+      if (theme === "dark") {
+        return scrolled ? "text-white font-medium" : "text-black font-medium";
+      }
+      return "text-black font-medium";
     }
-
-    return "text-black font-medium";
-  }
 
     return "text-black dark:text-white font-medium";
   };
@@ -129,10 +126,15 @@ const Navbar = ({ pageType }) => {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      setUparrow(window.scrollY > 1020);
+
+      //to go up
+      const showArrowAfter = window.innerHeight * 0.5;
+      setUparrow(window.scrollY > showArrowAfter);
     };
 
+    handleScroll(); // run once on load
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -160,7 +162,7 @@ const Navbar = ({ pageType }) => {
 
   return (
     <div>
-      <div className="container-fluid h-fit" id="mystart">
+      <div className="container-fluid h-fit">
         {/* blur and no scroll all page content when menu shown */}
         {isMobileMenuOpen && (
           <div
@@ -384,11 +386,17 @@ const Navbar = ({ pageType }) => {
 
         {/* Up-arrow Section Start*/}
         <div className={`${uparrow ? "block" : "hidden"}`}>
-          <a href="#mystart" className="duration-[1500ms]	">
-            <button className=" fixed right-3 bottom-[5%] w-10 h-10 p-2 fs-[17px] leading-[24px] border-0 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full z-50">
-              <BiUpArrowAlt size={"1.5rem"} />
-            </button>
-          </a>
+          <button
+            onClick={() =>
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              })
+            }
+            className=" fixed right-3 bottom-[5%] w-10 h-10 p-2 fs-[17px] leading-[24px] border-0 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full z-50"
+          >
+            <BiUpArrowAlt size={"1.5rem"} />
+          </button>
         </div>
         {/* Up-arrow Section End*/}
       </div>

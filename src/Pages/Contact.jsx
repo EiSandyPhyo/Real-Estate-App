@@ -103,7 +103,7 @@ const Contact = () => {
         </div>
 
         {/* phone,email,location */}
-        <div className="container-2xl mt-16 lg:mt-24">
+        <div className="container-2xl mt-16 lg:mt-24 xl:mb-12">
           <div className="grid-layout-3 mt-8">
             {workItems?.map((item) => {
               return (
