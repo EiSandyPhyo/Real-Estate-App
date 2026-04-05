@@ -1,36 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { BiUser } from "react-icons/bi";
+import { BiUser, BiUpArrowAlt } from "react-icons/bi";
 import { FiMenu } from "react-icons/fi";
-import { BsChevronDown } from "react-icons/bs";
-import { BsChevronUp } from "react-icons/bs";
-import { BsFillSunFill } from "react-icons/bs";
-import { BsMoon } from "react-icons/bs";
+import {
+  BsChevronDown,
+  BsChevronUp,
+  BsFillSunFill,
+  BsMoon,
+} from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
-import { BiUpArrowAlt } from "react-icons/bi";
 
 import { Link, NavLink } from "react-router-dom";
-import Cookies from "js-cookie";
-import { useDispatch } from "react-redux";
-import { addTheme } from "../services/themeSlice";
+
+import { useDispatch, useSelector } from "react-redux";
+import { setTheme, toggleTheme } from "../services/themeSlice";
+
+import { navItems, pageDropdown } from "../services/navbarData";
 
 const Navbar = ({ pageType }) => {
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.themeSlice.theme);
+
   const [showDeskMenu, setShowDeskMenu] = useState(false);
-  //const [showAni, setShowAni] = useState();
   const [showMenu, setShowMenu] = useState(false);
-  const [closeMenu, setCloseMenu] = useState(false);
+  //const [closeMenu, setCloseMenu] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); //burger
   const [uparrow, setUparrow] = useState();
   const [scrolled, setScrolled] = useState(false);
-  const [theme, setTheme] = useState("light");
 
-  const dispatch = useDispatch();
-
-    useEffect(() => {
-    const savedTheme = Cookies.get("theme");
-
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-  }, []);
+  const showAni = theme === "light";
 
   useEffect(() => {
     if (theme === "dark") {
@@ -38,122 +35,40 @@ const Navbar = ({ pageType }) => {
     } else {
       document.documentElement.classList.remove("dark");
     }
-      Cookies.set("theme", theme, { expires: 30 });
-    //dispatch(addTheme({ theme: theme }));
-    //console.log("dispatch", theme);
-   // const Theme = JSON.parse(Cookies.get("theme"));
-   // console.log(" After Theme", Theme.theme);
-
-   // console.log("Show ani", showAni);
   }, [theme]);
 
-  useEffect(() => {
-  const handleScroll = () => {
-    setScrolled(window.scrollY > 50); //when scroll - 50px - change navbar bg color
-    setUparrow(window.scrollY > 1020); //when scroll - 1020px reach - show up arrow to scroll to top
-  };
-
-  window.addEventListener("scroll", handleScroll);
-
-  return () => window.removeEventListener("scroll", handleScroll);
-}, []);
-
-  /* 
-  const changeAni = () => {
-    const Theme = JSON.parse(Cookies.get("theme"));
-    if (Theme.theme == "light") {
-      setShowAni(true);
-    } else if (Theme.theme == "dark") {
-      setShowAni(false);
-    }
-  };
-
   const changeMood = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-    const Theme = JSON.parse(Cookies.get("theme"));
-    changeAni();
+    dispatch(toggleTheme());
   };
 
   const changeDark = () => {
-    setTheme("dark");
-    const Theme = JSON.parse(Cookies.get("theme"));
-    console.log("changedark", Theme);
-    changeAni();
+    dispatch(setTheme("dark"));
   };
 
   const changeLight = () => {
-    setTheme("light");
-    const Theme = JSON.parse(Cookies.get("theme"));
-    console.log("changelight", Theme);
-    changeAni();
-  }; */
-
-  const changeMood = () => {
-  setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-};
-
-const changeDark = () => {
-  setTheme("dark");
-};
-
-const changeLight = () => {
-  setTheme("light");
-};
-
-const showAni = theme === "light";
-
-
-
-  /*** 90Yoffset -> change bg color ***/
-/*   const [color, setColor] = useState(false);
-  const colorHandler = () => {
-    if (window.pageYOffset >= 90) {
-      setColor(true);
-    } else {
-      setColor(false);
-    }
-    if (window.scrollY > 1020) {
-      setUparrow(true);
-    } else {
-      setUparrow(false);
-    }
+    dispatch(setTheme("light"));
   };
-  window.addEventListener("scroll", colorHandler); */
 
-/*     useEffect(() => {
-    function handleScroll() {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+  const getLogo = () => {
+    if (pageType === "home") {
+      return theme === "dark" ? "whiteLogo" : "darkLogo";
     }
 
-    window.addEventListener("scroll", handleScroll);
+    if (pageType === "buy" || pageType === "sell") {
+      if (theme === "dark") return "whiteLogo";
+      return scrolled ? "darkLogo" : "whiteLogo";
+    }
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
- */
-
-
-const getLogo = () => {
-  if (pageType === "home") {
     return theme === "dark" ? "whiteLogo" : "darkLogo";
-  }
-
-  if (pageType === "buy" || pageType === "sell") {
-    if (theme === "dark") {
-      return "whiteLogo";
-    }
-    return scrolled ? "darkLogo" : "whiteLogo";
-  }
-
-  return theme === "dark" ? "whiteLogo" : "darkLogo";
-};
+  };
 
   const currentLogo = getLogo();
 
-    const getNavNormalClass = () => {
+  const getNavNormalClass = () => {
+    if (isMobileMenuOpen) {
+      return "text-black dark:text-white font-medium";
+    }
+
     if (pageType === "home") {
       return "text-black dark:text-white font-medium";
     }
@@ -162,7 +77,7 @@ const getLogo = () => {
       if (scrolled) {
         return "text-black dark:text-white font-medium";
       }
-      return "text-white dark:text-white font-medium";
+      return "text-white dark:text-white font-medium"; /* text-black md:text-white */
     }
 
     return "text-black dark:text-white font-medium";
@@ -172,11 +87,9 @@ const getLogo = () => {
   const navNormal = getNavNormalClass();
 
   const pageMenuClass = `${navNormal} hover:text-[#16a34a] dark:hover:text-[#16a34a]`;
-const dropdownNavNormal = "text-black dark:text-white font-medium";
-const dropdownNavActive = "text-green-600 font-bold dark:text-green-600";
 
-  /* const navActive = "text-green-600 font-bold dark:text-green-600";
-  const navNormal = "text-black font-medium dark:text-white ";  */
+  const dropdownNavNormal = "text-black dark:text-white font-medium";
+  const dropdownNavActive = "text-green-600 font-bold dark:text-green-600";
 
   const getNavbarClass = () => {
     if (pageType === "home") {
@@ -196,33 +109,56 @@ const dropdownNavActive = "text-green-600 font-bold dark:text-green-600";
       : "bg-transparent dark:bg-transparent shadow-none";
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+      setUparrow(window.scrollY > 1020);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+    useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isMobileMenuOpen]);
+
   //Scrolls the window to the top of the page.
   const scrollYHandler = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setCloseMenu(false);
+    setIsMobileMenuOpen(false);
     setShowDeskMenu(false);
     setShowMenu(false);
   };
 
-
-
   console.log(theme);
-  /*         <div
-          className={` ${
-            color
-              ? "container-fluid w-full myGlassBg dark:bg-slate-900 fixed top-0  h-[70px] z-50 nav_color "
-              : "container-fluid w-full myGlassBg dark:bg-[#0F262E] fixed top-0  h-[70px] z-50"
-          }`} 
-        > */
+
   return (
     <div>
       <div className="container-fluid h-fit" id="mystart">
+        {/* blur and no scroll all page content when menu shown */}
+        {isMobileMenuOpen && (
+          <div
+            className="fixed inset-0 bg-black/40 dark:bg-black/50 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300"
+            onClick={() => setIsMobileMenuOpen(false)}
+          ></div>
+        )}
+
         <div
           className={`container-fluid w-full fixed top-0 z-50 transition-all duration-300 ${getNavbarClass()}`}
         >
           <div
             className={`container-2xl  py-4 flex justify-between items-center `}
           >
+            {/* Desktop view Start*/}
             <div className=" ml-4 md:ml-0">
               <Link to={"/home"}>
                 {currentLogo === "whiteLogo" ? (
@@ -242,67 +178,30 @@ const dropdownNavActive = "text-green-600 font-bold dark:text-green-600";
               </Link>
             </div>
             <ul className="hidden md:flex justify-end items-center mr-5 ">
-              <NavLink
-                to={"/home"}
-                className={({ isActive }) => (isActive ? navActive : navNormal)}
-              >
-                <li
-                  onClick={scrollYHandler}
-                  className=" w-[60px] h-[40px] flex justify-center items-center cursor-pointer"
+              {navItems.map((item, i) => (
+                <NavLink
+                  key={i}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    isActive ? navActive : navNormal
+                  }
                 >
-                  <span className="fs-[17px] hover:text-[#16a34a] dark:hover:text-[#16a34a]">
-                    Home
-                  </span>
-                </li>
-              </NavLink>
-              <NavLink
-                to={"/buy"}
-                className={({ isActive }) => (isActive ? navActive : navNormal)}
-              >
-                <li
-                  onClick={scrollYHandler}
-                  className=" w-[60px] h-[40px] flex justify-center items-center cursor-pointer"
-                >
-                  <span className="fs-[17px] hover:text-[#16a34a] dark:hover:text-[#16a34a]">
-                    Buy
-                  </span>
-                </li>
-              </NavLink>
-              <NavLink
-                to={"/sell"}
-                className={({ isActive }) => (isActive ? navActive : navNormal)}
-              >
-                <li
-                  onClick={scrollYHandler}
-                  className=" w-[60px] h-[40px] flex justify-center items-center cursor-pointer"
-                >
-                  <span className="fs-[17px] hover:text-[#16a34a] dark:hover:text-[#16a34a]">
-                    Sell
-                  </span>
-                </li>
-              </NavLink>
-              {/* <Link to={"/buy"}>
-                  <li onClick={scrollYHandler} className=" w-[60px] h-[40px] flex justify-center items-center mx-3 cursor-pointer">
-                    <span className=" fs-[17px] font-medium dark:text-white dark:hover:text-[#16a34a]  hover:text-[#16a34a]">
-                    Buy
+                  <li
+                    onClick={scrollYHandler}
+                    className=" w-[60px] h-[40px] flex justify-center items-center cursor-pointer"
+                  >
+                    <span className="fs-[17px] hover:text-[#16a34a] dark:hover:text-[#16a34a]">
+                      {item.name}
                     </span>
                   </li>
-                </Link> */}
-              {/* <Link to={"/sell"}>
-                  <li onClick={scrollYHandler} className=" w-[60px] h-[40px] flex justify-center items-center mx-3 cursor-pointer">
-                    <span className=" fs-[17px] font-medium text-black  dark:text-white dark:hover:text-[#16a34a]  hover:text-[#16a34a]">
-                      Sell
-                    </span>
-                  </li>
-                </Link> */}
-
+                </NavLink>
+              ))}
+              {/* Pages Dropdown */}
               <li
                 onClick={() => setShowDeskMenu(!showDeskMenu)}
                 className={`w-fit h-[40px] flex justify-center items-center mx-3 cursor-pointer relative myliForDropDown  ${pageMenuClass}`}
               >
-                <span className=" fs-[17px]">
-                  Pages
-                </span>
+                <span className=" fs-[17px]">Pages</span>
                 <BsChevronDown
                   className=" ml-2 font-extrabold "
                   size={"0.8rem"}
@@ -313,91 +212,29 @@ const dropdownNavActive = "text-green-600 font-bold dark:text-green-600";
                   }  bg-white w-[150px] absolute top-[38px] left-0 shadow-lg p-5 rounded-md dark:bg-[#0F172A] z-50`}
                 >
                   <ul>
-                    <NavLink
-                      to={"/list-sidebar"}
-                      className={({ isActive }) =>
-                        isActive ? dropdownNavActive : dropdownNavNormal
-                      }
-                    >
-                      <li
-                        onClick={scrollYHandler}
-                        className="fs-[17px]  dark:hover:text-[#16a34a] hover:text-[#16a34a] mb-2"
+                    {pageDropdown.map((item, i) => (
+                      <NavLink
+                        key={i}
+                        to={item.path}
+                        className={({ isActive }) =>
+                          isActive ? dropdownNavActive : dropdownNavNormal
+                        }
                       >
-                        List Side bar
-                      </li>
-                    </NavLink>
-                    <NavLink
-                      to={"/features"}
-                      className={({ isActive }) =>
-                        isActive ? dropdownNavActive : dropdownNavNormal
-                      }
-                    >
-                      <li
-                        onClick={scrollYHandler}
-                        className="fs-[17px]  dark:hover:text-[#16a34a] hover:text-[#16a34a] mb-2"
-                      >
-                        Features
-                      </li>
-                    </NavLink>
-                    <NavLink
-                      to={"/pricing"}
-                      className={({ isActive }) =>
-                        isActive ? dropdownNavActive : dropdownNavNormal
-                      }
-                    >
-                      <li
-                        onClick={scrollYHandler}
-                        className="fs-[17px]  dark:hover:text-[#16a34a] hover:text-[#16a34a] mb-2"
-                      >
-                        Pricing
-                      </li>
-                    </NavLink>
-                    <NavLink
-                      to={"/faqs"}
-                      className={({ isActive }) =>
-                        isActive ? dropdownNavActive : dropdownNavNormal
-                      }
-                    >
-                      <li
-                        onClick={scrollYHandler}
-                        className="fs-[17px] dark:hover:text-[#16a34a] hover:text-[#16a34a] mb-2"
-                      >
-                        FAQs
-                      </li>
-                    </NavLink>
+                        <li
+                          onClick={scrollYHandler}
+                          className="fs-[17px]  dark:hover:text-[#16a34a] hover:text-[#16a34a] mb-2"
+                        >
+                          {item.name}
+                        </li>
+                      </NavLink>
+                    ))}
                   </ul>
                 </div>
               </li>
-
-              <NavLink
-                to={"/aboutus"}
-                className={({ isActive }) => (isActive ? navActive : navNormal)}
-              >
-                <li
-                  onClick={scrollYHandler}
-                  className=" w-fit h-[40px] flex justify-center items-center mx-3 cursor-pointer relative myliForDropDown"
-                >
-                  <span className=" fs-[17px] dark:hover:text-[#16a34a] hover:text-[#16a34a]">
-                    About us
-                  </span>
-                </li>
-              </NavLink>
-              <NavLink
-                to={"/contact"}
-                className={({ isActive }) => (isActive ? navActive : navNormal)}
-              >
-                <li
-                  onClick={scrollYHandler}
-                  className=" w-[60px] h-[40px] flex justify-center items-center mx-3 cursor-pointer"
-                >
-                  <span className=" fs-[17px] dark:hover:text-[#16a34a] hover:text-[#16a34a]">
-                    Contact
-                  </span>
-                </li>
-              </NavLink>
             </ul>
-            {/* Login Icon Section Start*/}
+            {/* Desktop view End*/}
 
+            {/* Mobile view Start*/}
             <div className=" flex justify-end items-start">
               <Link to={"/"}>
                 <button className=" w-10 h-10 p-2 fs-[17px] leading-[24px] border-0 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full ">
@@ -410,175 +247,95 @@ const dropdownNavActive = "text-green-600 font-bold dark:text-green-600";
                 </button>
               </Link>
 
-              <div className=" block md:hidden  myliForDropDown">
+              <div className=" block md:hidden myliForDropDown">
                 <button
-                  onClick={() => setCloseMenu(!closeMenu)}
-                  className="w-10 h-30 p-2 leading-[24px] border-0 text-black mx-1 "
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="w-10 h-30 p-2 leading-[24px] border-0  mx-1 "
                 >
-                  {closeMenu ? (
+                  {isMobileMenuOpen ? (
                     <AiOutlineClose
                       size={"1rem"}
-                      className="text-black dark:text-white"
+                      className={getNavNormalClass()}
                     />
                   ) : (
-                    <FiMenu
-                      size={"1rem"}
-                      className="text-black dark:text-white"
-                    />
+                    <FiMenu size={"1rem"} className={getNavNormalClass()} />
                   )}
                 </button>
+
+                {/* mobile menu section start */}
                 <div
                   className={` ${
-                    closeMenu ? "block" : "hidden"
-                  } bg-white absolute top-[68px] right-0 p-5  rounded-md w-[80%] shadow-xl dark:bg-[#0F172A] `}
+                    isMobileMenuOpen ? "block" : "hidden"
+                    //} bg-white absolute top-[68px] right-0 px-5 pt-5 pb-3 rounded-md w-full shadow-xl dark:bg-[#0F172A] `}
+                  } bg-white fixed top-[68px] left-0 w-full px-5 pt-5 pb-3 shadow-xl dark:bg-[#0F172A] z-50`}
                 >
                   <ul>
-                    <NavLink
-                      to={"/home"}
-                      className={({ isActive }) =>
-                        isActive ? navActive : navNormal
-                      }
-                    >
-                      <li
-                        onClick={scrollYHandler}
-                        className="fs-[17px] hover:text-[#16a34a] mb-2"
+                    {navItems.map((item, i) => (
+                      <NavLink
+                        key={i}
+                        to={item.path}
+                        className={({ isActive }) =>
+                          isActive ? navActive : navNormal
+                        }
                       >
-                        Home
-                      </li>
-                    </NavLink>
-                    <NavLink
-                      to={"/buy"}
-                      className={({ isActive }) =>
-                        isActive ? navActive : navNormal
-                      }
-                    >
+                        <li
+                          onClick={scrollYHandler}
+                          className="fs-[17px] hover:text-[#16a34a] mb-2"
+                        >
+                          <span className="fs-[17px] hover:text-[#16a34a] dark:hover:text-[#16a34a]">
+                            {item.name}
+                          </span>
+                        </li>
+                      </NavLink>
+                    ))}
+
+                    <div>
                       <li
-                        onClick={scrollYHandler}
-                        className="fs-[17px] hover:text-[#16a34a] mb-2"
+                        className={`flex justify-between items-center fs-[17px] font-medium hover:text-[#16a34a] mb-2  mt-2 ${pageMenuClass}`}
                       >
-                        Buy
-                      </li>
-                    </NavLink>
-                    <NavLink
-                      to={"/sell"}
-                      className={({ isActive }) =>
-                        isActive ? navActive : navNormal
-                      }
-                    >
-                      <li
-                        onClick={scrollYHandler}
-                        className="fs-[17px] hover:text-[#16a34a] mb-2"
-                      >
-                        Sell
-                      </li>
-                    </NavLink>
-                    <NavLink
-                      to={"/aboutus"}
-                      className={({ isActive }) =>
-                        isActive ? navActive : navNormal
-                      }
-                    >
-                      <li
-                        onClick={scrollYHandler}
-                        className="fs-[17px] hover:text-[#16a34a] mb-2"
-                      >
-                        About us
-                      </li>
-                    </NavLink>
-                    <div className=" ">
-                      <li className="flex justify-between items-center fs-[17px] font-medium hover:text-[#16a34a] mb-2 text-black dark:text-white">
                         Pages
                         {showMenu ? (
                           <BsChevronUp
                             onClick={() => setShowMenu(false)}
-                            className="text-black dark:text-white font-medium"
                             size={"1rem"}
                           />
                         ) : (
                           <BsChevronDown
                             onClick={() => setShowMenu(true)}
-                            className="text-black dark:text-white font-medium"
                             size={"1rem"}
                           />
                         )}
                       </li>
+
                       <ul
                         className={`${
                           showMenu ? "block" : "hidden"
                         } bg-white dark:bg-slate-900`}
                       >
-                        <NavLink
-                          to={"/list-sidebar"}
-                          className={({ isActive }) =>
-                            isActive ? navActive : navNormal
-                          }
-                        >
-                          <li
-                            onClick={scrollYHandler}
-                            className="ml-5 fs-[17px] hover:text-[#16a34a] mb-2"
+                        {pageDropdown.map((item, i) => (
+                          <NavLink
+                            key={i}
+                            to={item.path}
+                            className={({ isActive }) =>
+                              isActive ? dropdownNavActive : dropdownNavNormal
+                            }
                           >
-                            Listing
-                          </li>
-                        </NavLink>
-                        <NavLink
-                          to={"/features"}
-                          className={({ isActive }) =>
-                            isActive ? navActive : navNormal
-                          }
-                        >
-                          <li
-                            onClick={scrollYHandler}
-                            className=" ml-5 fs-[17px] hover:text-[#16a34a] mb-2"
-                          >
-                            Features
-                          </li>
-                        </NavLink>
-                        <NavLink
-                          to={"/pricing"}
-                          className={({ isActive }) =>
-                            isActive ? navActive : navNormal
-                          }
-                        >
-                          <li
-                            onClick={scrollYHandler}
-                            className=" ml-5 fs-[17px] hover:text-[#16a34a] mb-2"
-                          >
-                            Pricing
-                          </li>
-                        </NavLink>
-                        <NavLink
-                          to={"/faqs"}
-                          className={({ isActive }) =>
-                            isActive ? navActive : navNormal
-                          }
-                        >
-                          <li
-                            onClick={scrollYHandler}
-                            className=" ml-5 fs-[17px] hover:text-[#16a34a] mb-2"
-                          >
-                            FAQs
-                          </li>
-                        </NavLink>
+                            <li
+                              onClick={scrollYHandler}
+                              className="fs-[17px] ml-5 dark:hover:text-[#16a34a] hover:text-[#16a34a] mb-2"
+                            >
+                              {item.name}
+                            </li>
+                          </NavLink>
+                        ))}
                       </ul>
                     </div>
-                    <NavLink
-                      to={"/contact"}
-                      className={({ isActive }) =>
-                        isActive ? navActive : navNormal
-                      }
-                    >
-                      <li
-                        onClick={scrollYHandler}
-                        className="fs-[17px] hover:text-[#16a34a]"
-                      >
-                        Contact
-                      </li>
-                    </NavLink>
                   </ul>
                 </div>
+                {/* mobile menu section end */}
               </div>
             </div>
-            {/* Login Icon Section End*/}
+            {/* Mobile view End*/}
           </div>
         </div>
 
@@ -609,7 +366,6 @@ const dropdownNavActive = "text-green-600 font-bold dark:text-green-600";
         {/* dark mode Section End*/}
 
         {/* Up-arrow Section Start*/}
-
         <div className={`${uparrow ? "block" : "hidden"}`}>
           <a href="#mystart" className="duration-[1500ms]	">
             <button className=" fixed right-3 bottom-[5%] w-10 h-10 p-2 fs-[17px] leading-[24px] border-0 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full z-50">
