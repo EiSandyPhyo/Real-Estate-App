@@ -385,7 +385,13 @@ const Navbar = ({ pageType }) => {
         {/* dark mode Section End*/}
 
         {/* Up-arrow Section Start*/}
-        <div className={`${uparrow ? "block" : "hidden"}`}>
+        <div
+          className={`fixed right-3 bottom-[5%] transition-all duration-300 ${
+            uparrow
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-75 pointer-events-none"
+          }`}
+        >
           <button
             onClick={() =>
               window.scrollTo({
@@ -393,7 +399,7 @@ const Navbar = ({ pageType }) => {
                 behavior: "smooth",
               })
             }
-            className=" fixed right-3 bottom-[5%] w-10 h-10 p-2 fs-[17px] leading-[24px] border-0 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full z-50"
+            className="w-10 h-10 p-2 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full shadow-lg z-50"
           >
             <BiUpArrowAlt size={"1.5rem"} />
           </button>
