@@ -71,7 +71,7 @@ const Buy = ({ properties }) => {
       {/* 6 Tabs */}
       <div className="container-2xl mt-16 lg:mt-24">
         <div className="grid-layout-2 mt-8">
-          <div className="md:col-span-5 lg:col-span-4 dark:bg-slate-900 sticky top-20 self-start">
+          <div className="md:col-span-5 lg:col-span-4 dark:bg-slate-900 self-start">
             <ul className="p-6 border shadow-sm rounded-md overflow-hidden dark:shadow-gray-700">
               {processTabs.map((item) => (
                 <li key={item.id} onClick={() => toggleHandler(item.id)}>

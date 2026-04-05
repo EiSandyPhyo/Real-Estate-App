@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaCompressArrowsAlt } from "react-icons/fa";
 import { IoBedOutline } from "react-icons/io5";
 import { LuBath } from "react-icons/lu";
+import { RxHeart, RxHeartFilled } from "react-icons/rx";
+
+import { Link } from "react-router-dom";
+
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import RatingStars from "./RatingStars";
-import { RxHeart, RxHeartFilled } from "react-icons/rx";
+import Pagination from "./Pagination";
+
 import PlaceholderImage from "../images/blurImg.png";
-import { Link } from "react-router-dom";
 
 const FeatureProperties = ({
   properties,
@@ -14,8 +18,12 @@ const FeatureProperties = ({
   limit,
   showToggle = true,
 }) => {
+  const sectionRef = useRef(null);
+
   const [heartFill, setHeartFill] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(9);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(9);
 
   let filteredProperties = properties || []; // let - to reassign
 
@@ -29,22 +37,51 @@ const FeatureProperties = ({
     filteredProperties = filteredProperties.slice(0, limit);
   }
 
-  const showMore = () => {
-    setVisibleCount((prev) => prev + 9);
+  // responsive items per page
+  const getItemsPerPage = () => {
+    const width = window.innerWidth;
+
+    if (width < 640) return 5; // mobile
+    if (width < 1024) return 6; // tablet
+    return 9; // desktop
   };
 
-  const showLess = () => {
-    setVisibleCount(9);
-    window.scrollTo({
-      top: 0,
+  // resize detect
+  useEffect(() => {
+    const handleResize = () => {
+      setItemsPerPage(getItemsPerPage());
+      setCurrentPage(1); // reset page when resize
+    };
+
+    setItemsPerPage(getItemsPerPage());
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+
+    sectionRef.current?.scrollIntoView({
       behavior: "smooth",
+      block: "start",
     });
   };
 
-  const visibleProperties = filteredProperties.slice(0, visibleCount);
+  // slice data
+  const totalItems = filteredProperties.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const visibleProperties = filteredProperties.slice(startIndex, endIndex);
 
   return (
-    <div className="container-2xl mt-16 lg:mt-24 dark:bg-slate-900">
+    <div
+      ref={sectionRef}
+      className="container-2xl mt-16 lg:mt-24 dark:bg-slate-900"
+    >
       <div className="flex-center-center flex-col pb-8">
         <h1 className="sub-header  dark:text-white">Featured Properties</h1>
         <p className="paragraph">
@@ -52,6 +89,7 @@ const FeatureProperties = ({
           agent or commissions.
         </p>
       </div>
+
       {/* cards */}
       <div className="grid-layout-3 mt-8">
         {visibleProperties.map((property) => {
@@ -133,28 +171,13 @@ const FeatureProperties = ({
         })}
       </div>
 
-      {/* show more and show less */}
-
+      {/* pagination */}
       {showToggle && (
-        <div className="flex justify-center mt-8 gap-4">
-          {visibleCount < properties.length && (
-            <button
-              onClick={showMore}
-              className="px-6 py-2 rounded-md bg-green-600 text-white hover:bg-green-700"
-            >
-              Show More
-            </button>
-          )}
-
-          {visibleCount > 10 && (
-            <button
-              onClick={showLess}
-              className="px-6 py-2 rounded-md border border-slate-300 text-slate-700 hover:bg-slate-100"
-            >
-              Show Less
-            </button>
-          )}
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       )}
     </div>
   );
