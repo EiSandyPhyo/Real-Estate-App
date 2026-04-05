@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import { BiSearchAlt } from "react-icons/bi";
 import { BsPlayFill } from "react-icons/bs";
-import { BsTelephone } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 
 import FeatureSlider from "../Components/FeatureSlider";
@@ -46,9 +45,10 @@ const Home = ({ properties }) => {
         {/* Hero Section Start*/}
         <div className=" container-fluid lg:h-screen pb-30  bg-[#E7F6ED]  dark:bg-[#13252F] ">
           <div className=" container-2xl mx-auto flex flex-col lg:flex-row justify-between items-center h-fit md:h-screen mb-10 pt-32 lg:pt-10 bg-[#E7F6ED] dark:bg-[#13252F] ">
+            {/* Left Side */}
             <div className=" basis-5/12 my-10 ">
               <div className="px-2 ">
-                <h1 className=" text-4xl font-extrabold text-black dark:text-white leading-loose mb-6	text-center lg:text-left ">
+                <h1 className="text-3xl lg:text-4xl xl:text-5xl font-extrabold text-black dark:text-white leading-normal lg:leading-normal mb-6	text-center lg:text-left ">
                   Find Your
                   <span className=" text-[#16a34a]">
                     {" "}
@@ -57,12 +57,13 @@ const Home = ({ properties }) => {
                   Home
                   <br />
                 </h1>
-                <p className=" text-slate-400 mb-8 font-[17px] tracking-wide text-center lg:text-left">
-                  A great plateform to buy, sell and rent your properties
-                  without any agent or commisions.
+                <p className=" text-slate-400 mb-8 text-lg tracking-wide text-center lg:text-left">
+                  A great platform to buy, sell and rent your properties without
+                  any agent or commissions.
                 </p>
               </div>
 
+              {/* Button Section */}
               <div className="px-2">
                 <div className="w-[100%] bg-white dark:bg-slate-900 dark:text-white text-black  rounded-t-xl px-6 py-4 h-fit flex justify-center lg:justify-start items-center lg:w-fit">
                   <button
@@ -114,22 +115,25 @@ const Home = ({ properties }) => {
                 </div>
               </div>
             </div>
-            <div className="  basis-5/12 my-10 mx-2 lg:mx-3">
+
+            {/* Right Side */}
+            <div className="  basis-5/12 mb-10 mx-2 lg:mx-3">
               <div className=" relative w-fit z-0">
                 <img
                   src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
                   alt=""
-                  className=" border-[15px] rounded-t-full border-white dark:border-black lg:w-[500px]  h-[600px] object-cover object-center  " /* md:h-[600px] h-[440px] */
+                  className=" border-[15px] rounded-t-full border-white dark:border-slate-900 lg:w-[500px] h-[440px]  lg:h-[500px] xl:h-[600px] object-cover object-center  "
                 />
-                <div className=" absolute z-10 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center item-end w-[70px] h-[70px] border-none rounded-full changeLight bg-white dark:bg-black">
+                <div className=" absolute z-10 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center item-end w-[70px] h-[70px] border-none rounded-full changeLight bg-white dark:bg-slate-900">
                   <button onClick={() => setShowHomeIframe(true)} className="">
-                    <BsPlayFill color="#16a34a" size={"2rem"} />
+                    <BsPlayFill color="#16a34a" size={"1.2rem"} />
                   </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
         <div className={` ${showHomeIframe ? "" : "hidden"} z-50 `}>
           <div
             className={`absolute inset-0 bg-black opacity-60 w-screen h-[2500px] xl:h-[5000px] z-20`}
@@ -167,14 +171,14 @@ const Home = ({ properties }) => {
                 <img
                   className=" rounded-xl w-full h-[400px] lg:h-[550px]"
                   src="https://images.unsplash.com/photo-1460317442991-0ec209397118"
-                  alt=""
+                  alt="efficiency section image"
                 />
                 <div
                   onClick={() => setShowIframe(true)}
-                  className=" dark:bg-black absolute z-10 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center item-end w-[70px] h-[70px] border-2 rounded-full changeLight bg-white"
+                  className=" dark:bg-slate-900 absolute z-10 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center item-end w-[70px] h-[70px]  rounded-full changeLight bg-white"
                 >
                   <button className="">
-                    <BsPlayFill color="#16a34a" size={"2rem"} />
+                    <BsPlayFill color="#16a34a" size={"1.2rem"} />
                   </button>
                 </div>
               </div>

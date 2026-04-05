@@ -340,7 +340,7 @@ const Navbar = ({ pageType }) => {
         </div>
 
         {/* dark mode Section Start*/}
-        <div className=" w-14 h-8 overflow-hidden fixed top-[40%] left-0 z-50  flex flex-col justify-center items-center bg-slate-900 dark:bg-white rounded-2xl rotate-90">
+        <div className=" w-14 h-8 overflow-hidden fixed top-1/3 md:top-1/3 lg:top-1/4 xl:top-[40%] left-0 z-50  flex flex-col justify-center items-center bg-slate-900 dark:bg-white rounded-2xl rotate-90">
           <div className="w-14 h-7 flex justify-center items-center	relative">
             <button
               onClick={changeMood}
