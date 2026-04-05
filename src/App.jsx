@@ -95,7 +95,7 @@ const App = () => {
             path="/aboutus"
             element={
               <>
-                <Navbar />
+                <Navbar pageType={"aboutus"} />
                 <About />
                 <Footer />
               </>
@@ -126,7 +126,7 @@ const App = () => {
             path={"/sell"}
             element={
               <>
-                <Navbar pageType={"sell"}/>
+                <Navbar pageType={"sell"} />
                 <Sell properties={properties} />
                 <Footer />
               </>

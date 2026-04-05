@@ -1,77 +1,68 @@
 import React, { useEffect, useState } from "react";
-import { BsPlayFill } from "react-icons/bs";
-import { AiOutlineClose } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
+import { RxDotFilled } from "react-icons/rx";
+
+import Efficiency from "../Components/Efficiency";
 import HowItWorks from "../Components/HowItWorks";
 import GetInTouch from "../Components/GetInTouch";
+import AgentTeam from "../Components/AgentTeam";
+
+import testimonials from "../services/testimonials";
 
 const About = () => {
-  const slides = [
-    {
-      id: 1,
-      img: "https://hously-landing.vercel.app/static/media/01.6ac85de7298319b1f8d5.jpg",
-      personName: "Calvin Carlo",
-      job: "Manager",
-      text: " Hously made the processes so easy. Hously instantly increased the amount of interest and ultimately saved us over $10,000. ",
-    },
-    {
-      id: 2,
-      img: "https://hously-landing.vercel.app/static/media/02.7df14e12e444ad660802.jpg",
-      personName: "Christa Smith",
-      job: "Manager",
-      text: " I highly recommend Hously as the new way to sell your home 'by owner'. My home sold in 24 hours for the asking price. Best $400 you could spend to sell your home. ",
-    },
-    {
-      id: 3,
-      img: "https://hously-landing.vercel.app/static/media/04.35463172278c4051b5f4.jpg",
-      personName: "Christina Jalk",
-      job: "Manager",
-      text: " My favorite part about selling my home myself was that we got to meet and get to know the people personally. This made it so much more enjoyable! ",
-    },
-    {
-      id: 4,
-      img: "https://hously-landing.vercel.app/static/media/03.ba5f8794c055cc1488b5.jpg",
-      personName: "Lily June",
-      job: "Manager",
-      text: " Great experience all around! Easy to use and efficient. ",
-    },
-  ];
-
   const [showIframe, setShowIframe] = useState(false);
   const [current, setCurrent] = useState(0);
+  const [itemsPerView, setItemsPerView] = useState(3);
 
-  const next = () => {
-    setCurrent((current) => (current === slides.length - 1 ? 0 : current + 1)); //0 === 4-1 ? 0 : 0+1 //1
-  };
+  /*   const next = () => {
+    setCurrent((current) => (current === testimonials.length - 1 ? 0 : current + 1)); //0 === 4-1 ? 0 : 0+1 //1
+  }; */
 
-  const [autoSlide, setAutoSlide] = useState(true);
-  const autoSlideInterval = 3000;
-
+  // responsive
   useEffect(() => {
-    if (!autoSlide) {
-      return;
-    } else {
-      const slideInterval = setInterval(next, autoSlideInterval);
-      return () => clearInterval(slideInterval);
-    }
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setItemsPerView(1);
+      } else if (window.innerWidth < 1024) {
+        setItemsPerView(2);
+      } else {
+        setItemsPerView(3);
+      }
+      setCurrent(0);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const goToSlide = (slideIndex) => {
-    setCurrent(slideIndex);
-  };
+  // auto slide
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) =>
+        prev >= testimonials.length - itemsPerView ? 0 : prev + 1,
+      );
+    }, 3000);
 
-  console.log(autoSlide);
-  console.log(current);
+    return () => clearInterval(interval);
+  }, [testimonials.length, itemsPerView]);
+
+  console.log("current: " + current);
 
   return (
     <section className=" pb-16 md:pb-24 dark:bg-slate-900">
-      <div className="mt-[70px] dark:bg-slate-900">
-        {/*  hero section */}
-        <div className="hero-img">
-          <div className="bg-dark-opacity"></div>
+      <div className="">
+        {/*  hero section |  hero-img .css*/}
+        <div
+          className="relative w-full h-[378px] bg-no-repeat bg-[position:50%_20%] bg-cover"
+          style={{
+            backgroundImage: `url("https://images.unsplash.com/photo-1505843513577-22bb7d21e455")`,
+          }}
+        >
+          <div className="absolute inset-0 bg-slate-900/70"></div>
           <div className="relative px-12">
             <div className="flex-center-center h-[378px]">
-              <h2 className="header">about us</h2>
+              <h2 className="header">About Us</h2>
             </div>
           </div>
         </div>
@@ -91,76 +82,48 @@ const About = () => {
         </div>
       </div>
 
-      {/* Efficiency Section Start*/}
-      <div className="container-fluid h-fit">
-        <div className="container-2xl  mx-auto relative flex flex-col lg:flex-row justify-between items-center py-10 lg:my-20 dark:bg-slate-900  lg:px-62">
-          <div className=" basis-5/12 relative mb-5">
-            <div className=" relative ">
-              <img
-                className=" rounded-xl w-full h-[400px] lg:h-[550px]"
-                src="	https://hously-landing.vercel.app/static/media/about.f67dcc77d84a6e14d5de.jpg"
-                alt=""
-              />
-              <div
-                onClick={() => setShowIframe(true)}
-                className=" dark:bg-black absolute z-10 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center item-end w-[70px] h-[70px] border-2 rounded-full changeLight bg-white"
-              >
-                <button className="">
-                  <BsPlayFill color="#16a34a" size={"2rem"} />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className=" basis-6/12 mb-5 my-10 px-4">
-            <div className="">
-              <h1 className=" text-2xl md:text-3xl mb-3 text-black dark:text-white font-medium">
-                Efficiency. Transparency. <br />
-                Control.
-              </h1>
-              <p className=" text-slate-400 mb-3">
-                Hously developed a platform for the Real Estate marketplace that
-                allows buyers and sellers to easily execute a transaction on
-                their own. The platform drives efficiency, cost transparency and
-                control into the hands of the consumers. Hously is Real Estate
-                Redefined.
-              </p>
-              <button className="btn flex-center-center gap-2 px-7 py-2 mt-6">
-                Learn More
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={` ${showIframe ? "" : "hidden"} z-50 `}>
-        <div
-          className={`absolute inset-0 bg-black opacity-60 w-screen h-[2500px] xl:h-[5000px] z-20`}
-        ></div>
-        <div className="">
-          <iframe
-            width="560"
-            height="315"
-            src={`${
-              showIframe ? "https://www.youtube.com/embed/yba7hPeTSjk" : ""
-            }`}
-            title="YouTube video player"
-            allow=" web-share"
-            className={` ${
-              showIframe ? "" : "hidden"
-            } z-50  fixed top-[50%] right-[10%] md:right-[50%] md:translate-x-[50%] translate-y-[-50%] w-[80%] lg:w-[50%]`}
-          ></iframe>
-          <button
-            onClick={() => setShowIframe(false)}
-            className={`fixed top-[26%] lg:top-[20%] right-[9%] lg:right-[22%] w-10 h-10 p-2 border-0 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full mx-1 z-50 `}
-          >
-            <AiOutlineClose size={"1.5rem"} color="white" />
-          </button>
-        </div>
-      </div>
-
-      {/* Efficiency Section End*/}
+      {/* Efficiency Section*/}
+      <Efficiency showIframe={showIframe} setShowIframe={setShowIframe} />
 
       {/* how it works */}
       <HowItWorks />
+
+      {/* like parallax image scroll section */}
+      <div
+        className="relative bg-fixed bg-cover bg-center bg-no-repeat h-[459px] md:h-[281px] lg:h-[320px] flex items-center mt-16 lg:mt-24"
+        style={{
+          backgroundImage:
+            'url("https://images.unsplash.com/photo-1505843513577-22bb7d21e455?auto=format&fit=crop&w=1600&q=80")',
+        }} /* https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80 */
+      >
+        <div className="absolute inset-0 bg-slate-900/50"></div>
+
+        <div className="relative z-10 max-w-6xl md:max-w-4xl lg:max-w-5xl mx-auto w-full px-11 md:px-15 lg:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center text-white">
+            <div>
+              <h2 className="text-4xl md:text-4xl lg:text-5xl font-semibold">
+                1,548+
+              </h2>
+              <p className="mt-4 text-lg font-medium">Properties Sell</p>
+            </div>
+            <div>
+              <h2 className="text-4xl md:text-4xl lg:text-5xl font-semibold">
+                25+
+              </h2>
+              <p className="mt-4 text-lg font-medium">Award Gained</p>
+            </div>
+            <div>
+              <h2 className="text-4xl md:text-4xl lg:text-5xl font-semibold">
+                9+
+              </h2>
+              <p className="mt-4 text-lg font-medium">Years Experience</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* meet the agent section */}
+      <AgentTeam />
 
       {/* what our client say */}
       <div className="container-2xl mt-16 lg:mt-24 mb-20 dark:bg-slate-900">
@@ -172,57 +135,60 @@ const About = () => {
           </p>
         </div>
 
-        <div className="flex-center-center mt-8">
-          <div className="relative lg:w-1/3 md:w-1/2 w-full">
-            {" "}
-            {/* max-w-lg w-400*/}
-            <div className="">
-              {" "}
-              {/* tiny-single-item */}
-              <div className=" overflow-hidden">
-                <div className="text-center">
-                  <p className="text-xl text-slate-400 h-[110px] italic">
-                    {` " ` + slides[current].text + ` " `}
-                  </p>
-                  <div className="text-center mt-5">
-                    <ul className="text-xl font-medium text-amber-400 list-none mb-2">
-                      {[...Array(5)].map((_, index) => (
-                        <li className="inline-flex ms-1" key={index}>
-                          <AiFillStar />
-                        </li>
-                      ))}
-                    </ul>
-                    <div
-                      style={{ backgroundImage: `url(${slides[current].img})` }}
-                      className="  bg-center bg-cover transition-transform ease-out duration-500 h-14 w-14 rounded-full shadow-md dark:shadow-gray-700 mx-auto"
-                    ></div>
-                    <h6 className="mt-4 lg:mt-2 fw-semibold dark:text-white">
-                      {slides[current].personName}
-                    </h6>
-                    <span className="text-slate-400 text-sm">
-                      {slides[current].job}
-                    </span>
-                  </div>
+        {/* slider */}
+        <div className="overflow-hidden mt-10">
+          <div
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{
+              transform: `translateX(-${(100 / itemsPerView) * current}%)`,
+            }}
+          >
+            {testimonials.map((item, index) => (
+              <div
+                key={index}
+                className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0"
+              >
+                <div className="text-center p-6">
+                  <p className="text-slate-400 italic">{`"${item.text}"`}</p>
+
+                  <ul className="flex justify-center text-amber-400 mt-4">
+                    {[...Array(5)].map((_, i) => (
+                      <li key={i}>
+                        <AiFillStar />
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div
+                    style={{ backgroundImage: `url(${item.img})` }}
+                    className="  bg-center bg-cover duration-500 h-14 w-14 rounded-full shadow-md  mx-auto mt-4"
+                  ></div>
+
+                  <h6 className="mt-4 fw-semibold dark:text-white">
+                    {item.personName}
+                  </h6>
+                  <span className="text-slate-400 text-sm">{item.job}</span>
                 </div>
               </div>
-              <div className="flex-center-center mt-5">
-                <div className="flex-center-center gap-2">
-                  {slides.map((_, i) => {
-                    return (
-                      <div
-                        onClick={() => goToSlide(i)}
-                        className={` transition-all w-1 h-1 bg-green-600 rounded-full cursor-pointer ${
-                          current === i ? "p-[5px]" : " bg-opacity-50"
-                        }
-                                `}
-                        key={i}
-                      ></div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
+        </div>
+
+        {/* dots */}
+        <div className="flex justify-center mt-6">
+          {Array.from({
+            length: testimonials.length - itemsPerView + 1,
+          }).map((_, i) => (
+            <div key={i} onClick={() => setCurrent(i)}>
+              <RxDotFilled
+                className={`transition-all duration-300 cursor-pointer ${
+                  current === i
+                    ? "text-green-500 scale-150"
+                    : "text-slate-300 scale-75"
+                }`}
+              />
+            </div>
+          ))}
         </div>
       </div>
 

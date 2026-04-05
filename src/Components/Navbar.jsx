@@ -54,7 +54,7 @@ const Navbar = ({ pageType }) => {
       return theme === "dark" ? "whiteLogo" : "darkLogo";
     }
 
-    if (pageType === "buy" || pageType === "sell") {
+    if (pageType === "buy" || pageType === "sell" || pageType === "aboutus") {
       if (theme === "dark") return "whiteLogo";
       return scrolled ? "darkLogo" : "whiteLogo";
     }
@@ -73,7 +73,7 @@ const Navbar = ({ pageType }) => {
       return "text-black dark:text-white font-medium";
     }
 
-    if (pageType === "buy" || pageType === "sell") {
+    if (pageType === "buy" || pageType === "sell" || pageType === "aboutus") {
       if (scrolled) {
         return "text-black dark:text-white font-medium";
       }
@@ -98,7 +98,7 @@ const Navbar = ({ pageType }) => {
         : "bg-transparent dark:bg-transparent shadow-none";
     }
 
-    if (pageType === "buy" || pageType === "sell") {
+    if (pageType === "buy" || pageType === "sell" || pageType === "aboutus") {
       return scrolled
         ? "myGlassBg dark:bg-[#0f172bcc] dark:shadow-gray-800 shadow-md"
         : "bg-transparent dark:bg-transparent shadow-none";

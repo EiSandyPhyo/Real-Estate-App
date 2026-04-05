@@ -53,21 +53,11 @@ const FeatureSlider = () => {
             </p>
             <div className="text-center mt-5 ">
               <ul className="text-xl font-medium text-amber-400 list-none mb-2">
-                <li className="inline-flex ms-1">
-                  <AiFillStar />
-                </li>
-                <li className="inline-flex ms-1">
-                  <AiFillStar />
-                </li>
-                <li className="inline-flex ms-1">
-                  <AiFillStar />
-                </li>
-                <li className="inline-flex ms-1">
-                  <AiFillStar />
-                </li>
-                <li className="inline-flex ms-1">
-                  <AiFillStar />
-                </li>
+                {[...Array(5)].map((_, i) => (
+                  <li key={i} className="inline-flex ms-1">
+                    <AiFillStar />
+                  </li>
+                ))}
               </ul>
               <div
                 style={{
