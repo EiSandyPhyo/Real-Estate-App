@@ -2,12 +2,32 @@ import React, { useState } from "react";
 import { LuHexagon } from "react-icons/lu";
 import { Icon } from "@iconify/react";
 
+import contactus from "../images/contactus.svg";
+
 const Contact = () => {
-    const [workItems, setWorkItems] = useState([
-        { id: 1, name: "Phone", icon: "uil:phone", desc: "The phrasal sequence of the is now so that many campaign and benefit", info: "+152 534-468-854"},
-        { id: 2, name: "Email", icon: "uil:envelope", desc: "The phrasal sequence of the is now so that many campaign and benefit", info: "contact@example.com" },
-        { id: 3, name: "Location", icon: "uil:map-marker", desc: "C/54 Northwest Freeway, Suite 558,Houston, USA 485", info: "View on Google map"},
-      ]);
+  const workItems = [
+    {
+      id: 1,
+      name: "Phone",
+      icon: "uil:phone",
+      desc: "The phrasal sequence of the is now so that many campaign and benefit",
+      info: "+152 534-468-854",
+    },
+    {
+      id: 2,
+      name: "Email",
+      icon: "uil:envelope",
+      desc: "The phrasal sequence of the is now so that many campaign and benefit",
+      info: "contact@example.com",
+    },
+    {
+      id: 3,
+      name: "Location",
+      icon: "uil:map-marker",
+      desc: "C/54 Northwest Freeway, Suite 558,Houston, USA 485",
+      info: "View on Google map",
+    },
+  ];
   return (
     <div>
       <div className="container-fluid mt-20">
@@ -22,12 +42,12 @@ const Contact = () => {
           <div className="grid-layout-2 items-center mt-8">
             <div className="md:col-span-6 lg:col-span-7">
               <img
-                src="https://hously-landing.vercel.app/static/media/contact.9a5ddc68f4f732b0d302408faa525a9d.svg"
-                alt=""
+                src={contactus}
+                className="w-full h-full object-cover"
+                alt="get in touch"
               />
             </div>
             <div className="md:col-span-6 lg:col-span-5 ">
-              {/* <div className="border-1 shadow-lg px-16 py-6 md:px-16 md:py-6"> */}
               <div className="bg-white dark:bg-slate-900 rounded-md shadow dark:shadow-gray-700 p-6">
                 <h1 className="h1 dark:text-white">Get in touch !</h1>
                 <form action="">
@@ -52,22 +72,24 @@ const Contact = () => {
                     </div>
                   </div>
                   <div className="mt-4">
-                    <p className="paragraph-3 dark:text-white">Your Questions:</p>
+                    <p className="paragraph-3 dark:text-white">
+                      Your Questions:
+                    </p>
                     <input
-                        name="search"
-                        type="text"
-                        className="border border-gray-200 rounded overflow-hidden dark:border-slate-800  focus:outline-none form-box-3 dark:bg-slate-900 dark:text-white"
-                        placeholder="Subject:"
-                      />
+                      name="search"
+                      type="text"
+                      className="border border-gray-200 rounded overflow-hidden dark:border-slate-800  focus:outline-none form-box-3 dark:bg-slate-900 dark:text-white"
+                      placeholder="Subject:"
+                    />
                   </div>
                   <div className="mt-4">
                     <p className="paragraph-3 dark:text-white">Your Comment:</p>
                     <textarea
-                        name="search"
-                        type="text"
-                        className="border border-gray-200 rounded overflow-hidden dark:border-slate-800  focus:outline-none form-box-3 dark:bg-slate-900 dark:text-white h-24"
-                        placeholder="Message:"
-                      />
+                      name="search"
+                      type="text"
+                      className="border border-gray-200 rounded overflow-hidden dark:border-slate-800  focus:outline-none form-box-3 dark:bg-slate-900 dark:text-white h-24"
+                      placeholder="Message:"
+                    />
                   </div>
                   <div className="mt-4">
                     <button className="btn px-5 py-2 sm:px-7 sm:py-[12px] md:px-6 md:py-2 my-1">
@@ -82,34 +104,36 @@ const Contact = () => {
 
         {/* phone,email,location */}
         <div className="container-2xl mt-16 lg:mt-24">
-        <div className="grid-layout-3 mt-8">
-        {workItems?.map((item) => {
-          const IconComponent = item.icon;
-          return (
-            <div className="lg:px-8" key={item.id}>
-              <div className="relative">
-                <LuHexagon
-                  className=" w-32 h-32 text-[#f3faf6] mx-auto dark:text-slate-900 fill-[#f3faf6] dark:fill-[#0F1e2c]"
-                />
-                <div className="absolute center-h-v ">
-                  <Icon icon={item.icon} className=" text-4xl text-green-600" />
+          <div className="grid-layout-3 mt-8">
+            {workItems?.map((item) => {
+              return (
+                <div className="lg:px-8" key={item.id}>
+                  <div className="relative">
+                    <LuHexagon className=" w-32 h-32 text-[#f3faf6] mx-auto dark:text-slate-900 fill-[#f3faf6] dark:fill-[#0F1e2c]" />
+                    <div className="absolute center-h-v ">
+                      <Icon
+                        icon={item.icon}
+                        className=" text-4xl text-green-600"
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-6">
+                    <h2 className="sub-header-2 text-center  dark:text-white">
+                      {item.name}
+                    </h2>
+                    <p className="paragraph mt-3">{item.desc}</p>
+                  </div>
+                  <div className="mt-6">
+                    <p className=" paragraph-4 mt-3  ">
+                      <span className=" pb-1 cursor-pointer transition duration-150 border-b-[1px] border-transparent hover:border-green-600">
+                        {item.info}
+                      </span>
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="mt-6">
-                <h2 className="sub-header-2 text-center  dark:text-white">{item.name}</h2>
-                <p className="paragraph mt-3">
-                  {item.desc}
-                </p>
-              </div>
-              <div className="mt-6">
-              <p className=" paragraph-4 mt-3  ">
-                  <span className=" pb-1 cursor-pointer transition duration-150 border-b-[1px] border-transparent hover:border-green-600">{item.info}</span>
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+              );
+            })}
+          </div>
         </div>
       </section>
     </div>

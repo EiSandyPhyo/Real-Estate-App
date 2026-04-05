@@ -105,7 +105,7 @@ const App = () => {
             path="/contact"
             element={
               <>
-                <Navbar />
+                <Navbar pageType={"contact"}/>
                 <Contact />
                 <Footer />
               </>

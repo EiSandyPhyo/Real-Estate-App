@@ -59,6 +59,13 @@ const Navbar = ({ pageType }) => {
       return scrolled ? "darkLogo" : "whiteLogo";
     }
 
+    if (pageType === "contact") {
+      if (theme === "dark") {
+        return scrolled ? "whiteLogo" : "darkLogo";
+      }
+      return "darkLogo";  
+    }
+
     return theme === "dark" ? "whiteLogo" : "darkLogo";
   };
 
@@ -79,6 +86,16 @@ const Navbar = ({ pageType }) => {
       }
       return "text-white dark:text-white font-medium"; /* text-black md:text-white */
     }
+
+    if (pageType === "contact") {
+    if (theme === "dark") {
+      return scrolled
+        ? "text-white font-medium"
+        : "text-black font-medium";
+    }
+
+    return "text-black font-medium";
+  }
 
     return "text-black dark:text-white font-medium";
   };
