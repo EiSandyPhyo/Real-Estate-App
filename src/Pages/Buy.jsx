@@ -113,7 +113,7 @@ const Buy = ({ properties }) => {
               <input
                 type="text"
                 className="border border-none focus:outline-none w-48 xs:w-[250px] sm:w-96 md:w-[400px] text-sm md:text-lg p-2 dark:bg-slate-900"
-                placeholder="City OR Property Type"
+                placeholder="Search UK properties (e.g. London, Villa)"
                 value={searchWord}
                 onChange={(e) => setSearchWord(e.target.value)}
                 required

@@ -28,6 +28,11 @@ const Contact = () => {
       info: "View on Google map",
     },
   ];
+
+  const handleSubmit = (e) => {
+  e.preventDefault();
+};
+
   return (
     <div>
       <div className="container-fluid mt-20">
@@ -50,12 +55,12 @@ const Contact = () => {
             <div className="md:col-span-6 lg:col-span-5 ">
               <div className="bg-white dark:bg-slate-900 rounded-md shadow dark:shadow-gray-700 p-6">
                 <h1 className="h1 dark:text-white">Get in touch !</h1>
-                <form action="">
+                <form action="" onSubmit={handleSubmit}>
                   <div className="flex flex-col md:flex-row gap-4 mt-6">
                     <div>
                       <p className="paragraph-3 dark:text-white">Your Name:</p>
                       <input
-                        name="search"
+                        name="name"
                         type="text"
                         className="border border-gray-200 rounded overflow-hidden dark:border-slate-800  focus:outline-none form-box-3 dark:bg-slate-900 dark:text-white"
                         placeholder="Name:"
@@ -64,7 +69,7 @@ const Contact = () => {
                     <div>
                       <p className="paragraph-3 dark:text-white">Your Email:</p>
                       <input
-                        name="search"
+                        name="email"
                         type="text"
                         className="border border-gray-200 rounded overflow-hidden dark:border-slate-800  focus:outline-none form-box-3 dark:bg-slate-900 dark:text-white"
                         placeholder="Email:"
@@ -76,7 +81,7 @@ const Contact = () => {
                       Your Questions:
                     </p>
                     <input
-                      name="search"
+                      name="question"
                       type="text"
                       className="border border-gray-200 rounded overflow-hidden dark:border-slate-800  focus:outline-none form-box-3 dark:bg-slate-900 dark:text-white"
                       placeholder="Subject:"
@@ -85,14 +90,14 @@ const Contact = () => {
                   <div className="mt-4">
                     <p className="paragraph-3 dark:text-white">Your Comment:</p>
                     <textarea
-                      name="search"
+                      name="comment"
                       type="text"
                       className="border border-gray-200 rounded overflow-hidden dark:border-slate-800  focus:outline-none form-box-3 dark:bg-slate-900 dark:text-white h-24"
                       placeholder="Message:"
                     />
                   </div>
                   <div className="mt-4">
-                    <button className="btn px-5 py-2 sm:px-7 sm:py-[12px] md:px-6 md:py-2 my-1">
+                    <button type="submit" className="btn px-5 py-2 sm:px-7 sm:py-[12px] md:px-6 md:py-2 my-1">
                       Send Message
                     </button>
                   </div>
