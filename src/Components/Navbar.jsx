@@ -9,25 +9,38 @@ import {
 } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setTheme, toggleTheme } from "../services/themeSlice";
 
 import { navItems, pageDropdown } from "../services/navbarData";
 
-const Navbar = ({ pageType }) => {
+const Navbar = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.themeSlice.theme);
 
   const [showDeskMenu, setShowDeskMenu] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  //const [closeMenu, setCloseMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); //burger
   const [uparrow, setUparrow] = useState();
   const [scrolled, setScrolled] = useState(false);
 
   const showAni = theme === "light";
+
+  const location = useLocation();
+  const currentPath = location.pathname;
+  console.log(currentPath);
+
+  const isHomePage = currentPath === "/home";
+  const isBuyPage = currentPath === "/buy";
+  const isSellPage = currentPath === "/sell";
+  const isAboutPage = currentPath === "/aboutus";
+  const isContactPage = currentPath === "/contact";
+
+  const pagesRoutes = ["/features", "/pricing", "/faqs"];
+  const isPagesPage = pagesRoutes.includes(currentPath);
+  console.log(isPagesPage);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -50,16 +63,16 @@ const Navbar = ({ pageType }) => {
   };
 
   const getLogo = () => {
-    if (pageType === "home") {
+    if (isHomePage) {
       return theme === "dark" ? "whiteLogo" : "darkLogo";
     }
 
-    if (pageType === "buy" || pageType === "sell" || pageType === "aboutus") {
+    if (isBuyPage || isSellPage || isAboutPage || isPagesPage) {
       if (theme === "dark") return "whiteLogo";
       return scrolled ? "darkLogo" : "whiteLogo";
     }
 
-    if (pageType === "contact") {
+    if (isContactPage) {
       if (theme === "dark") {
         return scrolled ? "whiteLogo" : "darkLogo";
       }
@@ -76,18 +89,18 @@ const Navbar = ({ pageType }) => {
       return "text-black dark:text-white font-medium";
     }
 
-    if (pageType === "home") {
+    if (isHomePage) {
       return "text-black dark:text-white font-medium";
     }
 
-    if (pageType === "buy" || pageType === "sell" || pageType === "aboutus") {
+    if (isBuyPage || isSellPage || isAboutPage || isPagesPage) {
       if (scrolled) {
         return "text-black dark:text-white font-medium";
       }
       return "text-white dark:text-white font-medium"; /* text-black md:text-white */
     }
 
-    if (pageType === "contact") {
+    if (isContactPage) {
       if (theme === "dark") {
         return scrolled ? "text-white font-medium" : "text-black font-medium";
       }
@@ -100,19 +113,21 @@ const Navbar = ({ pageType }) => {
   const navActive = "text-green-600 font-bold dark:text-green-600";
   const navNormal = getNavNormalClass();
 
-  const pageMenuClass = `${navNormal} hover:text-[#16a34a] dark:hover:text-[#16a34a]`;
+  const pageMenuClass = `${
+    isPagesPage ? "text-green-600 font-bold dark:text-green-600" : navNormal
+  } hover:text-[#16a34a] dark:hover:text-[#16a34a]`;
 
   const dropdownNavNormal = "text-black dark:text-white font-medium";
   const dropdownNavActive = "text-green-600 font-bold dark:text-green-600";
 
   const getNavbarClass = () => {
-    if (pageType === "home") {
+    if (isHomePage) {
       return scrolled
         ? "myGlassBg dark:bg-[#0f172bcc] dark:shadow-gray-800 shadow-md"
         : "bg-transparent dark:bg-transparent shadow-none";
     }
 
-    if (pageType === "buy" || pageType === "sell" || pageType === "aboutus") {
+    if (isBuyPage || isSellPage || isAboutPage || isPagesPage) {
       return scrolled
         ? "myGlassBg dark:bg-[#0f172bcc] dark:shadow-gray-800 shadow-md"
         : "bg-transparent dark:bg-transparent shadow-none";
@@ -228,7 +243,7 @@ const Navbar = ({ pageType }) => {
                 <div
                   className={` ${
                     showDeskMenu ? "" : "hidden"
-                  }  bg-white w-[150px] absolute top-[38px] left-0 shadow-lg p-5 rounded-md dark:bg-[#0F172A] z-50`}
+                  }  bg-white w-[150px] absolute top-[38px] left-0 shadow-lg p-5 rounded-md dark:bg-[#0f172b] dark:shadow-gray-800 z-50 `}
                 >
                   <ul>
                     {pageDropdown.map((item, i) => (

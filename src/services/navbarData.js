@@ -7,7 +7,7 @@ export const navItems = [
 ];
 
 export const pageDropdown = [
-  { name: "List Side bar", path: "/list-sidebar" },
+  //{ name: "List Side bar", path: "/list-sidebar" },
   { name: "Features", path: "/features" },
   { name: "Pricing", path: "/pricing" },
   { name: "FAQs", path: "/faqs" },

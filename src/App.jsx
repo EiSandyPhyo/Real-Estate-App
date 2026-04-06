@@ -54,7 +54,7 @@ const App = () => {
             path={"/home"}
             element={
               <>
-                <Navbar pageType={"home"} />
+                <Navbar />
                 <Home properties={properties} />
                 <Footer />
               </>
@@ -95,7 +95,7 @@ const App = () => {
             path="/aboutus"
             element={
               <>
-                <Navbar pageType={"aboutus"} />
+                <Navbar />
                 <About />
                 <Footer />
               </>
@@ -105,7 +105,7 @@ const App = () => {
             path="/contact"
             element={
               <>
-                <Navbar pageType={"contact"}/>
+                <Navbar />
                 <Contact />
                 <Footer />
               </>
@@ -116,7 +116,7 @@ const App = () => {
             path={"/buy"}
             element={
               <>
-                <Navbar pageType={"buy"} />
+                <Navbar />
                 <Buy properties={properties} />
                 <Footer />
               </>
@@ -126,7 +126,7 @@ const App = () => {
             path={"/sell"}
             element={
               <>
-                <Navbar pageType={"sell"} />
+                <Navbar />
                 <Sell properties={properties} />
                 <Footer />
               </>
