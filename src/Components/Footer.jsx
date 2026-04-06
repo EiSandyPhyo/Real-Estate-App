@@ -127,9 +127,11 @@ const Footer = () => {
                     </p>
 
                     {item.extra && (
-                      <span className="cursor-pointer text-[#16a34a] mb-2">
-                        {item.extra}
-                      </span>
+                      <Link to={"/contact"} onClick={scrollYHandler}>
+                        <span className="cursor-pointer text-[#16a34a] mb-2 ">
+                          {item.extra}
+                        </span>
+                      </Link>
                     )}
                   </div>
                 </div>

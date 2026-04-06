@@ -34,7 +34,7 @@ export const footerLinks = [
     title: "Useful Links",
     links: [
       { name: "Features", path: "/features" },
-      { name: "Listing", path: "/list-sidebar" },
+      { name: "Sell", path: "/sell" },
       { name: "Contact", path: "/contact" },
     ],
   },
