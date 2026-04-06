@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import FeatureProperties from "../Components/FeatureProperties";
 import HowItWorks from "../Components/HowItWorks";
@@ -9,6 +9,58 @@ const Buy = ({ properties }) => {
   const [toggle, setToggle] = useState(1);
   const toggleHandler = (id) => {
     setToggle(id);
+  };
+
+  const [searchWord, setSearchWord] = useState("");
+  const [searchLabel, setSearchLabel] = useState("");
+  const [filteredProperties, setFilteredProperties] = useState(properties);
+
+  // Update filteredProperties when properties change
+  useEffect(() => {
+    setSearchWord("");
+    setSearchLabel("");
+    setFilteredProperties(properties);
+  }, [properties]);
+
+  // Filter properties based on keyword
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    const keyword = searchWord.trim().toLowerCase(); // remove leading/trailing spaces
+
+    // If keyword is empty, show all properties
+    if (!keyword) {
+      setFilteredProperties(properties);
+      //setSearchLabel(""); // reset title
+      return;
+    }
+
+    const filtered = properties.filter((item) => {
+      return (
+        item.city.toLowerCase().includes(keyword) ||
+        item.property_type.toLowerCase().includes(keyword)
+      );
+    });
+
+    setFilteredProperties(filtered);
+
+    // set label ONLY after search click
+    if (filtered.length === 0) {
+      setSearchLabel(searchWord);
+      return;
+    }
+
+    const firstMatchedItem = filtered[0];
+
+    if (firstMatchedItem.city.toLowerCase().includes(keyword)) {
+      setSearchLabel(firstMatchedItem.city);
+    } else if (firstMatchedItem.property_type.toLowerCase().includes(keyword)) {
+      setSearchLabel(firstMatchedItem.property_type);
+    } else {
+      setSearchLabel(searchWord);
+    }
+
+    return;
   };
 
   return (
@@ -46,13 +98,20 @@ const Buy = ({ properties }) => {
       {/* search box section */}
       <div className="flex-center-center -translate-y-full lg:-translate-y-2/3 xl:-translate-y-1/2  px-3">
         <div className=" md:w-[672px] shadow-lg rounded-md z-10 bg-white dark:bg-slate-900 dark:shadow-gray-800">
-          <form action="" className="flex-between-center gap-2 pl-4 pr-1">
+          <form
+            onSubmit={handleSearch}
+            action=""
+            className="flex-between-center gap-2 pl-4 pr-1"
+          >
             <div className="flex-center-center gap-1 dark:text-white">
               <BiSearchAlt className="text-xl sm:text-2xl" />
               <input
                 type="text"
                 className="border border-none focus:outline-none w-48 xs:w-[250px] sm:w-96 md:w-[400px] text-sm md:text-lg p-2 dark:bg-slate-900"
-                placeholder="City, Address, Zip :"
+                placeholder="City OR Property Type"
+                value={searchWord}
+                onChange={(e) => setSearchWord(e.target.value)}
+                required
               />
             </div>
             <button className="btn px-5 py-2 sm:px-7 sm:py-[12px] md:px-6 md:py-2 my-1">
@@ -63,7 +122,27 @@ const Buy = ({ properties }) => {
       </div>
 
       {/* feature properties section */}
-      <FeatureProperties properties={properties} />
+      {filteredProperties.length > 0 ? (
+        <FeatureProperties
+          properties={filteredProperties}
+          searchLabel={searchLabel}
+        />
+      ) : (
+        <div className="container-2xl mt-0 lg:mt-5 flex justify-center items-center gap-1">
+          <p className=" text-sm md:text-xl dark:text-white">
+            No properties found. Try a different search.
+          </p>
+          <button
+            onClick={() => {
+              setFilteredProperties(properties);
+              setSearchWord("");
+            }}
+            className="btn px-2 py-1 md:px-3 md:py-1"
+          >
+            Reset
+          </button>
+        </div>
+      )}
 
       {/* How It Works */}
       <HowItWorks />

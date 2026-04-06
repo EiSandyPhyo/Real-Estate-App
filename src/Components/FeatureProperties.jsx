@@ -14,6 +14,7 @@ import PlaceholderImage from "../images/blurImg.png";
 
 const FeatureProperties = ({
   properties,
+  searchLabel,
   propertyType,
   limit,
   showToggle = true,
@@ -77,13 +78,20 @@ const FeatureProperties = ({
 
   const visibleProperties = filteredProperties.slice(startIndex, endIndex);
 
+  console.log(properties);
+  console.log(searchLabel);
+  /* <button disabled={!searchTerm.trim()}> */
   return (
     <div
       ref={sectionRef}
       className="container-2xl mt-16 lg:mt-24 dark:bg-slate-900"
     >
       <div className="flex-center-center flex-col pb-8">
-        <h1 className="sub-header  dark:text-white">Featured Properties</h1>
+        <h1 className="sub-header  dark:text-white">
+          {searchLabel.trim()
+            ? `Results for "${searchLabel}"`
+            : "Featured Properties"}
+        </h1>
         <p className="paragraph">
           A great platform to buy, sell and rent your properties without any
           agent or commissions.
