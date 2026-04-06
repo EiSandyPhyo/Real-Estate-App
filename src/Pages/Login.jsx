@@ -6,12 +6,14 @@ const Login = () => {
   return (
     <div className=" container-fluid snow-bg myParent duration-[40000ms]">
       <div className="z-1 relative w-screen h-screen overflow-hidden">
-        <div className="myImg absolute w-screen h-screen bg-center bg-cover bg-[url('https://hously-react.vercel.app/static/media/5.289f490cebbaef2f5f58.jpg')]">
-        <div className="absolute inset-0 bg-black opacity-30 "></div>
+        <div className="myImg absolute w-screen h-screen bg-center bg-cover bg-[url('https://images.unsplash.com/photo-1505843513577-22bb7d21e455')]">
+          {" "}
+          {/* ?auto=format&fit=crop&w=1600&q=80 */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-900 "></div>
         </div>
 
         <div className=" h-screen flex flex-col justify-center items-center ">
-          <form className=" p-6 w-[350px] md:w-[400px] m-3 z-10 bg-white border rounded-lg">
+          <form className=" p-6 w-[350px] md:w-[400px] m-3 z-10 bg-white border rounded-lg shadow-lg shadow-gray-500">
             <div className="flex justify-center mb-5">
               <img
                 className=" "
@@ -21,26 +23,24 @@ const Login = () => {
             </div>
             <span className=" mb-5 font-semibold	text-xl block ">Login</span>
             <div className="mb-3 flex flex-col gap-3">
-
-            <label className=" font-medium">Email Address:</label>
-            <input
-              defaultValue={"john@gmail.com"}
-              type="text"
-              placeholder="name@example.com"
-              className=" px-3 py-2 w-full border-2 mb-3 myBorderColor"
-            />
+              <label className=" font-medium">Email Address:</label>
+              <input
+                defaultValue={"john@gmail.com"}
+                type="text"
+                placeholder="name@example.com"
+                className=" px-3 py-2 w-full border-2 mb-3 myBorderColor"
+              />
             </div>
             <div className="mb-3 flex flex-col gap-3">
-
-            <label className=" font-medium">Password:</label>
-            <input
-              defaultValue={"john123"}
-              type="text"
-              placeholder="Password"
-              className=" px-3 py-2 w-full border-2 mb-3 myBorderColor"
-            />
+              <label className=" font-medium">Password:</label>
+              <input
+                defaultValue={"john123"}
+                type="text"
+                placeholder="Password"
+                className=" px-3 py-2 w-full border-2 mb-3 myBorderColor"
+              />
             </div>
-            
+
             <div className=" flex justify-between items-center mb-3">
               <div>
                 <input
@@ -54,9 +54,11 @@ const Login = () => {
                 </label>
               </div>
 
-              <Link to="/forgetPW">
+              <span className=" text-slate-400">Forget password?</span>
+
+              {/* <Link to="/forgetPW">
                 <span className=" text-slate-400">Forget password?</span>
-              </Link>
+              </Link> */}
             </div>
             <Link to={"/home"}>
               <button className=" mb-3 p-2 w-full fs-[17px] leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-lg">
@@ -66,9 +68,10 @@ const Login = () => {
 
             <p className="	flex justify-center mb-3">
               <span className=" text-slate-400">Don't have an account?</span>
-              <Link to={"/signup"}>
+              <span className=" font-semibold ml-4">Sign Up</span>
+              {/* <Link to={"/signup"}>
                 <span className=" font-semibold ml-4">Sign Up</span>
-              </Link>
+              </Link> */}
             </p>
           </form>
         </div>

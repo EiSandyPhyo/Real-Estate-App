@@ -46,9 +46,9 @@ const App = () => {
     <div className=" container-fluid dark:bg-slate-900">
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          {/*  <Route path={"/"} element={<Login />} />
+           <Route path={"/"} element={<Login />} />
       <Route path={"/forgetPW"} element={<ForgetPW />} />
-      <Route path={"/signup"} element={<Signup />} /> */}
+      <Route path={"/signup"} element={<Signup />} />
 
           <Route
             path={"/home"}
@@ -154,7 +154,7 @@ const App = () => {
             }
           />
 
-          {/* <Route path={'/*'} element={<><Error/></>}/> */}
+          <Route path={'/*'} element={<><Error/></>}/>
         </Routes>
       </Suspense>
     </div>

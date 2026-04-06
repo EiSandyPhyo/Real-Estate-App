@@ -275,7 +275,7 @@ const Navbar = () => {
                   <BiUser size={"1.5rem"} />
                 </button>
               </Link>
-              <Link to={"/signup"}>
+              <Link to={"/"}> {/* <Link to={"/signup"}> */}
                 <button className="hidden lg:inline-block w-24 h-10 p-2 fs-[17px] leading-[24px] border-0 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full mx-1">
                   Sign up
                 </button>
