@@ -3,6 +3,7 @@ import { FaCompressArrowsAlt } from "react-icons/fa";
 import { IoBedOutline } from "react-icons/io5";
 import { LuBath } from "react-icons/lu";
 import { RxHeart, RxHeartFilled } from "react-icons/rx";
+import { CgQuote } from "react-icons/cg";
 
 import { Link } from "react-router-dom";
 
@@ -15,7 +16,9 @@ import PlaceholderImage from "../images/blurImg.png";
 const FeatureProperties = ({
   properties,
   searchLabel,
+  searchType,
   propertyType,
+  propertiesCount,
   limit,
   showToggle = true,
 }) => {
@@ -81,6 +84,20 @@ const FeatureProperties = ({
   console.log(properties);
   console.log(searchLabel);
   /* <button disabled={!searchTerm.trim()}> */
+
+  const pluralize = (word) => {
+    if (word.endsWith("y")) return word.slice(0, -1) + "ies";
+    if (
+      word.endsWith("s") ||
+      word.endsWith("x") ||
+      word.endsWith("ch") ||
+      word.endsWith("sh")
+    ) {
+      return word + "es";
+    }
+    return word + "s";
+  };
+
   return (
     <div
       ref={sectionRef}
@@ -88,13 +105,42 @@ const FeatureProperties = ({
     >
       <div className="flex-center-center flex-col pb-8">
         <h1 className="sub-header  dark:text-white">
-          {searchLabel.trim()
-            ? `Results for "${searchLabel}"`
-            : "Featured Properties"}
+          {!searchLabel ? (
+            "Featured Properties"
+          ) : searchType === "city" ? (
+            <p>
+              Properties in <span className="text-green-600 mx-1">"</span>
+              {searchLabel}
+              <span className="text-green-700 ml-1">"</span>
+            </p>
+          ) : searchType === "property_type" ? (
+            propertiesCount === 1 ? (
+              <p>
+                Explore <span className="text-green-600 mx-1">"</span>
+                {searchLabel}
+                <span className="text-green-700 ml-1">"</span>
+              </p>
+            ) : (
+              <p>
+                Explore <span className="text-green-600 mx-1">"</span>
+                {pluralize(searchLabel)}
+                <span className="text-green-700 ml-1">"</span>
+              </p>
+            )
+          ) : (
+            <p>
+              Results for <span className="text-green-600 mx-1">"</span>
+              {searchLabel}
+              <span className="text-green-700 ml-1">"</span>
+            </p>
+          )}
         </h1>
         <p className="paragraph">
-          A great platform to buy, sell and rent your properties without any
-          agent or commissions.
+          {!searchLabel
+            ? "A great platform to buy, sell and rent your properties without any agent or commissions."
+            : propertiesCount === 0
+              ? "No properties found."
+              : `${propertiesCount} ${propertiesCount === 1 ? "property" : "properties"} found`}
         </p>
       </div>
 

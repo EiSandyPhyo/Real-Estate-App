@@ -13,12 +13,14 @@ const Buy = ({ properties }) => {
 
   const [searchWord, setSearchWord] = useState("");
   const [searchLabel, setSearchLabel] = useState("");
+  const [searchType, setSearchType] = useState("");
   const [filteredProperties, setFilteredProperties] = useState(properties);
 
   // Update filteredProperties when properties change
   useEffect(() => {
     setSearchWord("");
     setSearchLabel("");
+    setSearchType("");
     setFilteredProperties(properties);
   }, [properties]);
 
@@ -31,7 +33,8 @@ const Buy = ({ properties }) => {
     // If keyword is empty, show all properties
     if (!keyword) {
       setFilteredProperties(properties);
-      //setSearchLabel(""); // reset title
+      setSearchLabel(""); // reset title
+      setSearchType("");
       return;
     }
 
@@ -47,6 +50,7 @@ const Buy = ({ properties }) => {
     // set label ONLY after search click
     if (filtered.length === 0) {
       setSearchLabel(searchWord);
+      setSearchType("");
       return;
     }
 
@@ -54,13 +58,14 @@ const Buy = ({ properties }) => {
 
     if (firstMatchedItem.city.toLowerCase().includes(keyword)) {
       setSearchLabel(firstMatchedItem.city);
+      setSearchType("city");
     } else if (firstMatchedItem.property_type.toLowerCase().includes(keyword)) {
       setSearchLabel(firstMatchedItem.property_type);
+      setSearchType("property_type");
     } else {
       setSearchLabel(searchWord);
+      setSearchType("");
     }
-
-    return;
   };
 
   return (
@@ -126,6 +131,8 @@ const Buy = ({ properties }) => {
         <FeatureProperties
           properties={filteredProperties}
           searchLabel={searchLabel}
+          searchType={searchType}
+          propertiesCount={filteredProperties.length}
         />
       ) : (
         <div className="container-2xl mt-0 lg:mt-5 flex justify-center items-center gap-1">
@@ -136,6 +143,8 @@ const Buy = ({ properties }) => {
             onClick={() => {
               setFilteredProperties(properties);
               setSearchWord("");
+              setSearchLabel("");
+              setSearchType("");
             }}
             className="btn px-2 py-1 md:px-3 md:py-1"
           >
