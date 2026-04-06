@@ -149,22 +149,23 @@ const FeatureProperties = ({
         {visibleProperties.map((property) => {
           return (
             /* card */
-            <div
-              className="shadow rounded-xl overflow-hidden card-hover dark:bg-slate-900 dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700"
-              key={property.id}
-            >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl w-full h-60">
-                {" "}
-                <LazyLoadImage
-                  src={`${property.image}?w=800&h=500&fit=crop`}
-                  placeholderSrc={PlaceholderImage}
-                  className="w-full h-full object-cover"
-                  alt={property?.property_name}
-                />
-                <div className="absolute top-4 end-4">
-                  <div className=" w-10 h-10 bg-white rounded-full cursor-pointer flex-center-center dark:bg-slate-900 dark:shadow-gray-700">
-                    {property?.id}
-                    {/* <button onClick={() => setHeartFill(!heartFill)}>
+            <Link to={`/detail/${property.id}`}>
+              <div
+                className="shadow rounded-xl overflow-hidden card-hover dark:bg-slate-900 dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700"
+                key={property.id}
+              >
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl w-full h-60">
+                  {" "}
+                  <LazyLoadImage
+                    src={`${property.image}?w=800&h=500&fit=crop`}
+                    placeholderSrc={PlaceholderImage}
+                    className="w-full h-full object-cover"
+                    alt={property?.property_name}
+                  />
+                  <div className="absolute top-4 end-4">
+                    <div className=" w-10 h-10 bg-white rounded-full cursor-pointer flex-center-center dark:bg-slate-900 dark:shadow-gray-700">
+                      {property?.id}
+                      {/* <button onClick={() => setHeartFill(!heartFill)}>
                       {heartFill ? (
                         <RxHeartFilled size={20} className=" text-red-600  " />
                       ) : (
@@ -174,53 +175,53 @@ const FeatureProperties = ({
                         />
                       )}
                     </button> */}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="p-6">
-                <div className="mb-6">
-                  <Link to={`/detail/${property.id}`}>
+                <div className="p-6">
+                  <div className="mb-6">
                     <h2 className="h2 cursor-pointer hover:text-green-600 duration-500 ease-in-out inline-block  dark:text-white">
                       {`${property?.property_type}, ${property?.property_name}`}
                       {/* {`${property?.address}, ${property?.city}, ${property?.postal_code}`} */}
                     </h2>
-                  </Link>
-                </div>
-                <div className="border-y border-slate-100 dark:border-gray-800 py-6 mb-6">
-                  <div className="flex-between-center">
-                    <div className="flex-center-center gap-2  dark:text-white">
-                      <FaCompressArrowsAlt className="icon-color" />
-                      {property?.square_footage} sqft
-                    </div>
-                    <div className="flex-center-center gap-2  dark:text-white">
-                      <IoBedOutline className="icon-color" /> {property?.beds}{" "}
-                      Beds
-                    </div>
-                    <div className="flex-center-center gap-2  dark:text-white">
-                      <LuBath className="icon-color" /> {property?.baths} Baths
+                  </div>
+                  <div className="border-y border-slate-100 dark:border-gray-800 py-6 mb-6">
+                    <div className="flex-between-center">
+                      <div className="flex-center-center gap-2  dark:text-white">
+                        <FaCompressArrowsAlt className="icon-color" />
+                        {property?.square_footage} sqft
+                      </div>
+                      <div className="flex-center-center gap-2  dark:text-white">
+                        <IoBedOutline className="icon-color" /> {property?.beds}{" "}
+                        Beds
+                      </div>
+                      <div className="flex-center-center gap-2  dark:text-white">
+                        <LuBath className="icon-color" /> {property?.baths}{" "}
+                        Baths
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="flex-between-center text-slate-400">
-                  <div className="">
+                  <div className="flex-between-center text-slate-400">
                     <div className="">
-                      <p>Price</p>
-                      <p className="text-black font  dark:text-white">
-                        £{property?.price.toLocaleString()}
-                      </p>
+                      <div className="">
+                        <p>Price</p>
+                        <p className="text-black font  dark:text-white">
+                          £{property?.price.toLocaleString()}
+                        </p>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="">
-                    <p>Rating</p>
-                    <div className="flex-center-center gap-2">
-                      <RatingStars rating={property?.rating} />
+                    <div className="">
+                      <p>Rating</p>
+                      <div className="flex-center-center gap-2">
+                        <RatingStars rating={property?.rating} />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

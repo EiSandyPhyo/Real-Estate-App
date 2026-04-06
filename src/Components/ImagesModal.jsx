@@ -3,15 +3,14 @@ import { FiCamera } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
 
 const ImagesModal = (props) => {
-  const { showModal, setShowModal, item } = props;
+  const { showModal, setShowModal, detail } = props;
 
   const toggleModal = (i, value) => {
     if (i !== null) {
       setShowModal(true);
-      document.getElementById(
-        "modalImage"
-      ).src = `https://hously-react.vercel.app/static/media/${i}.${value}.jpg`;
-    }
+      document.getElementById("modalImage").src =
+        `https://hously-react.vercel.app/static/media/${i}.${value}.jpg`;
+    } /* https://hously-react.vercel.app/static/media/${i}.${value}.jpg */
   };
 
   return (
@@ -21,7 +20,7 @@ const ImagesModal = (props) => {
           <div className="group relative overflow-hidden">
             <img
               className="w-full md:h-[300px] lg:h-[646px] "
-              src={item.image}
+              src={detail?.image}
               alt=""
             />{" "}
             {/* max-h-[620px] */}
@@ -31,8 +30,8 @@ const ImagesModal = (props) => {
                 id="btn"
                 onClick={() =>
                   toggleModal(
-                    item.image.slice(45, 46),
-                    item.image.slice(47, 67)
+                    detail?.image.slice(45, 46),
+                    detail?.image.slice(47, 67),
                   )
                 }
                 className=" w-full bg-green-600 text-center ps-3 pe-7 py-3  hover:bg-green-700 text-white rounded-full lightbox"
@@ -46,11 +45,7 @@ const ImagesModal = (props) => {
           <div className=" flex   ">
             <div className="w-1/2 p-1">
               <div className="  group relative overflow-hidden">
-                <img
-                  className=""
-                  src="https://hously-react.vercel.app/static/media/2.270944ce288edc7e8dce.jpg"
-                  alt=""
-                />
+                <img className="" src={detail?.image} alt="" />
                 <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                 <div className="absolute top-1/2 -translate-y-1/2 start-1/2 end-1/2 text-center invisible group-hover:visible">
                   <button
@@ -65,11 +60,7 @@ const ImagesModal = (props) => {
             </div>
             <div className="w-1/2 p-1">
               <div className="  group relative overflow-hidden">
-                <img
-                  className=""
-                  src="https://hously-react.vercel.app/static/media/3.c00def8851920add8615.jpg"
-                  alt=""
-                />
+                <img className="" src={detail?.image} alt="" />
                 <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                 <div className="absolute top-1/2 -translate-y-1/2 start-1/2 end-1/2 text-center invisible group-hover:visible">
                   <button
@@ -86,11 +77,7 @@ const ImagesModal = (props) => {
           <div className=" flex ">
             <div className="w-1/2 p-1">
               <div className="  group relative overflow-hidden">
-                <img
-                  className=""
-                  src="https://hously-react.vercel.app/static/media/4.939a280581f228ba8f6c.jpg"
-                  alt=""
-                />
+                <img className="" src={detail?.image} alt="" />
                 <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                 <div className="absolute top-1/2 -translate-y-1/2 start-1/2 end-1/2 text-center invisible group-hover:visible">
                   <button
@@ -105,11 +92,7 @@ const ImagesModal = (props) => {
             </div>
             <div className="w-1/2 p-1">
               <div className="  group relative overflow-hidden">
-                <img
-                  className=""
-                  src="https://hously-react.vercel.app/static/media/5.ff80099f4a4308516e24.jpg"
-                  alt=""
-                />
+                <img className="" src={detail?.image} alt="" />
                 <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                 <div className="absolute top-1/2 -translate-y-1/2 start-1/2 end-1/2 text-center invisible group-hover:visible">
                   <button
