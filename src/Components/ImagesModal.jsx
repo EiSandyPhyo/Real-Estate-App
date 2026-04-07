@@ -1,11 +1,15 @@
-import React, { useState } from "react";
-import { FiCamera } from "react-icons/fi";
+import React, { useState, useEffect } from "react";
+import { FiCamera, FiArrowLeft } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
+
+import { useNavigate } from "react-router-dom";
 
 const ImagesModal = (props) => {
   const { showModal, setShowModal, detail } = props;
 
   const [selectedImage, setSelectedImage] = useState("");
+
+  const navigate = useNavigate();
 
   /* const toggleModal = (i, value) => {
     if (i !== null) {
@@ -21,9 +25,21 @@ const ImagesModal = (props) => {
     }
   };
 
-  const interiorImages = detail?.interiorImages || [];
+  //const interiorImages = detail?.interiorImages || [];
+  //console.log(interiorImages);
 
-  console.log(interiorImages);
+  // no scroll when modal open
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showModal]);
 
   return (
     <div className="container-fluid">
@@ -32,11 +48,10 @@ const ImagesModal = (props) => {
         <div className="md:w-1/2 lg:w-1/2 p-1">
           <div className="group relative overflow-hidden">
             <img
-              className="w-full md:h-[300px] lg:h-[646px] "
+              className="w-full h-[260px] md:h-[408px] lg:h-[646px] object-cover"
               src={detail?.image}
               alt={detail?.property_name}
-            />{" "}
-            {/* max-h-[620px] */}
+            />
             <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
             <div className="absolute top-1/2 -translate-y-1/2 start-1/2 end-1/2 text-center invisible group-hover:visible">
               <button
@@ -57,7 +72,7 @@ const ImagesModal = (props) => {
               <img
                 src={img}
                 alt={i}
-                className="w-full h-[150px] lg:h-[319px] object-cover"
+                className="w-full h-[150px] md:h-[200px] lg:h-[319px] object-cover"
               />
               <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
               <div className="absolute top-1/2 -translate-y-1/2 start-1/2 end-1/2 text-center invisible group-hover:visible">
@@ -83,16 +98,12 @@ const ImagesModal = (props) => {
             : "hidden"
         }
       >
-        {/* <a
-          className="fixed z-90 top-[240px] lg:top-16 right-8 lg:right-[280px] text-white text-5xl font-bold"
-          onClick={() => setShowModal(false)}
-        >
-          <RxCross2 />
-        </a> */}
         <button
           className="fixed top-16 right-8 text-white text-5xl font-bold z-[1100]"
           onClick={() => setShowModal(false)}
         >
+          {" "}
+          {/* fixed z-90 top-[240px] lg:top-16 right-8 lg:right-[280px] text-white text-5xl font-bold */}
           <RxCross2 />
         </button>
 
@@ -102,6 +113,13 @@ const ImagesModal = (props) => {
           className="w-[90%] max-w-[800px] max-h-[600px] object-cover z-[1000]"
         />
       </div>
+      <button
+        onClick={() => navigate(-1)}
+        className="flex items-center gap-2 text-sm md:text-lg text-gray-500 hover:text-green-600 ml-3 md:ml-5 mt-2 md:mt-4"
+      >
+        <FiArrowLeft />
+        Back
+      </button>
     </div>
   );
 };

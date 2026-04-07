@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { TbArrowsMinimize } from "react-icons/tb";
-import { BiBed } from "react-icons/bi";
-import { FaBath } from "react-icons/fa";
-import { BsTelephone } from "react-icons/bs";
+
 import { HiOutlinePhone } from "react-icons/hi";
 import { FaCompressArrowsAlt } from "react-icons/fa";
 import { IoBedOutline } from "react-icons/io5";
@@ -37,7 +34,7 @@ const Detail = ({ properties }) => {
   const simpleEstimate = detail?.price * 0.004;
 
   return (
-    <section className="pt-12 pb-16 lg:py-24 dark:bg-slate-900">
+    <section className="pt-20 pb-16 dark:bg-slate-900">
       {detail ? (
         <>
           <ImagesModal
@@ -45,60 +42,52 @@ const Detail = ({ properties }) => {
             setShowModal={setShowModal}
             detail={detail}
           />
-          <div className="container-2xl md:mt-24 mt-16 mx-auto px-4 ">
+          <div className="container-2xl mt-10 md:mt-12 xl:mt-20 mx-auto px-4 ">
             <div className=" md:flex">
               <div className="lg:w-2/3 md:w-1/2 md:p-4 px-3">
                 <h4 className="text-2xl font-medium dark:text-white">{`${detail?.address}, ${detail?.postal_code}, ${detail?.city}`}</h4>
-                <ul className="py-6 flex items-center list-none">
-                  <li className="flex items-center lg:me-6 me-4">
-                    <i className="me-2">
+                <ul className="py-6 flex items-center text-center gap-4 md:gap-3 lg:gap-5 xl:gap-6 list-none">
+                  <li className="flex gap-1 lg:gap-2">
+                    <i className="">
                       <BsFillBuildingsFill className="icon-color" />
                     </i>
                     <span className="lg:text-xl dark:text-white">
-                      {detail?.year_built}
+                      {detail?.year_built} yr
                     </span>
                   </li>
-                  <li className="flex items-center lg:me-6 me-4">
-                    <i className="me-2">
+                  <li className="flex gap-1 lg:gap-2">
+                    <i className="">
                       <FaCompressArrowsAlt className="icon-color" />
                     </i>
                     <span className="lg:text-xl dark:text-white">
                       {detail?.square_footage} sqf
                     </span>
                   </li>
-                  <li className="flex items-center lg:me-6 me-4">
-                    <i className="me-2 ">
+                  <li className="flex gap-1 lg:gap-2">
+                    <i className="">
                       <IoBedOutline className="icon-color" />
                     </i>
                     <span className="lg:text-xl dark:text-white">
-                      {detail?.beds} Beds
+                      {detail?.beds} {detail?.beds > 1 ? "Beds" : "Bed"}
                     </span>
                   </li>
-                  <li className="flex items-center">
-                    <i className="me-2 ">
+                  <li className="flex gap-1 lg:gap-2">
+                    <i className="">
                       <LuBath className="icon-color" />
                     </i>
                     <span className="lg:text-xl dark:text-white">
-                      {detail?.baths} Baths
+                      {detail?.baths} {detail?.baths > 1 ? "Baths" : "Bath"}
                     </span>
                   </li>
                 </ul>
-                <p className="text-slate-400 text-[17px]">
-                  Located at 20 Sunset Avenue, London, Urban Flat is a
-                  contemporary property that combines comfort, style, and
-                  practicality. This 2-bedroom, 1-bathroom flat offers 1,164
-                  square feet of thoughtfully arranged living space and was
-                  built in 2017 to suit modern lifestyles. The property provides
-                  a bright and welcoming atmosphere, making it ideal for
-                  everyday living. With its appealing design and excellent
-                  value, Urban Flat is a strong option for buyers looking for a
-                  modern home in a desirable London location.
+                <p className="text-slate-400 text-[17px] text-justify">
+                  {detail?.detail}
                 </p>
 
-                <iframe
+                {/* <iframe
                   className="w-full h-[500px] border-none leading-[0] border-0 mt-6"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39206.002432144705!2d-95.4973981212445!3d29.709510002925988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c16de81f3ca5%3A0xf43e0b60ae539ac9!2sGerald+D.+Hines+Waterwall+Park!5e0!3m2!1sen!2sin!4v1566305861440!5m2!1sen!2sin"
-                ></iframe>
+                ></iframe> */}
               </div>
 
               <div className="lg:w-1/3 md:w-1/2 md:p-4 px-3 mt-8 md:mt-0 ">
@@ -148,12 +137,12 @@ const Detail = ({ properties }) => {
 
                     <div className="flex">
                       <div className="p-1 w-1/2">
-                        <button className="btn w-full px-7 py-2">
+                        <button className="btn w-full lg:px-3 xl:px-7 py-2">
                           Book Now
                         </button>
                       </div>
                       <div className="p-1 w-1/2">
-                        <button className="btn w-full px-7 py-2">
+                        <button className="btn w-full lg:px-3 xl:px-7 py-2">
                           Offer Now
                         </button>
                       </div>
@@ -176,7 +165,10 @@ const Detail = ({ properties }) => {
           </div>
         </>
       ) : (
-        <p>Loading details...</p>
+        <div className="flex flex-col items-center justify-center h-[200px] text-green-600">
+          <div className="w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full animate-spin mb-3"></div>
+          <p>Loading details...</p>
+        </div>
       )}
     </section>
   );

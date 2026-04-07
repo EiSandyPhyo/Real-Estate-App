@@ -116,13 +116,13 @@ const FeatureProperties = ({
           ) : searchType === "property_type" ? (
             propertiesCount === 1 ? (
               <p>
-                Explore <span className="text-green-600 mx-1">"</span>
+                Results for <span className="text-green-600 mx-1">"</span>
                 {searchLabel}
                 <span className="text-green-700 ml-1">"</span>
               </p>
             ) : (
               <p>
-                Explore <span className="text-green-600 mx-1">"</span>
+                Results for <span className="text-green-600 mx-1">"</span>
                 {pluralize(searchLabel)}
                 <span className="text-green-700 ml-1">"</span>
               </p>
@@ -140,7 +140,18 @@ const FeatureProperties = ({
             ? "A great platform to buy, sell and rent your properties without any agent or commissions."
             : propertiesCount === 0
               ? "No properties found."
-              : `${propertiesCount} ${propertiesCount === 1 ? "property" : "properties"} found`}
+              : <div className="">
+                <span>{propertiesCount} {propertiesCount === 1 ? "property" : "properties"} found</span>
+                <button
+            onClick={() => {
+              window.location.reload();
+            }}
+            className="text-sm px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-md ml-2"
+          >
+            Reset
+          </button>
+              </div>
+              }
         </p>
       </div>
 
