@@ -1,26 +1,65 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { HiChevronDown } from "react-icons/hi";
-import { FaCompressArrowsAlt } from "react-icons/fa";
+import { FaCompressArrowsAlt, FaHandPointLeft } from "react-icons/fa";
 import { IoBedOutline } from "react-icons/io5";
 import { LuBath } from "react-icons/lu";
-import { BsStarFill } from "react-icons/bs";
+import { BsFillBuildingsFill } from "react-icons/bs";
 import { RxHeart, RxHeartFilled } from "react-icons/rx";
+import { TiWarning } from "react-icons/ti";
+
+import RatingStars from "../Components/RatingStars";
+
 import { Link } from "react-router-dom";
 
 const ListSideBar = ({ properties }) => {
   const [heartFill, setHeartFill] = useState(false);
 
+  const [selectedPropertyType, setSelectedPropertyType] = useState("All");
+  const [selectedCity, setSelectedCity] = useState("All");
+  const [filteredProperties, setFilteredProperties] = useState(properties);
+  const [showText, setShowText] = useState(true);
+
+  const propertyTypes = [
+    ...new Set(properties?.map((item) => item.property_type)),
+  ];
+
+  const cities = [...new Set(properties?.map((item) => item.city))];
+  //console.log(propertyTypes);
+
+  const handleFilter = () => {
+    setShowText(false);
+
+    const filtered = properties.filter((item) => {
+      const matchType =
+        selectedPropertyType === "All" ||
+        item.property_type === selectedPropertyType;
+
+      const matchCity = selectedCity === "All" || item.city === selectedCity;
+
+      return matchType && matchCity;
+    });
+
+    setFilteredProperties(filtered);
+  };
+
+  useEffect(() => {
+    setFilteredProperties(properties);
+  }, [properties]);
+
   return (
-    <>
-      <div className=" mb-40">
-      <div className="mt-[70px]">
-        {/*  hero section */}
-        <div className="hero-img">
-          <div className="bg-dark-opacity"></div>
+    <section className=" pb-16 dark:bg-slate-900">
+      <div className="">
+        <div
+          className="relative w-full h-[378px] bg-no-repeat bg-[position:50%_20%] bg-cover"
+          style={{
+            backgroundImage: `url("https://images.unsplash.com/photo-1505843513577-22bb7d21e455")`,
+          }}
+        >
+          <div className="absolute inset-0 bg-slate-900/70"></div>
           <div className="relative px-12">
             <div className="flex-center-center h-[378px]">
-              <h2 className="header">grid view layout</h2>
+              <h2 className="header">grid layout view</h2>
             </div>
           </div>
         </div>
@@ -40,159 +79,203 @@ const ListSideBar = ({ properties }) => {
         </div>
       </div>
 
-        <section className="pt-12 pb-16 lg:py-24">
-          <div className="container-2xl">
-            <div className="grid-layout-2 mt-8">
-              <div className="md:col-span-5 lg:col-span-4">
-                <div className="p-6 shadow-md dark:shadow-gray-700 rounded-md overflow-hidden">
-                  <form action="">
-                    <div className="flex flex-col gap-3">
-                      <div className="">
-                        <p className="font dark:text-white">
-                          search properties
-                        </p>
-                        <div className="relative border border-gray-200 rounded overflow-hidden mt-2 dark:border-slate-800">
-                          <BiSearchAlt className="text-xl sm:text-2xl absolute top-[10px] left-2 dark:text-white " />
-                          <input
-                            name="search"
-                            type="text"
-                            className="border-none focus:outline-none form-box dark:bg-slate-900 dark:text-white"
-                            placeholder="Search"
-                          />
-                        </div>
-                      </div>
-                      <div className="inline-block relative">
-                        <p className="font dark:text-white">categories</p>
-                        <select
-                          name=""
-                          id=""
-                          className="form-box-2 mt-2 block appearance-none dark:border-slate-800 dark:bg-slate-900 dark:text-white"
-                        >
-                          <option value="">Residential</option>
-                          <option value="">Land</option>
-                          <option value="">Commercial</option>
-                          <option value="">Industrial</option>
-                          <option value="">Investment</option>
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 top-8 right-0 flex items-center px-2 text-slate-500">
-                          <HiChevronDown className="text-[23px]" />
-                        </div>
-                      </div>
-                      <div className="inline-block relative">
-                        <p className="font dark:text-white">location</p>
-
-                        <select
-                          name=""
-                          id=""
-                          className="form-box-2 mt-2 block appearance-none dark:border-slate-800 dark:bg-slate-900 dark:text-white"
-                        >
-                          <option value="">New York</option>
-                          <option value="">North Carolina</option>
-                          <option value="">South Carolina</option>
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 top-8 right-0 flex items-center px-2 text-slate-500">
-                          <HiChevronDown className="text-[23px]" />
-                        </div>
-                      </div>
-                      <div className="">
-                        <button className="btn-2 active">Apply Filter</button>
-                      </div>
+      <div className="pt-12 pb-16 lg:py-24">
+        <div className="container-2xl">
+          <div className="grid-layout-2 mt-8">
+            {/* left side */}
+            <div className="md:col-span-5 lg:col-span-4">
+              <div className="p-6 shadow-md dark:shadow-gray-700 rounded-md overflow-hidden sticky top-20">
+                <div className="flex flex-col gap-3">
+                  <div className="inline-block relative">
+                    <p className="font dark:text-white">property type</p>
+                    <select
+                      value={selectedPropertyType}
+                      onChange={(e) => setSelectedPropertyType(e.target.value)}
+                      className="form-box-2 mt-2 block appearance-none dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+                    >
+                      <option value="All">All property types</option>
+                      {propertyTypes?.map((type, i) => (
+                        <option key={i} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 top-8 right-0 flex items-center px-2 text-slate-500">
+                      <HiChevronDown className="text-[23px]" />
                     </div>
-                  </form>
-                </div>
-              </div>
-              <div className="md:col-span-7 lg:col-span-8">
-                <div className="grid-layout-1">
-                  {/* cards */}
-                  {properties.map((property) => {
-                    return (
-                      /* card */
-                      <div
-                        className="shadow rounded-xl overflow-hidden card-hover w-full lg:max-w-2xl mx-auto dark:bg-slate-900 dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700"
-                        key={property.id}
-                      >
-                        <div className="md:flex">
-                          <div className="relative md:shrink-0">
-                            <img
-                              src={property.image}
-                              alt={property.title}
-                              className=" w-full h-full md:w-48 object-cover"
-                            />
-                            <div className="absolute top-4 end-4">
-                              <div className=" w-10 h-10 bg-white rounded-full cursor-pointer flex-center-center dark:bg-slate-900 dark:shadow-gray-700">
-                              <button onClick={() => setHeartFill(!heartFill)}>
-                      {heartFill ? (
-                        <RxHeartFilled size={20} className=" text-red-600  " />
-                      ) : (
-                        <RxHeartFilled
-                          size={20}
-                          className="text-slate-100 hover:text-red-600 dark:text-slate-700 dark:hover:text-red-700"
-                        />
-                      )}
+                  </div>
+                  <div className="inline-block relative">
+                    <p className="font dark:text-white">city in UK</p>
+
+                    <select
+                      value={selectedCity}
+                      onChange={(e) => setSelectedCity(e.target.value)}
+                      className={`form-box-2 mt-2 block appearance-none dark:border-slate-800 dark:bg-slate-900 dark:text-white `}
+                    >
+                      <option value="All">All cities</option>
+                      {cities?.map((city, i) => (
+                        <option key={i} value={city}>
+                          {city}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 top-8 right-0 flex items-center px-2 text-slate-500">
+                      <HiChevronDown className="text-[23px]" />
+                    </div>
+                  </div>
+                  <div className="">
+                    <button onClick={handleFilter} className="btn-2 active">
+                      Apply Filter
                     </button>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="p-6">
-                            <div className="mb-6">
-                              <Link to={`/detail/${property.id}`}>
-                                <h2 className="h2 cursor-pointer hover:text-green-600 duration-500 ease-in-out inline-block dark:text-white">
-                                  {property.title}
-                                </h2>
-                              </Link>
-                            </div>
-                            <div className="border-y border-slate-100 py-6 mb-6 dark:border-gray-800">
-                              <div className="flex-between-center">
-                                <div className="flex-center-center gap-2 dark:text-white">
-                                  <FaCompressArrowsAlt className="icon-color" />
-                                  8000sqft
-                                </div>
-                                <div className="flex-center-center gap-2 dark:text-white">
-                                  <IoBedOutline className="icon-color " />4 Beds
-                                </div>
-                                <div className="flex-center-center gap-2 dark:text-white">
-                                  <LuBath className="icon-color" />4 Baths
-                                </div>
-                              </div>
-                            </div>
-                            <div className="flex-between-center text-slate-400">
-                              <div className="">
-                                <div className="">
-                                  <p>Price</p>
-                                  <p className="text-black font dark:text-white">
-                                    $5000
-                                  </p>
-                                </div>
-                              </div>
-
-                              <div className="">
-                                <p>Rating</p>
-                                <div className="flex-center-center gap-2">
-                                  {[...Array(5)].map((x, i) => (
-                                    <BsStarFill
-                                      key={i}
-                                      className="text-amber-400"
-                                    />
-                                  ))}
-                                  <p className="text-black font mt-1 dark:text-white">
-                                    5(30)
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                  </div>
                 </div>
               </div>
             </div>
+
+            {/* right side */}
+            <div className="md:col-span-7 lg:col-span-8">
+              <div className="grid-layout-1">
+                {showText ? (
+                  <div className="flex flex-col justify-center items-center">
+                    <p className="text-center text-slate-500 mt-20 text-2xl">
+                      Use the filters to search for properties by type or
+                      location. <br />
+                      Your results will appear here once a selection is made.
+                    </p>
+                    <FaHandPointLeft size={50} />
+                  </div>
+                ) : filteredProperties.length === 0 ? (
+                  <div className="flex justify-center items-center mt-28 gap-1">
+                    <TiWarning size={25} className="text-yellow-500" />
+                    <p className=" text-slate-500 text-xl pt-[6px]">
+                      {" "}
+                      No properties found matching your criteria. Try adjusting
+                      your filters.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <p className="bg-[#FEF3C7] w-fit">
+                      {" "}
+                      <span className=" font-semibold">
+                        {" "}
+                        {filteredProperties.length}{" "}
+                      </span>{" "}
+                      <span className="text-gray-500">
+                        {" "}
+                        {filteredProperties.length > 1
+                          ? "properties"
+                          : "property"}{" "}
+                        found{" "}
+                      </span>
+                    </p>
+                    {/* cards */}
+                    {filteredProperties?.map((property) => {
+                      return (
+                        /* card */
+
+                        <div
+                          className="shadow rounded-xl overflow-hidden card-hover w-full  mx-auto dark:bg-slate-900 dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700"
+                          key={property?.id}
+                        >
+                          <div className="md:flex">
+                            <div className="relative md:shrink-0">
+                              <img
+                                src={property?.image}
+                                alt={property?.property_type}
+                                className=" w-full h-full md:w-48 object-cover"
+                              />
+                              <div className="absolute top-4 end-4">
+                                <div className=" w-10 h-10 bg-white rounded-full cursor-pointer flex-center-center dark:bg-slate-900 dark:shadow-gray-700">
+                                  <button
+                                    onClick={() => setHeartFill(!heartFill)}
+                                  >
+                                    {heartFill ? (
+                                      <RxHeartFilled
+                                        size={20}
+                                        className=" text-red-600  "
+                                      />
+                                    ) : (
+                                      <RxHeartFilled
+                                        size={20}
+                                        className="text-slate-100 hover:text-red-600 dark:text-slate-700 dark:hover:text-red-700"
+                                      />
+                                    )}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="p-6">
+                              <div className="mb-6">
+                                <Link to={`/detail/${property.id}`}>
+                                  <h2 className="h2 cursor-pointer hover:text-green-600 duration-500 ease-in-out inline-block dark:text-white tracking-wide">
+                                    {`${property?.address}, ${property?.postal_code}, ${property?.city}`}
+                                  </h2>
+                                </Link>
+                              </div>
+                              <div className="border-y border-slate-100 py-6 mb-6 dark:border-gray-800">
+                                <div className="flex-between-center gap-5 text-center">
+                                  <div className="flex-center-center gap-1 dark:text-white">
+                                    <BsFillBuildingsFill className="icon-color" />
+                                    <span className="pt-1">
+                                      {property?.year_built} yr
+                                    </span>
+                                  </div>
+                                  <div className="flex-center-center gap-1 dark:text-white">
+                                    <FaCompressArrowsAlt className="icon-color" />
+                                    <span className="pt-1">
+                                      {" "}
+                                      {property?.square_footage} sqft
+                                    </span>
+                                  </div>
+                                  <div className="flex-center-center gap-1 dark:text-white">
+                                    <IoBedOutline className="icon-color " />
+                                    <span className="pt-1">
+                                      {property?.beds}{" "}
+                                      {property?.beds > 1 ? "Beds" : "Bed"}
+                                    </span>
+                                  </div>
+                                  <div className="flex-center-center gap-1 dark:text-white">
+                                    <LuBath className="icon-color" />
+                                    <span className="pt-1">
+                                      {property?.baths}{" "}
+                                      {property?.baths > 1 ? "Baths" : "Bath"}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex-between-center text-slate-400">
+                                <div className="">
+                                  <div className="">
+                                    <p>Price</p>
+                                    <p className="text-black font dark:text-white">
+                                      £
+                                      {property?.price?.toLocaleString("en-GB")}
+                                    </p>
+                                  </div>
+                                </div>
+
+                                <div className="">
+                                  <p>Rating</p>
+                                  <div className="flex-center-center gap-2">
+                                    <RatingStars rating={property?.rating} />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                )}
+              </div>
+            </div>
           </div>
-        </section>
+        </div>
       </div>
-    </>
+    </section>
   );
 };
 

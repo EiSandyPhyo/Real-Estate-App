@@ -10,7 +10,7 @@ const Sell = () => {
   };
 
   const decimalValue = (value * 0.01).toFixed(2);
-  
+
   // window.scrollTo(0, 0);
 
   return (

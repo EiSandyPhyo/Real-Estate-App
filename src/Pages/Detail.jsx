@@ -60,7 +60,7 @@ const Detail = ({ properties }) => {
                       <FaCompressArrowsAlt className="icon-color" />
                     </i>
                     <span className="lg:text-xl dark:text-white">
-                      {detail?.square_footage} sqf
+                      {detail?.square_footage} sqft
                     </span>
                   </li>
                   <li className="flex gap-1 lg:gap-2">

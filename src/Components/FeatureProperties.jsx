@@ -98,6 +98,10 @@ const FeatureProperties = ({
     return word + "s";
   };
 
+  const scrollYHandler = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div
       ref={sectionRef}
@@ -136,22 +140,26 @@ const FeatureProperties = ({
           )}
         </h1>
         <p className="paragraph">
-          {!searchLabel
-            ? "A great platform to buy, sell and rent your properties without any agent or commissions."
-            : propertiesCount === 0
-              ? "No properties found."
-              : <div className="">
-                <span>{propertiesCount} {propertiesCount === 1 ? "property" : "properties"} found</span>
-                <button
-            onClick={() => {
-              window.location.reload();
-            }}
-            className="text-sm px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-md ml-2"
-          >
-            Reset
-          </button>
-              </div>
-              }
+          {!searchLabel ? (
+            "A great platform to buy, sell and rent your properties without any agent or commissions."
+          ) : propertiesCount === 0 ? (
+            "No properties found."
+          ) : (
+            <div className="">
+              <span>
+                {propertiesCount}{" "}
+                {propertiesCount === 1 ? "property" : "properties"} found
+              </span>
+              <button
+                onClick={() => {
+                  window.location.reload();
+                }}
+                className="text-sm px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-md ml-2"
+              >
+                Reset
+              </button>
+            </div>
+          )}
         </p>
       </div>
 
@@ -160,11 +168,12 @@ const FeatureProperties = ({
         {visibleProperties.map((property) => {
           return (
             /* card */
-            <Link to={`/detail/${property.id}`}>
-              <div
-                className="shadow rounded-xl overflow-hidden card-hover dark:bg-slate-900 dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700"
-                key={property.id}
-              >
+            <Link
+              to={`/detail/${property.id}`}
+              onClick={scrollYHandler}
+              key={property.id}
+            >
+              <div className="shadow rounded-xl overflow-hidden card-hover dark:bg-slate-900 dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-2xl w-full h-60">
                   {" "}
                   <LazyLoadImage
@@ -205,11 +214,11 @@ const FeatureProperties = ({
                       </div>
                       <div className="flex-center-center gap-2  dark:text-white">
                         <IoBedOutline className="icon-color" /> {property?.beds}{" "}
-                        Beds
+                        {property?.beds > 1 ? "Beds" : "Bed"}
                       </div>
                       <div className="flex-center-center gap-2  dark:text-white">
                         <LuBath className="icon-color" /> {property?.baths}{" "}
-                        Baths
+                        {property?.baths > 1 ? "Baths" : "Bath"}
                       </div>
                     </div>
                   </div>
