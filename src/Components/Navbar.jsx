@@ -38,7 +38,7 @@ const Navbar = () => {
   const isAboutPage = currentPath === "/aboutus";
   const isContactPage = currentPath === "/contact";
 
-  const pagesRoutes = ["/features", "/pricing", "/faqs"];
+  const pagesRoutes = ["/list-sidebar", "/features", "/pricing", "/faqs"];
   const isPagesPage = pagesRoutes.includes(currentPath);
   console.log(isPagesPage);
 

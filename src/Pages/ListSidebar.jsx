@@ -69,7 +69,7 @@ const ListSideBar = ({ properties }) => {
           <div className="absolute inset-0 bg-slate-900/70"></div>
           <div className="relative px-12">
             <div className="flex-center-center h-[378px]">
-              <h2 className="header">grid layout view</h2>
+              <h2 className="header">browse properties</h2>
             </div>
           </div>
         </div>
@@ -150,7 +150,7 @@ const ListSideBar = ({ properties }) => {
               <div className="grid-layout-1">
                 {showText ? (
                   <div className="flex flex-col justify-center items-center gap-6 md:gap-3 max-w-[20rem] md:max-w-full mx-auto">
-                    <p className="text-center text-slate-500 mt-12 lg:mt-20 text-xl md:text-2xl">
+                    <p className="text-center text-slate-500 dark:text-slate-400 mt-12 lg:mt-20 text-xl md:text-2xl">
                       Use the filters to search for properties by type or
                       location. <br />
                       Your results will appear here once a selection is made.
@@ -158,19 +158,19 @@ const ListSideBar = ({ properties }) => {
                     <FaHandPointUp
                       size={50}
                       className="block md:hidden
-             animate-[slideUp_1s_ease-in-out_infinite]"
+             animate-[slideUp_1s_ease-in-out_infinite] dark:text-white"
                     />
 
                     <FaHandPointLeft
                       size={50}
                       className="hidden md:block
-             animate-[slideLeft_1s_ease-in-out_infinite]"
+             animate-[slideLeft_1s_ease-in-out_infinite] dark:text-white"
                     />
                   </div>
                 ) : filteredProperties.length === 0 ? (
                   <div className="flex justify-center items-center mt-12 md:mt-28 gap-1 ">
                     <TiWarning size={25} className="text-yellow-500" />
-                    <p className=" text-slate-500 text-xl pt-[6px] text-center">
+                    <p className=" text-slate-500 dark:text-slate-400 text-xl pt-[6px] text-center">
                       No properties found matching your criteria.
                       <span className="block">Try adjusting your filters.</span>
                     </p>
