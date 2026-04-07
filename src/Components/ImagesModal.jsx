@@ -53,11 +53,11 @@ const ImagesModal = (props) => {
               alt={detail?.property_name}
             />
             <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
-            <div className="absolute top-1/2 -translate-y-1/2 start-1/2 end-1/2 text-center invisible group-hover:visible">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 invisible group-hover:visible">
               <button
                 id="btn"
                 onClick={() => toggleModal(detail?.image)}
-                className=" w-full bg-green-600 text-center ps-3 pe-7 py-3  hover:bg-green-700 text-white rounded-full lightbox"
+                className=" w-full bg-green-600 text-center p-4  hover:bg-green-700 text-white rounded-full lightbox"
               >
                 <FiCamera className="text-center " />
               </button>
@@ -75,11 +75,14 @@ const ImagesModal = (props) => {
                 className="w-full h-[150px] md:h-[200px] lg:h-[319px] object-cover"
               />
               <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
-              <div className="absolute top-1/2 -translate-y-1/2 start-1/2 end-1/2 text-center invisible group-hover:visible">
+              <div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 invisible group-hover:visible
+                "
+              >
                 <button
                   id="btn"
                   onClick={() => toggleModal(img)}
-                  className="w-full bg-green-600 text-center ps-3 pe-7 py-3 hover:bg-green-700 text-white rounded-full lightbox"
+                  className="w-full bg-green-600 text-center p-2 md:p-3 lg:p-4 hover:bg-green-700 text-white rounded-full lightbox"
                 >
                   <FiCamera className="text-center" />
                 </button>
