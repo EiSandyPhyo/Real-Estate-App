@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { BiSearchAlt } from "react-icons/bi";
 import { HiChevronDown } from "react-icons/hi";
-import { FaCompressArrowsAlt, FaHandPointLeft } from "react-icons/fa";
+import {
+  FaCompressArrowsAlt,
+  FaHandPointLeft,
+  FaHandPointUp,
+} from "react-icons/fa";
 import { IoBedOutline } from "react-icons/io5";
 import { LuBath } from "react-icons/lu";
 import { BsFillBuildingsFill } from "react-icons/bs";
@@ -46,6 +49,13 @@ const ListSideBar = ({ properties }) => {
   useEffect(() => {
     setFilteredProperties(properties);
   }, [properties]);
+
+  const restFilter = () => {
+    setShowText(true);
+    setSelectedPropertyType("All");
+    setSelectedCity("All");
+    setFilteredProperties(properties);
+  };
 
   return (
     <section className=" pb-16 dark:bg-slate-900">
@@ -123,9 +133,12 @@ const ListSideBar = ({ properties }) => {
                       <HiChevronDown className="text-[23px]" />
                     </div>
                   </div>
-                  <div className="">
+                  <div className="flex flex-row gap-3 mt-3">
                     <button onClick={handleFilter} className="btn-2 active">
                       Apply Filter
+                    </button>
+                    <button onClick={restFilter} className="btn-2 active">
+                      Rest Filter
                     </button>
                   </div>
                 </div>
@@ -136,136 +149,145 @@ const ListSideBar = ({ properties }) => {
             <div className="md:col-span-7 lg:col-span-8">
               <div className="grid-layout-1">
                 {showText ? (
-                  <div className="flex flex-col justify-center items-center">
-                    <p className="text-center text-slate-500 mt-20 text-2xl">
+                  <div className="flex flex-col justify-center items-center gap-6 md:gap-3 max-w-[20rem] md:max-w-full mx-auto">
+                    <p className="text-center text-slate-500 mt-12 lg:mt-20 text-xl md:text-2xl">
                       Use the filters to search for properties by type or
                       location. <br />
                       Your results will appear here once a selection is made.
                     </p>
-                    <FaHandPointLeft size={50} />
+                    <FaHandPointUp
+                      size={50}
+                      className="block md:hidden
+             animate-[slideUp_1s_ease-in-out_infinite]"
+                    />
+
+                    <FaHandPointLeft
+                      size={50}
+                      className="hidden md:block
+             animate-[slideLeft_1s_ease-in-out_infinite]"
+                    />
                   </div>
                 ) : filteredProperties.length === 0 ? (
-                  <div className="flex justify-center items-center mt-28 gap-1">
+                  <div className="flex justify-center items-center mt-12 md:mt-28 gap-1 ">
                     <TiWarning size={25} className="text-yellow-500" />
-                    <p className=" text-slate-500 text-xl pt-[6px]">
-                      {" "}
-                      No properties found matching your criteria. Try adjusting
-                      your filters.
+                    <p className=" text-slate-500 text-xl pt-[6px] text-center">
+                      No properties found matching your criteria.
+                      <span className="block">Try adjusting your filters.</span>
                     </p>
                   </div>
                 ) : (
                   <>
-                    <p className="bg-[#FEF3C7] w-fit">
-                      {" "}
+                    <p className="bg-[#FEF3C7] w-fit mt-6 md:mt-0">
                       <span className=" font-semibold">
-                        {" "}
-                        {filteredProperties.length}{" "}
+                        {filteredProperties.length}
                       </span>{" "}
                       <span className="text-gray-500">
-                        {" "}
                         {filteredProperties.length > 1
                           ? "properties"
                           : "property"}{" "}
-                        found{" "}
+                        found
                       </span>
                     </p>
                     {/* cards */}
                     {filteredProperties?.map((property) => {
                       return (
                         /* card */
-
-                        <div
-                          className="shadow rounded-xl overflow-hidden card-hover w-full  mx-auto dark:bg-slate-900 dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700"
-                          key={property?.id}
-                        >
-                          <div className="md:flex">
-                            <div className="relative md:shrink-0">
-                              <img
-                                src={property?.image}
-                                alt={property?.property_type}
-                                className=" w-full h-full md:w-48 object-cover"
-                              />
-                              <div className="absolute top-4 end-4">
-                                <div className=" w-10 h-10 bg-white rounded-full cursor-pointer flex-center-center dark:bg-slate-900 dark:shadow-gray-700">
-                                  <button
-                                    onClick={() => setHeartFill(!heartFill)}
-                                  >
-                                    {heartFill ? (
-                                      <RxHeartFilled
-                                        size={20}
-                                        className=" text-red-600  "
-                                      />
-                                    ) : (
-                                      <RxHeartFilled
-                                        size={20}
-                                        className="text-slate-100 hover:text-red-600 dark:text-slate-700 dark:hover:text-red-700"
-                                      />
-                                    )}
-                                  </button>
+                        <Link to={`/detail/${property.id}`} key={property?.id}>
+                          <div className="shadow rounded-xl overflow-hidden card-hover w-full  mx-auto dark:bg-slate-900 dark:hover:shadow-xl dark:shadow-gray-700 dark:hover:shadow-gray-700">
+                            <div className="md:flex">
+                              <div className="relative md:shrink-0">
+                                <img
+                                  src={property?.image}
+                                  alt={property?.property_type}
+                                  className=" w-full h-full md:w-48 object-cover"
+                                />
+                                <div className="absolute top-4 end-4">
+                                  <div className=" w-10 h-10 bg-white rounded-full cursor-pointer flex-center-center dark:bg-slate-900 dark:shadow-gray-700">
+                                    <button
+                                      onClick={() => setHeartFill(!heartFill)}
+                                    >
+                                      {heartFill ? (
+                                        <RxHeartFilled
+                                          size={20}
+                                          className=" text-red-600  "
+                                        />
+                                      ) : (
+                                        <RxHeartFilled
+                                          size={20}
+                                          className="text-slate-100 hover:text-red-600 dark:text-slate-700 dark:hover:text-red-700"
+                                        />
+                                      )}
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
 
-                            <div className="p-6">
-                              <div className="mb-6">
-                                <Link to={`/detail/${property.id}`}>
+                              <div className="p-6">
+                                {/* property address */}
+                                <div className="mb-6">
                                   <h2 className="h2 cursor-pointer hover:text-green-600 duration-500 ease-in-out inline-block dark:text-white tracking-wide">
                                     {`${property?.address}, ${property?.postal_code}, ${property?.city}`}
                                   </h2>
-                                </Link>
-                              </div>
-                              <div className="border-y border-slate-100 py-6 mb-6 dark:border-gray-800">
-                                <div className="flex-between-center gap-5 text-center">
-                                  <div className="flex-center-center gap-1 dark:text-white">
-                                    <BsFillBuildingsFill className="icon-color" />
-                                    <span className="pt-1">
-                                      {property?.year_built} yr
-                                    </span>
-                                  </div>
-                                  <div className="flex-center-center gap-1 dark:text-white">
-                                    <FaCompressArrowsAlt className="icon-color" />
-                                    <span className="pt-1">
-                                      {" "}
-                                      {property?.square_footage} sqft
-                                    </span>
-                                  </div>
-                                  <div className="flex-center-center gap-1 dark:text-white">
-                                    <IoBedOutline className="icon-color " />
-                                    <span className="pt-1">
-                                      {property?.beds}{" "}
-                                      {property?.beds > 1 ? "Beds" : "Bed"}
-                                    </span>
-                                  </div>
-                                  <div className="flex-center-center gap-1 dark:text-white">
-                                    <LuBath className="icon-color" />
-                                    <span className="pt-1">
-                                      {property?.baths}{" "}
-                                      {property?.baths > 1 ? "Baths" : "Bath"}
-                                    </span>
-                                  </div>
                                 </div>
-                              </div>
-                              <div className="flex-between-center text-slate-400">
-                                <div className="">
-                                  <div className="">
-                                    <p>Price</p>
-                                    <p className="text-black font dark:text-white">
-                                      £
-                                      {property?.price?.toLocaleString("en-GB")}
-                                    </p>
+
+                                {/* property details */}
+                                <div className="border-y border-slate-100 py-6 dark:border-gray-800">
+                                  <div className="flex-between-center md:flex-col md:items-start gap-0 md:gap-2 lg:gap-5 lg:flex-row text-center">
+                                    <div className="flex-center-center gap-1 dark:text-white">
+                                      <BsFillBuildingsFill className="icon-color" />
+                                      <span className="pt-1">
+                                        {property?.year_built} yr
+                                      </span>
+                                    </div>
+                                    <div className="flex-center-center gap-1 dark:text-white">
+                                      <FaCompressArrowsAlt className="icon-color" />
+                                      <span className="pt-1">
+                                        {" "}
+                                        {property?.square_footage} sqft
+                                      </span>
+                                    </div>
+                                    <div className="flex-center-center gap-1 dark:text-white">
+                                      <IoBedOutline className="icon-color " />
+                                      <span className="pt-1">
+                                        {property?.beds}{" "}
+                                        {property?.beds > 1 ? "Beds" : "Bed"}
+                                      </span>
+                                    </div>
+                                    <div className="flex-center-center gap-1 dark:text-white">
+                                      <LuBath className="icon-color" />
+                                      <span className="pt-1">
+                                        {property?.baths}{" "}
+                                        {property?.baths > 1 ? "Baths" : "Bath"}
+                                      </span>
+                                    </div>
                                   </div>
                                 </div>
 
-                                <div className="">
-                                  <p>Rating</p>
-                                  <div className="flex-center-center gap-2">
-                                    <RatingStars rating={property?.rating} />
+                                {/* price and rating */}
+                                <div className="flex-between-center text-slate-400 gap-2 lg:gap-0 pt-6">
+                                  <div className="">
+                                    <div className="">
+                                      <p>Price</p>
+                                      <p className="text-black font dark:text-white">
+                                        £
+                                        {property?.price?.toLocaleString(
+                                          "en-GB",
+                                        )}
+                                      </p>
+                                    </div>
+                                  </div>
+
+                                  <div className="">
+                                    <p>Rating</p>
+                                    <div className="flex-center-center gap-2">
+                                      <RatingStars rating={property?.rating} />
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       );
                     })}
                   </>
