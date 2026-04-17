@@ -24,10 +24,10 @@ const FeatureProperties = ({
 }) => {
   const sectionRef = useRef(null);
 
-  const [heartFill, setHeartFill] = useState(false);
-
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(9);
+
+  const [favorites, setFavorites] = useState([]);
 
   let filteredProperties = properties || []; // let - to reassign
 
@@ -102,6 +102,29 @@ const FeatureProperties = ({
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  console.log(properties);
+  // Retrieve favorites from local storage
+  useEffect(() => {
+    const savedFavs = JSON.parse(localStorage.getItem("favorites")) || [];
+    const cleanFavs = savedFavs.filter((item) => item && item.id);
+    setFavorites(cleanFavs);
+  }, []);
+
+  const toggleFavorite = (property) => {
+    let updatedFavs = [...favorites];
+
+    const exists = updatedFavs.some((item) => item.id === property.id);
+
+    if (exists) {
+      updatedFavs = updatedFavs.filter((item) => item.id !== property.id);
+    } else {
+      updatedFavs.push(property);
+    }
+
+    setFavorites(updatedFavs);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavs));
+  };
+
   return (
     <div
       ref={sectionRef}
@@ -166,8 +189,10 @@ const FeatureProperties = ({
       {/* cards */}
       <div className="grid-layout-3 mt-8">
         {visibleProperties.map((property) => {
+          const isFav = favorites.some((item) => item.id === property.id);
           return (
             /* card */
+
             <Link
               to={`/detail/${property.id}`}
               onClick={scrollYHandler}
@@ -184,17 +209,20 @@ const FeatureProperties = ({
                   />
                   <div className="absolute top-4 end-4">
                     <div className=" w-10 h-10 bg-white rounded-full cursor-pointer flex-center-center dark:bg-slate-900 dark:shadow-gray-700">
-                      {property?.id}
-                      {/* <button onClick={() => setHeartFill(!heartFill)}>
-                      {heartFill ? (
-                        <RxHeartFilled size={20} className=" text-red-600  " />
-                      ) : (
+                      {/* {property?.id} */}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault(); // prevent card click
+                          e.stopPropagation(); // stop card click
+                          toggleFavorite(property);
+                        }}
+                        className="absolute top-[0.7rem] right-[0.6rem] text-xl"
+                      >
                         <RxHeartFilled
                           size={20}
-                          className="text-slate-100 hover:text-red-600 dark:text-slate-700 dark:hover:text-red-700"
+                          className={` ${isFav ? "text-red-600" : "text-slate-100 dark:text-slate-700"} `}
                         />
-                      )}
-                    </button> */}
+                      </button>
                     </div>
                   </div>
                 </div>

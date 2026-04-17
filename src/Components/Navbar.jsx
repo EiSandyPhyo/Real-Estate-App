@@ -8,6 +8,7 @@ import {
   BsMoon,
 } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
+import { FaHeart } from "react-icons/fa";
 
 import { Link, NavLink, useLocation } from "react-router-dom";
 
@@ -37,6 +38,7 @@ const Navbar = () => {
   const isSellPage = currentPath === "/sell";
   const isAboutPage = currentPath === "/aboutus";
   const isContactPage = currentPath === "/contact";
+  const isFavoritePage = currentPath === "/favorite";
 
   const pagesRoutes = ["/list-sidebar", "/features", "/pricing", "/faqs"];
   const isPagesPage = pagesRoutes.includes(currentPath);
@@ -67,7 +69,13 @@ const Navbar = () => {
       return theme === "dark" ? "whiteLogo" : "darkLogo";
     }
 
-    if (isBuyPage || isSellPage || isAboutPage || isPagesPage) {
+    if (
+      isBuyPage ||
+      isSellPage ||
+      isAboutPage ||
+      isPagesPage ||
+      isFavoritePage
+    ) {
       if (theme === "dark") return "whiteLogo";
       return scrolled ? "darkLogo" : "whiteLogo";
     }
@@ -93,7 +101,13 @@ const Navbar = () => {
       return "text-black dark:text-white font-medium";
     }
 
-    if (isBuyPage || isSellPage || isAboutPage || isPagesPage) {
+    if (
+      isBuyPage ||
+      isSellPage ||
+      isAboutPage ||
+      isPagesPage ||
+      isFavoritePage
+    ) {
       if (scrolled) {
         return "text-black dark:text-white font-medium";
       }
@@ -127,7 +141,13 @@ const Navbar = () => {
         : "bg-transparent dark:bg-transparent shadow-none";
     }
 
-    if (isBuyPage || isSellPage || isAboutPage || isPagesPage) {
+    if (
+      isBuyPage ||
+      isSellPage ||
+      isAboutPage ||
+      isPagesPage ||
+      isFavoritePage
+    ) {
       return scrolled
         ? "myGlassBg dark:bg-[#0f172bcc] dark:shadow-gray-800 shadow-md"
         : "bg-transparent dark:bg-transparent shadow-none";
@@ -269,15 +289,24 @@ const Navbar = () => {
             {/* Desktop view End*/}
 
             {/* Mobile view Start*/}
-            <div className=" flex justify-end items-start">
+            <div className=" flex justify-end items-center gap-2">
               <Link to={"/"}>
-                <button className=" w-10 h-10 p-2 fs-[17px] leading-[24px] border-0 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full ">
-                  <BiUser size={"1.5rem"} />
+                <button className=" w-8 h-8 md:w-10 md:h-10 p-2 fs-[17px] leading-[24px] border-0 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full ">
+                  <BiUser size={"1rem"} className="md:size-[1.5rem]" />
                 </button>
               </Link>
-              <Link to={"/"}> {/* <Link to={"/signup"}> */}
-                <button className="hidden lg:inline-block w-24 h-10 p-2 fs-[17px] leading-[24px] border-0 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full mx-1">
-                  Sign up
+              <Link to={"/favorite"}>
+                {" "}
+                {/* <Link to={"/signup"}> */}
+                <FaHeart
+                  size={"1rem"}
+                  className="w-8 h-8 p-[0.6rem] fs-[17px] border-0 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full md:hidden"
+                />
+                <button
+                  onClick={scrollYHandler}
+                  className="hidden md:inline-block w-24 h-10 p-2 fs-[17px] leading-[24px] border-0 text-white bg-[#16a34a] hover:bg-[#138a3f] rounded-full mx-1"
+                >
+                  Favorite
                 </button>
               </Link>
 

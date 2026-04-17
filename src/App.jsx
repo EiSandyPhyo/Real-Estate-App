@@ -16,6 +16,7 @@ import Footer from "./Components/Footer";
 import Sell from "./Pages/Sell";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
+import Favorite from "./Pages/Favorite";
 
 import { getListings } from "./services/api";
 import "./index.css";
@@ -149,6 +150,17 @@ const App = () => {
               <>
                 <Navbar />
                 <Detail properties={properties} />
+                <Footer />
+              </>
+            }
+          />
+
+          <Route
+            path={"/favorite"}
+            element={
+              <>
+                <Navbar />
+                <Favorite />
                 <Footer />
               </>
             }
